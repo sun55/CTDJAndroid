@@ -1,0 +1,152 @@
+<resources>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorAccent">#FFD24C</item>
+    </style>
+
+    <style name="AppTheme.Launcher" parent="AppTheme">
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowTranslucentStatus">true</item>
+<!--        <item name="android:windowBackground">@drawable/launch_bg</item>-->
+    </style>
+
+    <declare-styleable name="PwdInputView">
+        <attr name="pwv_maxLength" format="integer" />
+        // 最大长度
+
+        <attr name="pwv_borderColor" format="color" />
+        // 边框颜色
+        <attr name="pwv_pwdColor" format="color" />
+        // 密码颜色
+        <attr name="pwv_haveInputBorderColor" format="color" />
+        // 已输入部分边框的颜色
+
+        <attr name="pwv_strokeWidth" format="dimension" />
+        // 边框宽度
+        <attr name="pwv_radius" format="dimension" />
+        // 圆角半径
+        <attr name="pwv_spacing" format="dimension" />
+        // 每个密码框之间的间距
+        <attr name="pwv_asterisk" format="string" />
+        // 当密码风格为星号风格时，可以用任意字符替换星号，替换的字符为pwv_asterisk的第一个字符
+
+        <attr name="pwv_borderStyle" format="enum">// 边框风格 方框 和 下划线
+            <enum name="box" value="0" />
+            <enum name="line" value="1" />
+        </attr>
+        <attr name="pwv_pwdStyle" format="enum">// 密码风格 圆点、星号、明文
+            <enum name="circle" value="0" />
+            <enum name="asterisk" value="1" />
+            <enum name="plaintext" value="2" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="CircleImageView">
+        <attr name="radius" format="dimension">圆角半径</attr>
+        <attr name="topLeftRadius" format="dimension">左上</attr>
+        <attr name="topRightRadius" format="dimension">右上</attr>
+        <attr name="bottomLeftRadius" format="dimension">左下</attr>
+        <attr name="bottomRightRadius" format="dimension">右下</attr>
+        <attr name="topLeftRadius_x" format="dimension">左上X轴</attr>
+        <attr name="topLeftRadius_y" format="dimension">左上Y轴</attr>
+        <attr name="topRightRadius_x" format="dimension">右上X轴</attr>
+        <attr name="topRightRadius_y" format="dimension">右上Y轴</attr>
+        <attr name="bottomLeftRadius_x" format="dimension">左下X轴</attr>
+        <attr name="bottomLeftRadius_y" format="dimension">左下Y轴</attr>
+        <attr name="bottomRightRadius_x" format="dimension">右下X轴</attr>
+        <attr name="bottomRightRadius_y" format="dimension">右下Y轴</attr>
+        <attr name="borderWidth" format="dimension">描边宽度</attr>
+        <attr name="borderColor" format="color">描边颜色</attr>
+        <attr name="borderSpace" format="dimension">描边与图片间距</attr>
+        <attr name="sScaleType" format="enum">
+            <enum name="top" value="0">从图片顶部开始绘制，即肯定会展示图片顶部，默认</enum>
+            <enum name="center" value="1">展示图片中心</enum>
+            <enum name="bottom" value="2">从图片底部开始绘制，即肯定会展示图片底部</enum>
+            <enum name="fitXY" value="3">完全展示，有可能变形</enum>
+        </attr>
+    </declare-styleable>
+
+    <style name="dialog_style" parent="android:Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowBackground">#00000000</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+<!--    <style name="picture.white.style" parent="AppTheme">-->
+<!--        &lt;!&ndash; Customize your theme here. &ndash;&gt;-->
+<!--        &lt;!&ndash;标题栏背景色&ndash;&gt;-->
+<!--        <item name="colorPrimary">@color/white</item>-->
+<!--        &lt;!&ndash;状态栏背景色&ndash;&gt;-->
+<!--        <item name="colorPrimaryDark">@color/white</item>-->
+<!--        &lt;!&ndash;是否改变图片列表界面状态栏字体颜色为黑色&ndash;&gt;-->
+<!--        <item name="picture.statusFontColor">true</item>-->
+<!--        &lt;!&ndash;返回键图标&ndash;&gt;-->
+<!--        <item name="picture.leftBack.icon">@drawable/back_icon</item>-->
+<!--        &lt;!&ndash;标题下拉箭头&ndash;&gt;-->
+<!--        <item name="picture.arrow_down.icon">@drawable/ic_orange_arrow_down</item>-->
+<!--        &lt;!&ndash;标题上拉箭头&ndash;&gt;-->
+<!--        <item name="picture.arrow_up.icon">@drawable/ic_orange_arrow_up</item>-->
+<!--        &lt;!&ndash;标题文字颜色&ndash;&gt;-->
+<!--        <item name="picture.title.textColor">@color/black</item>-->
+<!--        &lt;!&ndash;标题栏右边文字&ndash;&gt;-->
+<!--        <item name="picture.right.textColor">@color/black</item>-->
+<!--        &lt;!&ndash;图片列表勾选样式&ndash;&gt;-->
+<!--        <item name="picture.checked.style">@drawable/picture_checkbox_selector</item>-->
+<!--        &lt;!&ndash;开启图片列表勾选数字模式,开启的话勾选样式要换&ndash;&gt;-->
+<!--        <item name="picture.style.checkNumMode">false</item>-->
+<!--        &lt;!&ndash;选择图片样式0/9&ndash;&gt;-->
+<!--        <item name="picture.style.numComplete">true</item>-->
+<!--        &lt;!&ndash;图片列表底部背景色&ndash;&gt;-->
+<!--        <item name="picture.bottom.bg">#fafafa</item>-->
+<!--        &lt;!&ndash;图片列表预览文字颜色&ndash;&gt;-->
+<!--        <item name="picture.preview.textColor">@color/picture_list_preview_text_color</item>-->
+<!--        &lt;!&ndash;图片列表已完成文字颜色&ndash;&gt;-->
+<!--        <item name="picture.complete.textColor">@color/picture_list_preview_text_color</item>-->
+<!--        &lt;!&ndash;图片已选数量圆点背景色&ndash;&gt;-->
+<!--        <item name="picture.num.style">@drawable/picture_num_oval</item>-->
+<!--        &lt;!&ndash;预览界面标题栏背景色&ndash;&gt;-->
+<!--        <item name="picture.ac_preview.title.bg">@color/white</item>-->
+<!--        &lt;!&ndash;预览界面标题文字颜色&ndash;&gt;-->
+<!--        <item name="picture.ac_preview.title.textColor">@color/black</item>-->
+<!--        &lt;!&ndash;预览界面已完成文字颜色&ndash;&gt;-->
+<!--        <item name="picture.ac_preview.complete.textColor">@color/picture_list_preview_text_color-->
+<!--        </item>-->
+<!--        &lt;!&ndash;预览界面底部背景色&ndash;&gt;-->
+<!--        <item name="picture.ac_preview.bottom.bg">@color/picture_color_fa</item>-->
+<!--        &lt;!&ndash;预览界面返回箭头&ndash;&gt;-->
+<!--        <item name="picture.preview.leftBack.icon">@drawable/back_icon</item>-->
+<!--        &lt;!&ndash;裁剪页面标题背景色&ndash;&gt;-->
+<!--        <item name="picture.crop.toolbar.bg">@color/white</item>-->
+<!--        &lt;!&ndash;裁剪页面状态栏颜色&ndash;&gt;-->
+<!--        <item name="picture.crop.status.color">@color/white</item>-->
+<!--        &lt;!&ndash;裁剪页面标题文字颜色&ndash;&gt;-->
+<!--        <item name="picture.crop.title.color">@color/black</item>-->
+<!--        &lt;!&ndash;相册文件夹列表选中图标&ndash;&gt;-->
+<!--        <item name="picture.folder_checked_dot">@drawable/picture_orange_oval</item>-->
+<!--        &lt;!&ndash;原图勾选样式&ndash;&gt;-->
+<!--        <item name="picture.original.check.style">@drawable/picture_original_checkbox</item>-->
+<!--        &lt;!&ndash;原图字体颜色&ndash;&gt;-->
+<!--        <item name="picture.original.text.color">@color/picture_color_53575e</item>-->
+<!--        &lt;!&ndash;标题栏高度&ndash;&gt;-->
+<!--        <item name="picture.titleBar.height">48dp</item>-->
+<!--    </style>-->
+
+    <style name="loading_style" parent="android:Theme.Dialog">
+        <item name="android:windowBackground">@color/transparent_color</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+    </style>
+
+    <style name="Theme_AudioDialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+</resources>

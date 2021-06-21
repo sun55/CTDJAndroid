@@ -19,3 +19,11 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+-dontwarn com.cmic.sso.sdk.login.**
+-keep class com.cmic.sso.sdk.login.**{*;}
+-dontwarn com.sdk.login.**
+-keep class com.sdk.login.** { *;}
+-dontwarn com.unicom.xiaowo.account.shield.login.**
+-keep class com.unicom.xiaowo.account.shield.login.** {*;}
+-keep class cn.com.chinatelecom.account.api.**{*;}

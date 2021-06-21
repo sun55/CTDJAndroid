@@ -5,6 +5,10 @@
       <config />
     </shared>
   </component>
+  <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_LOG_LEVEL" value="error" />
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="NONE" />
   </component>
@@ -28,7 +32,34 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b60cb414-1783-48e3-8cb8-08dd9fb2d491" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid/MyApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid/activity/BaseActivity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid/common/AppConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid/common/AppExecutors.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid/common/AppFrontBackHelper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid/common/Constants.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid/common/DisplayUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid/common/FileUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid/common/GlideEngine.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid/common/LogUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid/common/ResourceUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid/common/SPUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid/common/Utils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid/dialog/LoadingDialog.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid/view/MyImageSpan.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/custom_toast_bg.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/half_translate_white_bg.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/xml/network_security_config.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/proguard-rules.pro" beforeDir="false" afterPath="$PROJECT_DIR$/app/proguard-rules.pro" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,13 +104,28 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="org.jetbrains.plugins.github.ui.GithubSettingsConfigurable" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/src/main/res" />
+    <property name="project.structure.last.edited" value="Dependencies" />
+    <property name="project.structure.proportion" value="0.17" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
+  </component>
+  <component name="PsdUISettings">
+    <option name="RESOLVED_DEPENDENCIES_MINIMIZE" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.ctdj.djandroid.activity" />
+      <recent name="com.ctdj.djandroid.dialog" />
+      <recent name="com.ctdj.djandroid.view" />
+      <recent name="com.ctdj.djandroid" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/src/main/res" />
+      <recent name="$PROJECT_DIR$/app/src/main/res/drawable" />
+      <recent name="$PROJECT_DIR$/app/src/main/res/values" />
+      <recent name="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid" />
       <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/app/libs" />
     </key>
   </component>
   <component name="RunManager">
@@ -90,7 +136,7 @@
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App">
+    <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
       <module name="DJAndroid.app" />
       <option name="DEPLOY" value="true" />
       <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
@@ -172,13 +218,33 @@
     </option>
   </component>
   <component name="WindowStateProjectService">
-    <state x="349" y="131" key="SettingsEditor" timestamp="1624288121458">
+    <state x="365" y="231" key="#PSD" timestamp="1624297337298">
       <screen x="0" y="25" width="1680" height="940" />
     </state>
-    <state x="349" y="131" key="SettingsEditor/0.25.1680.940@0.25.1680.940" timestamp="1624288121458" />
+    <state x="365" y="231" key="#PSD/0.25.1680.940@0.25.1680.940" timestamp="1624297337298" />
+    <state x="100" y="125" width="1480" height="740" key="AVDManager" timestamp="1624294407570">
+      <screen x="0" y="25" width="1680" height="940" />
+    </state>
+    <state x="100" y="125" width="1480" height="740" key="AVDManager/0.25.1680.940@0.25.1680.940" timestamp="1624294407570" />
+    <state x="670" y="294" key="AndroidCreateXmlResourceDialog" timestamp="1624293170541">
+      <screen x="0" y="25" width="1680" height="940" />
+    </state>
+    <state x="670" y="294" key="AndroidCreateXmlResourceDialog/0.25.1680.940@0.25.1680.940" timestamp="1624293170541" />
+    <state x="349" y="131" key="SettingsEditor" timestamp="1624297654870">
+      <screen x="0" y="25" width="1680" height="940" />
+    </state>
+    <state x="349" y="131" key="SettingsEditor/0.25.1680.940@0.25.1680.940" timestamp="1624297654870" />
     <state x="641" y="413" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1624287894692">
       <screen x="0" y="25" width="1680" height="940" />
     </state>
     <state x="641" y="413" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.25.1680.940@0.25.1680.940" timestamp="1624287894692" />
+    <state x="542" y="352" key="psd.add.jar.dependency.panel.dimension" timestamp="1624291698787">
+      <screen x="0" y="25" width="1680" height="940" />
+    </state>
+    <state x="542" y="352" key="psd.add.jar.dependency.panel.dimension/0.25.1680.940@0.25.1680.940" timestamp="1624291698787" />
+    <state x="392" y="242" key="psd.add.library.dependency.panel.dimension" timestamp="1624290075535">
+      <screen x="0" y="25" width="1680" height="940" />
+    </state>
+    <state x="392" y="242" key="psd.add.library.dependency.panel.dimension/0.25.1680.940@0.25.1680.940" timestamp="1624290075535" />
   </component>
 </project>
