@@ -149,4 +149,15 @@
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:backgroundDimEnabled">false</item>
     </style>
+
+    <declare-styleable name="TitleView">
+        <attr name="titleText" format="string" />
+        <attr name="rightText" format="string" />
+        <attr name="titleColor" format="color|reference" />
+        <attr name="rightTextColor" format="color|reference" />
+        <attr name="rightTextSize" format="dimension" />
+        <attr name="leftImgSrc" format="color|reference" />
+        <attr name="rightImgSrc" format="color|reference" />
+        <attr name="showRightImg" format="boolean" />
+    </declare-styleable>
 </resources>

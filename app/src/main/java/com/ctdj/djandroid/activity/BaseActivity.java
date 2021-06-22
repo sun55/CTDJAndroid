@@ -61,11 +61,10 @@ public class BaseActivity extends AppCompatActivity {
             decorView.setSystemUiVisibility(0 | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
             window.setStatusBarColor(Color.WHITE);
         }
-
         getDisplayMetrics();
         initStatusBarHeight();
         registerLogoutBroadcast();
-//        hideWindowStatusBar();
+        hideWindowStatusBar(true);
     }
 
     private void getDisplayMetrics() {
