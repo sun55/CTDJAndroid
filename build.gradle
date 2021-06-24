@@ -5,6 +5,7 @@ buildscript {
 //        maven { url "https://jitpack.io" }
         google()
         jcenter()
+        mavenCentral()
 //        maven { url 'https://maven.google.com' }
 
     }
@@ -18,6 +19,7 @@ allprojects {
     repositories {
         google()
         jcenter()
+        mavenCentral()
         maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
         maven {url  "https://dl.bintray.com/rongcloud/maven"}
         maven { url "https://jitpack.io" }
