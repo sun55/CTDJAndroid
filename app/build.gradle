@@ -94,5 +94,8 @@ dependencies {
     implementation 'io.github.yidun:quicklogin:3.0.4'
 
     implementation 'com.github.duanhong169:picker-view:1.0.1'
+    implementation 'com.github.gzu-liyujiang.AndroidPicker:Common:3.0.2'
+    implementation 'com.github.gzu-liyujiang.AndroidPicker:WheelView:3.0.2'
+    implementation 'com.github.gzu-liyujiang.AndroidPicker:WheelPicker:3.0.2'
 
 }
