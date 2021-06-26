@@ -33,6 +33,7 @@
         <attr name="pwv_borderStyle" format="enum">// 边框风格 方框 和 下划线
             <enum name="box" value="0" />
             <enum name="line" value="1" />
+            <enum name="face" value="2" />
         </attr>
         <attr name="pwv_pwdStyle" format="enum">// 密码风格 圆点、星号、明文
             <enum name="circle" value="0" />

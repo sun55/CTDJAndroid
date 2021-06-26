@@ -17,12 +17,16 @@ import com.ctdj.djandroid.common.GlideEngine;
 import com.ctdj.djandroid.common.LogUtil;
 import com.ctdj.djandroid.common.Utils;
 import com.ctdj.djandroid.databinding.ActivityRegisterBinding;
+import com.github.gzuliyujiang.wheelpicker.annotation.DateMode;
+import com.github.gzuliyujiang.wheelpicker.entity.DateEntity;
+import com.github.gzuliyujiang.wheelpicker.impl.BirthdayFormatter;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class RegisterActivity extends BaseActivity {
@@ -40,6 +44,17 @@ public class RegisterActivity extends BaseActivity {
         binding.ll2.setVisibility(View.GONE);
         binding.tvPreStep.setVisibility(View.GONE);
         binding.button.setText("还差一步");
+        Calendar calendar = Calendar.getInstance();
+        int currentYear = calendar.get(Calendar.YEAR);
+        int currentMonth = calendar.get(Calendar.MONTH) + 1;
+        int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
+        DateEntity startValue = DateEntity.target(currentYear - 60, 1, 1);
+        DateEntity defaultValue = DateEntity.target(2000, 7, 7);
+        DateEntity endValue = DateEntity.target(currentYear, currentMonth, currentDay);
+        binding.selectDate.setRange(startValue, endValue);
+        binding.selectDate.setDefaultValue(defaultValue);
+        binding.selectDate.setDateMode(DateMode.YEAR_MONTH_DAY);
+        binding.selectDate.setCurvedMaxAngle(3);
     }
 
     public void previousStep(View view) {

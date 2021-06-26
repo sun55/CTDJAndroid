@@ -87,6 +87,6 @@ public class LoginSelectActivity extends BaseActivity {
     }
 
     public void otherLoginType(View view) {
-        startActivity(new Intent(LoginSelectActivity.this, RegisterActivity.class));
+        startActivity(new Intent(LoginSelectActivity.this, PhoneNumActivity.class));
     }
 }
