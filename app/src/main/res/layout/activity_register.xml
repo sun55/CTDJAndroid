@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_151522"
+    android:orientation="vertical"
+    tools:context=".activity.RegisterActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="52.5dp"
+        android:layout_weight="1">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/ll_1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="性别"
+                android:textColor="#ffebebed"
+                android:textSize="21sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="9dp"
+                android:text="性别设置后无法修改哦"
+                android:textColor="#ffa2a2a7"
+                android:textSize="14sp" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:onClick="selectMale"
+                    android:id="@+id/iv_male"
+                    android:layout_width="140dp"
+                    android:layout_height="140dp"
+                    android:background="@drawable/male_selected" />
+
+                <ImageView
+                    android:onClick="selectFemale"
+                    android:id="@+id/iv_female"
+                    android:layout_width="140dp"
+                    android:layout_height="140dp"
+                    android:layout_marginStart="20dp"
+                    android:background="@drawable/female_unselect" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="39dp"
+                android:text="生日"
+                android:textColor="#ffebebed"
+                android:textSize="21sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="9dp"
+                android:text="为您展示星座和年龄"
+                android:textColor="#ffa2a2a7"
+                android:textSize="14sp" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/ll_2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="头像"
+                android:textColor="#ffebebed"
+                android:textSize="21sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="9dp"
+                android:text="上传一个喜欢的头像"
+                android:textColor="#ffa2a2a7"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:scaleType="centerCrop"
+                android:onClick="selectPhoto"
+                android:id="@+id/iv_select_photo"
+                android:layout_width="94dp"
+                android:layout_height="94dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="30dp"
+                android:src="@drawable/register_camera_icon" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:text="上传头像"
+                android:textColor="#ffa2a2a7"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="39dp"
+                android:text="昵称"
+                android:textColor="#ffebebed"
+                android:textSize="21sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="9dp"
+                android:text="想让大家如何称呼您"
+                android:textColor="#ffa2a2a7"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/et_nickname"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="30dp"
+                android:background="@drawable/register_et_bg"
+                android:hint="输入你的昵称"
+                android:lines="1"
+                android:maxLength="20"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:textColor="#EBEBED"
+                android:textColorHint="#80EBEBED" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="9dp"
+                android:text="4~20个字符，不支持空格"
+                android:textColor="#ffa2a2a7"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="39dp"
+                android:text="邀请码"
+                android:textColor="#ffebebed"
+                android:textSize="21sp" />
+
+            <EditText
+                android:id="@+id/et_code"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="30dp"
+                android:background="@drawable/register_et_bg"
+                android:hint="没有可不填写"
+                android:lines="1"
+                android:maxLength="20"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:textColor="#EBEBED"
+                android:textColorHint="#80EBEBED" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginBottom="30dp">
+
+        <TextView
+            android:onClick="previousStep"
+            android:visibility="gone"
+            android:id="@+id/tv_pre_step"
+            android:layout_width="wrap_content"
+            android:layout_height="44dp"
+            android:layout_marginStart="30dp"
+            android:gravity="center"
+            android:text="上一步"
+            android:textColor="#ffebebed"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="128dp"
+            android:layout_height="44dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="30dp"
+            android:background="@drawable/register_btn_bg"
+            android:onClick="btnClick"
+            android:text="还差一步"
+            android:textColor="#EBEBED"
+            android:textSize="15sp" />
+    </RelativeLayout>
+</androidx.appcompat.widget.LinearLayoutCompat>

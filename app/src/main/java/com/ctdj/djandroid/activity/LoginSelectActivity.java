@@ -1,5 +1,6 @@
 package com.ctdj.djandroid.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Spannable;
@@ -83,5 +84,9 @@ public class LoginSelectActivity extends BaseActivity {
 
     public void oneKeyLogin(View view) {
 
+    }
+
+    public void otherLoginType(View view) {
+        startActivity(new Intent(LoginSelectActivity.this, RegisterActivity.class));
     }
 }
