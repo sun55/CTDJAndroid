@@ -44,7 +44,7 @@ public class MyApplication extends MultiDexApplication {
     }
 
     private void init() {
-        OneKeyLoginManager.getInstance().init(getApplicationContext(), "", new InitListener() {
+        OneKeyLoginManager.getInstance().init(getApplicationContext(), "b38130ee38f240ce819036daa08f14e4", new InitListener() {
             @Override
             public void getInitStatus(int code, String result) {
                 LogUtil.e("一键登录：" + code + "，，" + result);

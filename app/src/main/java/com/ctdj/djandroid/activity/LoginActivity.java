@@ -15,6 +15,8 @@ import androidx.annotation.NonNull;
 
 import com.ctdj.djandroid.common.LogUtil;
 import com.ctdj.djandroid.databinding.ActivityLoginBinding;
+import com.github.gzuliyujiang.wheelpicker.BirthdayPicker;
+import com.netease.nis.quicklogin.QuickLogin;
 
 public class LoginActivity extends BaseActivity {
 
@@ -25,6 +27,8 @@ public class LoginActivity extends BaseActivity {
         binding = ActivityLoginBinding.inflate(LayoutInflater.from(this));
         setContentView(binding.getRoot());
         initProtocolClick();
+        QuickLogin login = QuickLogin.getInstance(getApplicationContext(), "b38130ee38f240ce819036daa08f14e4");
+//        BirthdayPicker
     }
 
     public void login(View view) {
