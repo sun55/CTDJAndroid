@@ -48,7 +48,7 @@ public class LoginActivity extends BaseActivity {
                     public void onGetTokenSuccess(String YDToken, String accessCode) {
                         LogUtil.e("onGetTokenSuccess YDToken:" + YDToken + ",accessCode:" + accessCode);
                         login.quitActivity();
-//                        startActivity(new Intent(LoginActivity.this, LoginSelectActivity.class));
+                        startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
                     }
 
                     @Override
