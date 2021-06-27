@@ -15,24 +15,56 @@ import androidx.annotation.NonNull;
 
 import com.ctdj.djandroid.common.LogUtil;
 import com.ctdj.djandroid.databinding.ActivityLoginBinding;
+import com.ctdj.djandroid.view.QuickLoginUiConfig;
 import com.github.gzuliyujiang.wheelpicker.BirthdayPicker;
 import com.netease.nis.quicklogin.QuickLogin;
+import com.netease.nis.quicklogin.listener.QuickLoginPreMobileListener;
+import com.netease.nis.quicklogin.listener.QuickLoginTokenListener;
 
 public class LoginActivity extends BaseActivity {
 
     ActivityLoginBinding binding;
+    QuickLogin login;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityLoginBinding.inflate(LayoutInflater.from(this));
         setContentView(binding.getRoot());
         initProtocolClick();
-        QuickLogin login = QuickLogin.getInstance(getApplicationContext(), "b38130ee38f240ce819036daa08f14e4");
-//        BirthdayPicker
     }
 
     public void login(View view) {
-        startActivity(new Intent(LoginActivity.this, LoginSelectActivity.class));
+        if (login == null) {
+            login = QuickLogin.getInstance(getApplicationContext(), "b38130ee38f240ce819036daa08f14e4");
+            login.setUnifyUiConfig(QuickLoginUiConfig.getUiConfig(LoginActivity.this, login));
+        }
+        login.prefetchMobileNumber(new QuickLoginPreMobileListener() {
+            @Override
+            public void onGetMobileNumberSuccess(String YDToken, String mobileNumber) {
+                LogUtil.e("onGetMobileNumberSuccess YDToken:" + YDToken + ",mobileNumber:" + mobileNumber);
+                login.onePass(new QuickLoginTokenListener() {
+                    @Override
+                    public void onGetTokenSuccess(String YDToken, String accessCode) {
+                        LogUtil.e("onGetTokenSuccess YDToken:" + YDToken + ",accessCode:" + accessCode);
+                        login.quitActivity();
+//                        startActivity(new Intent(LoginActivity.this, LoginSelectActivity.class));
+                    }
+
+                    @Override
+                    public void onGetTokenError(String YDToken, String msg) {
+                        LogUtil.e("onGetTokenError YDToken:" + YDToken + ",msg:" + msg);
+                        startActivity(new Intent(LoginActivity.this, PhoneNumActivity.class));
+                    }
+                });
+            }
+
+            @Override
+            public void onGetMobileNumberError(String YDToken, String msg) {
+                LogUtil.e("onGetMobileNumberError YDToken:" + YDToken + ",msg:" + msg);
+                startActivity(new Intent(LoginActivity.this, PhoneNumActivity.class));
+            }
+        });
     }
 
     private void initProtocolClick() {
