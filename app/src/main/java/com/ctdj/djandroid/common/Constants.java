@@ -16,4 +16,5 @@ public class Constants {
     public static final String DEVICE_ID = "device_id";
     public static final String DEVICE_FILE = "DEVICE_ID";
     public static final String DEVICE_DIR = "ctdj";
+    public static final String API_SIGN = "ctdj";
 }

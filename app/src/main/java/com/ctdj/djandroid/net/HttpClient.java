@@ -13,22 +13,53 @@ public class HttpClient {
         HttpCaller.doPost(context, API.SEND_CODE, maps, callback);
     }
 
-    public static void getNickname(Context context, String mobile, HttpCallback callback) {
+    /**
+     * 一键登录
+     * @param context
+     * @param token
+     * @param accessToken
+     * @param callback
+     */
+    public static void oneKeyLogin(Context context, String token, String accessToken, HttpCallback callback) {
         HashMap<String, Object> maps = new HashMap<>();
-        maps.put("mobile", mobile);
-        HttpCaller.doPost(context, API.GET_NICKNAME, maps, callback);
+        maps.put("token", token);
+        maps.put("accessToken", accessToken);
+        HttpCaller.doPost(context, API.ONE_KEY_LOGIN, maps, callback);
     }
 
-    public static void signIn(Context context, String mobile, String sex, String nickname, String sbcode, String vcode, HttpCallback callback) {
+    /**
+     * 注册登录
+     * @param context
+     * @param mobile
+     * @param nickname
+     * @param sex
+     * @param sbcode
+     * @param birthday
+     * @param headimg
+     * @param icode
+     * @param vcode
+     * @param callback
+     */
+    public static void registerLogin(Context context, String mobile, String nickname, String sex, String sbcode, String birthday, String headimg, String icode, String vcode, HttpCallback callback) {
         HashMap<String, Object> maps = new HashMap<>();
         maps.put("mobile", mobile);
-        maps.put("sex", sex);
         maps.put("nickname", nickname);
+        maps.put("sex", sex);
         maps.put("sbcode", sbcode);
+        maps.put("birthday", birthday);
+        maps.put("headimg", headimg);
+        maps.put("icode", icode);
         maps.put("vcode", vcode);
-        HttpCaller.doPost(context, API.SIGN_IN, maps, callback);
+        HttpCaller.doPost(context, API.REGISTER_LOGIN, maps, callback);
     }
 
+    /**
+     * 验证码登录
+     * @param context
+     * @param mobile
+     * @param vcode
+     * @param callback
+     */
     public static void checkMobile(Context context, String mobile, String vcode, HttpCallback callback) {
         HashMap<String, Object> maps = new HashMap<>();
         maps.put("mobile", mobile);

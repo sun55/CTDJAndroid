@@ -14,6 +14,8 @@ import com.ctdj.djandroid.common.DisplayUtil;
 import com.ctdj.djandroid.common.LogUtil;
 import com.ctdj.djandroid.common.Utils;
 import com.ctdj.djandroid.databinding.ActivityPhoneNumBinding;
+import com.ctdj.djandroid.net.HttpCallback;
+import com.ctdj.djandroid.net.HttpClient;
 import com.ctdj.djandroid.view.TitleView;
 
 public class PhoneNumActivity extends BaseActivity {
@@ -93,10 +95,20 @@ public class PhoneNumActivity extends BaseActivity {
     }
 
     public void sendCode(View view) {
-        String phoneNum = binding.etPhoneNum.getText().toString();
-        Intent intent = new Intent(PhoneNumActivity.this, SmsCodeActivity.class);
-        intent.putExtra("phone_num", phoneNum);
-        startActivity(intent);
+        String phoneNum = binding.etPhoneNum.getText().toString().trim();
+        HttpClient.sendCode(this, phoneNum, new HttpCallback() {
+            @Override
+            public void onSuccess(String result) {
+                Intent intent = new Intent(PhoneNumActivity.this, SmsCodeActivity.class);
+                intent.putExtra("phone_num", phoneNum);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onFailure(String msg) {
+                Utils.showToast(PhoneNumActivity.this, msg);
+            }
+        });
 
     }
 }

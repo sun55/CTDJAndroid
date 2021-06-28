@@ -5,11 +5,10 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-import com.mt.y2021.activity.LoginActivity;
-import com.mt.y2021.common.Constants;
-import com.mt.y2021.common.LogUtil;
-import com.mt.y2021.common.Utils;
+import com.ctdj.djandroid.activity.LoginActivity;
+import com.ctdj.djandroid.common.Constants;
+import com.ctdj.djandroid.common.LogUtil;
+import com.ctdj.djandroid.common.Utils;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
@@ -61,7 +60,7 @@ public class HttpCaller {
                 sb.append(key + "=" + URLEncoder.encode(String.valueOf(params.get(key)), "UTF-8") + "&");
             }
             RequestBody body = RequestBody.create(sb.toString(), MEDIA_TYPE);
-            LogUtil.i("+++" + url + ":Params+++" + new Gson().toJson(params));
+//            LogUtil.i("+++" + url + ":Params+++" + new Gson().toJson(params));
 
             final Request request = new Request.Builder()
                     .url(API.BASE_URL + url)

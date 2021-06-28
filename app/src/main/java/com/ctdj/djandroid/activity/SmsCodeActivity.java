@@ -16,11 +16,14 @@ import com.ctdj.djandroid.common.DisplayUtil;
 import com.ctdj.djandroid.common.LogUtil;
 import com.ctdj.djandroid.common.Utils;
 import com.ctdj.djandroid.databinding.ActivitySmsCodeBinding;
+import com.ctdj.djandroid.net.HttpCallback;
+import com.ctdj.djandroid.net.HttpClient;
 import com.ctdj.djandroid.view.TitleView;
 
 public class SmsCodeActivity extends BaseActivity {
 
     ActivitySmsCodeBinding binding;
+    String mobile;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +43,8 @@ public class SmsCodeActivity extends BaseActivity {
             }
         });
 
-        binding.tvPhoneNum.setText(Html.fromHtml("已发送验证码至 <font color=#5252FE>" + getIntent().getStringExtra("phone_num") + "</font>"));
+        mobile = getIntent().getStringExtra("phone_num");
+        binding.tvPhoneNum.setText(Html.fromHtml("已发送验证码至 <font color=#5252FE>" + mobile + "</font>"));
         binding.titleView.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -62,9 +66,27 @@ public class SmsCodeActivity extends BaseActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 if (s.length() == 4) {
-                    startActivity(new Intent(SmsCodeActivity.this, RegisterActivity.class));
-                    finish();
+                     checkMobile(s.toString().trim());
                 }
+            }
+        });
+    }
+
+    private void checkMobile(String smsCode) {
+        HttpClient.checkMobile(this, mobile, smsCode, new HttpCallback() {
+            @Override
+            public void onSuccess(String result) {
+                Intent intent = new Intent(SmsCodeActivity.this, RegisterActivity.class);
+                intent.putExtra("mobile", mobile);
+                intent.putExtra("sms_code", smsCode);
+                startActivity(intent);
+
+                finish();
+            }
+
+            @Override
+            public void onFailure(String msg) {
+                Utils.showToast(SmsCodeActivity.this, msg);
             }
         });
     }

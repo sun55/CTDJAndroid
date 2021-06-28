@@ -17,6 +17,7 @@ import com.ctdj.djandroid.common.GlideEngine;
 import com.ctdj.djandroid.common.LogUtil;
 import com.ctdj.djandroid.common.Utils;
 import com.ctdj.djandroid.databinding.ActivityRegisterBinding;
+import com.ctdj.djandroid.net.HttpClient;
 import com.github.gzuliyujiang.wheelpicker.annotation.DateMode;
 import com.github.gzuliyujiang.wheelpicker.entity.DateEntity;
 import com.github.gzuliyujiang.wheelpicker.impl.BirthdayFormatter;
@@ -33,12 +34,16 @@ public class RegisterActivity extends BaseActivity {
     ActivityRegisterBinding binding;
     int page = 1;
     int gender = 1; // 1 男 2 女
+    String mobile;
+    String smsCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityRegisterBinding.inflate(LayoutInflater.from(this));
         setContentView(binding.getRoot());
+        mobile = getIntent().getStringExtra("mobile");
+        smsCode = getIntent().getStringExtra("sms_code");
         page = 1;
         binding.ll1.setVisibility(View.VISIBLE);
         binding.ll2.setVisibility(View.GONE);
@@ -74,6 +79,7 @@ public class RegisterActivity extends BaseActivity {
             binding.tvPreStep.setVisibility(View.VISIBLE);
         } else {
             Utils.showToast(this, "正在开发中。。。");
+//            HttpClient.registerLogin();
         }
     }
 

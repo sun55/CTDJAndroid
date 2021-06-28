@@ -14,7 +14,10 @@ import android.view.View;
 import androidx.annotation.NonNull;
 
 import com.ctdj.djandroid.common.LogUtil;
+import com.ctdj.djandroid.common.Utils;
 import com.ctdj.djandroid.databinding.ActivityLoginBinding;
+import com.ctdj.djandroid.net.HttpCallback;
+import com.ctdj.djandroid.net.HttpClient;
 import com.ctdj.djandroid.view.QuickLoginUiConfig;
 import com.github.gzuliyujiang.wheelpicker.BirthdayPicker;
 import com.netease.nis.quicklogin.QuickLogin;
@@ -48,7 +51,7 @@ public class LoginActivity extends BaseActivity {
                     public void onGetTokenSuccess(String YDToken, String accessCode) {
                         LogUtil.e("onGetTokenSuccess YDToken:" + YDToken + ",accessCode:" + accessCode);
                         login.quitActivity();
-                        startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+                        oneKeyLogin(YDToken, accessCode);
                     }
 
                     @Override
@@ -63,6 +66,20 @@ public class LoginActivity extends BaseActivity {
             public void onGetMobileNumberError(String YDToken, String msg) {
                 LogUtil.e("onGetMobileNumberError YDToken:" + YDToken + ",msg:" + msg);
                 startActivity(new Intent(LoginActivity.this, PhoneNumActivity.class));
+            }
+        });
+    }
+
+    private void oneKeyLogin(String ydToken, String accessCode) {
+        HttpClient.oneKeyLogin(this, ydToken, accessCode, new HttpCallback() {
+            @Override
+            public void onSuccess(String result) {
+                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+            }
+
+            @Override
+            public void onFailure(String msg) {
+                Utils.showToast(LoginActivity.this, msg);
             }
         });
     }
