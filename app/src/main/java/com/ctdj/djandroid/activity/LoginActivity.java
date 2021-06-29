@@ -39,7 +39,7 @@ public class LoginActivity extends BaseActivity {
 
     public void login(View view) {
         if (login == null) {
-            login = QuickLogin.getInstance(getApplicationContext(), "b38130ee38f240ce819036daa08f14e4");
+            login = QuickLogin.getInstance(getApplicationContext(), "655d94a19101460c9191fee93f6ad6dc");
             login.setUnifyUiConfig(QuickLoginUiConfig.getUiConfig(LoginActivity.this, login));
         }
         login.prefetchMobileNumber(new QuickLoginPreMobileListener() {

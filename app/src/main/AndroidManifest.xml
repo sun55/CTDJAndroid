@@ -50,7 +50,8 @@
             android:name=".activity.LoginActivity"
             android:screenOrientation="fullSensor" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.netease.yunxin.login.view.CmccLoginActivity"

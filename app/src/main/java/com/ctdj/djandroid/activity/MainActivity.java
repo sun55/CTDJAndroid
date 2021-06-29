@@ -1,9 +1,8 @@
-package com.ctdj.djandroid;
+package com.ctdj.djandroid.activity;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 
-import com.ctdj.djandroid.activity.BaseActivity;
 import com.ctdj.djandroid.databinding.ActivityMainBinding;
 
 public class MainActivity extends BaseActivity {

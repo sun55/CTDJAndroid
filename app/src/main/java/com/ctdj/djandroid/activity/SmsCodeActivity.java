@@ -73,12 +73,11 @@ public class SmsCodeActivity extends BaseActivity {
     }
 
     private void checkMobile(String smsCode) {
-        HttpClient.checkMobile(this, mobile, smsCode, new HttpCallback() {
+        HttpClient.checkMobile(this, mobile.replaceAll(" ", ""), smsCode, new HttpCallback() {
             @Override
             public void onSuccess(String result) {
                 Intent intent = new Intent(SmsCodeActivity.this, RegisterActivity.class);
-                intent.putExtra("mobile", mobile);
-                intent.putExtra("sms_code", smsCode);
+                intent.putExtra("mobile", mobile.replaceAll(" ", ""));
                 startActivity(intent);
 
                 finish();
@@ -107,13 +106,11 @@ public class SmsCodeActivity extends BaseActivity {
             timer = new CountDownTimer(60 * 1000, 1000) {
                 @Override
                 public void onTick(long millisUntilFinished) {
-                    LogUtil.e("---------onTick" + millisUntilFinished);
                     binding.tvResendCode.setText("重新获取（" + millisUntilFinished / 1000 + "s）");
                 }
 
                 @Override
                 public void onFinish() {
-                    LogUtil.e("----------onFinish");
                     binding.tvResendCode.setEnabled(true);
                     binding.tvResendCode.setTextColor(Color.parseColor("#EBEBED"));
                     binding.tvResendCode.setText("重新获取验证码");

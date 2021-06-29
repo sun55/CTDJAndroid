@@ -1,7 +1,5 @@
 package com.ctdj.djandroid.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -11,7 +9,6 @@ import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.ctdj.djandroid.common.DisplayUtil;
-import com.ctdj.djandroid.common.LogUtil;
 import com.ctdj.djandroid.common.Utils;
 import com.ctdj.djandroid.databinding.ActivityPhoneNumBinding;
 import com.ctdj.djandroid.net.HttpCallback;
@@ -88,19 +85,18 @@ public class PhoneNumActivity extends BaseActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                LogUtil.e("-------" + s.toString().trim().length());
                 binding.btnSendCode.setEnabled(s.toString().trim().length() == 13);
             }
         });
     }
 
     public void sendCode(View view) {
-        String phoneNum = binding.etPhoneNum.getText().toString().trim();
+        String phoneNum = binding.etPhoneNum.getText().toString().trim().replaceAll(" ", "");
         HttpClient.sendCode(this, phoneNum, new HttpCallback() {
             @Override
             public void onSuccess(String result) {
                 Intent intent = new Intent(PhoneNumActivity.this, SmsCodeActivity.class);
-                intent.putExtra("phone_num", phoneNum);
+                intent.putExtra("phone_num", binding.etPhoneNum.getText().toString().trim());
                 startActivity(intent);
             }
 

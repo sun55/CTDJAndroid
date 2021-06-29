@@ -37,10 +37,9 @@ public class HttpClient {
      * @param birthday
      * @param headimg
      * @param icode
-     * @param vcode
      * @param callback
      */
-    public static void registerLogin(Context context, String mobile, String nickname, String sex, String sbcode, String birthday, String headimg, String icode, String vcode, HttpCallback callback) {
+    public static void registerLogin(Context context, String mobile, String nickname, int sex, String sbcode, String birthday, String headimg, String icode, HttpCallback callback) {
         HashMap<String, Object> maps = new HashMap<>();
         maps.put("mobile", mobile);
         maps.put("nickname", nickname);
@@ -49,7 +48,6 @@ public class HttpClient {
         maps.put("birthday", birthday);
         maps.put("headimg", headimg);
         maps.put("icode", icode);
-        maps.put("vcode", vcode);
         HttpCaller.doPost(context, API.REGISTER_LOGIN, maps, callback);
     }
 
@@ -65,6 +63,10 @@ public class HttpClient {
         maps.put("mobile", mobile);
         maps.put("vcode", vcode);
         HttpCaller.doPost(context, API.CHECK_MOBILE, maps, callback);
+    }
+
+    public static void uploadImage(Context context, String file, HttpCallback callback) {
+        HttpCaller.uploadImageFile(context, API.UPLOAD_FILE, file, callback);
     }
 
     public static void uploadFiles(Context context, int type, List<String> files, HttpCallback callback) {

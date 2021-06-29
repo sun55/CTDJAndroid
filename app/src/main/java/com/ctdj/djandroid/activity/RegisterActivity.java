@@ -4,6 +4,9 @@ import android.Manifest;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.InputFilter;
+import android.text.Spanned;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -13,14 +16,16 @@ import androidx.core.app.ActivityCompat;
 
 import com.bumptech.glide.Glide;
 import com.ctdj.djandroid.R;
+import com.ctdj.djandroid.bean.UploadBean;
 import com.ctdj.djandroid.common.GlideEngine;
 import com.ctdj.djandroid.common.LogUtil;
 import com.ctdj.djandroid.common.Utils;
 import com.ctdj.djandroid.databinding.ActivityRegisterBinding;
+import com.ctdj.djandroid.net.HttpCallback;
 import com.ctdj.djandroid.net.HttpClient;
 import com.github.gzuliyujiang.wheelpicker.annotation.DateMode;
 import com.github.gzuliyujiang.wheelpicker.entity.DateEntity;
-import com.github.gzuliyujiang.wheelpicker.impl.BirthdayFormatter;
+import com.google.gson.Gson;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
@@ -33,9 +38,12 @@ import java.util.List;
 public class RegisterActivity extends BaseActivity {
     ActivityRegisterBinding binding;
     int page = 1;
-    int gender = 1; // 1 男 2 女
+    int sex = 1; // 1 男 2 女
     String mobile;
-    String smsCode;
+    String avatarUrl;
+    String birthday;
+    String nickname;
+    String iCode; // 邀请码
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +51,6 @@ public class RegisterActivity extends BaseActivity {
         binding = ActivityRegisterBinding.inflate(LayoutInflater.from(this));
         setContentView(binding.getRoot());
         mobile = getIntent().getStringExtra("mobile");
-        smsCode = getIntent().getStringExtra("sms_code");
         page = 1;
         binding.ll1.setVisibility(View.VISIBLE);
         binding.ll2.setVisibility(View.GONE);
@@ -60,6 +67,8 @@ public class RegisterActivity extends BaseActivity {
         binding.selectDate.setDefaultValue(defaultValue);
         binding.selectDate.setDateMode(DateMode.YEAR_MONTH_DAY);
         binding.selectDate.setCurvedMaxAngle(3);
+
+        binding.etNickname.setFilters(new InputFilter[]{new SpaceFilter()});
     }
 
     public void previousStep(View view) {
@@ -78,25 +87,47 @@ public class RegisterActivity extends BaseActivity {
             binding.ll2.setVisibility(View.VISIBLE);
             binding.tvPreStep.setVisibility(View.VISIBLE);
         } else {
-            Utils.showToast(this, "正在开发中。。。");
-//            HttpClient.registerLogin();
+            birthday = binding.selectDate.getSelectedYear() + "" + binding.selectDate.getSelectedMonth() + "" + binding.selectDate.getSelectedDay();
+            nickname = binding.etNickname.getText().toString().trim();
+            iCode = binding.etCode.getText().toString().trim();
+            if (TextUtils.isEmpty(birthday)) {
+                Utils.showToast(this, "请选择生日");
+            } else if (TextUtils.isEmpty(avatarUrl)) {
+                Utils.showToast(this, "请上传头像");
+            } else if (nickname.length() <= 4) {
+                Utils.showToast(this, "请输入4-20位昵称");
+            } else {
+                // TODO: 2021/6/30 接口没有验证必填参数
+                HttpClient.registerLogin(this, mobile, nickname, sex, "", birthday, avatarUrl, iCode, new HttpCallback() {
+                    @Override
+                    public void onSuccess(String result) {
+                        startActivity(new Intent(RegisterActivity.this, MainActivity.class));
+                    }
+
+                    @Override
+                    public void onFailure(String msg) {
+                        Utils.showToast(RegisterActivity.this, msg);
+                    }
+                });
+            }
+
         }
     }
 
     public void selectMale(View view) {
-        if (gender == 1) {
+        if (sex == 1) {
             return;
         }
-        gender = 1;
+        sex = 1;
         binding.ivMale.setImageResource(R.drawable.male_selected);
         binding.ivFemale.setBackgroundResource(R.drawable.female_unselect);
     }
 
     public void selectFemale(View view) {
-        if (gender == 2) {
+        if (sex == 2) {
             return;
         }
-        gender = 2;
+        sex = 2;
         binding.ivMale.setImageResource(R.drawable.male_unselect);
         binding.ivFemale.setBackgroundResource(R.drawable.female_selected);
     }
@@ -122,7 +153,7 @@ public class RegisterActivity extends BaseActivity {
                 .selectionMode(PictureConfig.SINGLE)
 //                .isSingleDirectReturn(true)
                 .isEnableCrop(true)
-                .withAspectRatio(3, 4)
+                .withAspectRatio(1, 1)
                 .freeStyleCropEnabled(true)
                 .showCropFrame(true)
                 .isDragFrame(false)
@@ -147,13 +178,33 @@ public class RegisterActivity extends BaseActivity {
         if (requestCode == 1000) {
             List<String> filePaths = new ArrayList<>();
             if (list.get(0).getPath().contains("content://")) {
-                LogUtil.e(Utils.getFilePathByUri(RegisterActivity.this, Uri.parse(list.get(0).getPath())));
-                filePaths.add(Utils.getFilePathByUri(RegisterActivity.this, Uri.parse(list.get(0).getPath())));
+                LogUtil.e(Utils.getFilePathByUri(RegisterActivity.this, Uri.parse(list.get(0).getCutPath())));
+                filePaths.add(Utils.getFilePathByUri(RegisterActivity.this, Uri.parse(list.get(0).getCutPath())));
             } else {
-                filePaths.add(list.get(0).getPath());
+                filePaths.add(list.get(0).getCutPath());
             }
-            Glide.with(this).load(list.get(0).getPath()).into(binding.ivSelectPhoto);
+            Glide.with(this).load(filePaths.get(0)).circleCrop().into(binding.ivSelectPhoto);
+            uploadImage(filePaths.get(0));
         }
+    }
+
+    private void uploadImage(String path) {
+        Utils.showLoadingDialog(this);
+        HttpClient.uploadImage(this, path, new HttpCallback() {
+            @Override
+            public void onSuccess(String result) {
+                Utils.hideLoadingDialog();
+                Utils.showToast(RegisterActivity.this, "上传成功！");
+                UploadBean bean = new Gson().fromJson(result, UploadBean.class);
+                avatarUrl = bean.url;
+            }
+
+            @Override
+            public void onFailure(String msg) {
+                Utils.showToast(RegisterActivity.this, msg);
+                Utils.hideLoadingDialog();
+            }
+        });
     }
 
     @Override
@@ -164,6 +215,21 @@ public class RegisterActivity extends BaseActivity {
 
                 return;
             }
+        }
+    }
+
+    /**
+     * 禁止输入空格
+     *
+     * @return
+     */
+    public class SpaceFilter implements InputFilter {
+        @Override
+        public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+            //返回null表示接收输入的字符,返回空字符串表示不接受输入的字符
+            if (source.equals(" "))
+                return "";
+            return null;
         }
     }
 }

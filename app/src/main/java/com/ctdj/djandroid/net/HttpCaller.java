@@ -9,6 +9,7 @@ import com.ctdj.djandroid.activity.LoginActivity;
 import com.ctdj.djandroid.common.Constants;
 import com.ctdj.djandroid.common.LogUtil;
 import com.ctdj.djandroid.common.Utils;
+import com.google.gson.Gson;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
@@ -60,7 +61,7 @@ public class HttpCaller {
                 sb.append(key + "=" + URLEncoder.encode(String.valueOf(params.get(key)), "UTF-8") + "&");
             }
             RequestBody body = RequestBody.create(sb.toString(), MEDIA_TYPE);
-//            LogUtil.i("+++" + url + ":Params+++" + new Gson().toJson(params));
+            LogUtil.i("+++" + url + ":Params+++" + new Gson().toJson(params));
 
             final Request request = new Request.Builder()
                     .url(API.BASE_URL + url)
@@ -249,6 +250,136 @@ public class HttpCaller {
             HashMap<String, String> params = new HashMap<>();
             params.put("type", "1");
             params.put("files", sbFilePath.toString());
+            //参数以添加header方式将参数封装，否则上传参数为空
+            if (params != null && !params.isEmpty()) {
+                for (String key : params.keySet()) {
+                    multiBuilder.addPart(
+                            Headers.of("Content-Disposition", "form-data; name=\"" + key + "\""),
+                            RequestBody.create(null, params.get(key)));
+                }
+            }
+            RequestBody body = multiBuilder.build();
+
+
+//            RequestBody body = new MultipartBody.Builder()
+//                    .setType(MultipartBody.FORM)
+//                    .addFormDataPart("type", String.valueOf(type))
+//                    .addFormDataPart("file", filePath)
+//                    .build();
+
+            final Request request = new Request.Builder()
+                    .url(API.BASE_URL + url)
+                    .post(body)
+                    .build();
+
+            Call call = okHttpClient.newCall(request);
+            call.enqueue(new Callback() {
+                @Override
+                public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                    LogUtil.e("+++" + url + ":Fail+++" + e.toString());
+                    if (context instanceof Activity) {
+                        ((Activity) context).runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                failure();
+                            }
+                        });
+                    } else {
+                        failure();
+                    }
+                }
+
+                private void failure() {
+                    if (callback != null) {
+                        callback.onFailure("服务器连接失败，请稍后重试");
+                    }
+                }
+
+                @Override
+                public void onResponse(@NotNull Call call, @NotNull final Response response) throws IOException {
+                    final String result = response.body().string();
+                    if (context instanceof Activity) {
+                        ((Activity) context).runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                success(result);
+                            }
+                        });
+                    } else {
+                        success(result);
+                    }
+                }
+
+                private void success(String result) {
+                    try {
+                        LogUtil.i("+++" + url + ":Result+++" + result);
+                        if (TextUtils.isEmpty(result)) {
+                            if (callback != null) {
+                                callback.onFailure("服务器错误，请稍后重试");
+                            }
+                            return;
+                        }
+                        JSONObject jsonObject = new JSONObject(result);
+                        int code = jsonObject.getInt("code");
+                        if (code == 200) {
+                            if (callback != null) {
+                                callback.onSuccess(result);
+                            }
+                        } else if (code == 300) {
+                            if (!(context instanceof LoginActivity)) {
+                                Utils.logout(context);
+                            }
+                            if (context instanceof Activity) {
+                                Toast.makeText(context, jsonObject.getString("msg"), Toast.LENGTH_LONG).show();
+                                ((Activity) context).finish();
+                            }
+                        } else {
+                            if (callback != null) {
+                                callback.onFailure(jsonObject.getString("msg"));
+                                callback.onFailure(jsonObject.getInt("code"), jsonObject.getString("msg"), result);
+                            }
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        if (callback != null) {
+                            callback.onFailure("服务器错误，请稍后重试");
+                        }
+                        LogUtil.e("+++" + url + ":Exception+++" + e.toString());
+                    }
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            LogUtil.e("+++" + url + ":Exception+++" + e.toString());
+        }
+    }
+
+    public static void uploadImageFile(final Context context, String url, String filePath, final HttpCallback callback) {
+        if (okHttpClient == null) {
+            okHttpClient = new OkHttpClient.Builder()
+                    .connectTimeout(20, TimeUnit.SECONDS)//设置连接超时时间
+                    .readTimeout(30, TimeUnit.SECONDS)//设置读取超时时间
+                    .build();
+        }
+
+        try {
+            MultipartBody.Builder multiBuilder = new MultipartBody.Builder();
+            multiBuilder.setType(MultipartBody.FORM);
+            StringBuilder sbFilePath = new StringBuilder();
+                File file = new File(filePath);
+                sbFilePath.append(file.getName());
+                MediaType MEDIA_TYPE_JPG = MediaType.parse("image/jpg");
+                RequestBody filebody = MultipartBody.create(MEDIA_TYPE_JPG, file);
+                //这里是 封装上传图片参数
+                multiBuilder.addFormDataPart("file", file.getName(), filebody);
+                //参数以添加header方式将参数封装，否则上传参数为空
+                // 设置请求体
+                //这里是 封装上传图片参数
+//                multiBuilder.addFormDataPart("file", file.getName(), filebody);
+            // 封装请求参数,这里最重要
+            HashMap<String, String> params = new HashMap<>();
+//            params.put("type", "1");
+            params.put("file", sbFilePath.toString());
             //参数以添加header方式将参数封装，否则上传参数为空
             if (params != null && !params.isEmpty()) {
                 for (String key : params.keySet()) {

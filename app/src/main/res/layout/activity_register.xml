@@ -80,11 +80,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="164dp"
                 android:layout_marginTop="30dp"
+                android:layout_marginEnd="40dp"
                 android:layout_gravity="center_horizontal"
                 app:wheel_dateMode="year_month_day"
                 app:wheel_indicatorColor="@color/transparent_color"
                 app:wheel_itemTextColor="#80EBEBED"
-                android:layout_marginEnd="62dp"
                 app:wheel_itemTextColorSelected="#EBEBED"
                 app:wheel_visibleItemCount="3"
                 app:wheel_itemTextSize="26dp" />
