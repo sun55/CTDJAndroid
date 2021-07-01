@@ -7,6 +7,7 @@
         android:textSize="@dimen/dp_40"
         android:gravity="center"
         android:text="消息"
+        android:textColor="@color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
