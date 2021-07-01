@@ -17,6 +17,7 @@ import androidx.core.app.ActivityCompat;
 
 import com.bumptech.glide.Glide;
 import com.ctdj.djandroid.R;
+import com.ctdj.djandroid.bean.RegisterBean;
 import com.ctdj.djandroid.bean.UploadBean;
 import com.ctdj.djandroid.common.GlideEngine;
 import com.ctdj.djandroid.common.LogUtil;
@@ -101,6 +102,7 @@ public class RegisterActivity extends BaseActivity {
                 HttpClient.registerLogin(this, mobile, nickname, sex, Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID), birthday, avatarUrl, iCode, new HttpCallback() {
                     @Override
                     public void onSuccess(String result) {
+                        RegisterBean bean = new Gson().fromJson(result, RegisterBean.class);
                         startActivity(new Intent(RegisterActivity.this, MainActivity.class));
                     }
 
