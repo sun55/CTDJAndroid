@@ -27,7 +27,7 @@ import com.netease.nis.quicklogin.listener.QuickLoginTokenListener;
 public class LoginActivity extends BaseActivity {
 
     ActivityLoginBinding binding;
-    QuickLogin login;
+    QuickLogin quickLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,19 +38,19 @@ public class LoginActivity extends BaseActivity {
     }
 
     public void login(View view) {
-        if (login == null) {
-            login = QuickLogin.getInstance(getApplicationContext(), "655d94a19101460c9191fee93f6ad6dc");
-            login.setUnifyUiConfig(QuickLoginUiConfig.getUiConfig(LoginActivity.this, login));
+        if (quickLogin == null) {
+            quickLogin = QuickLogin.getInstance(getApplicationContext(), "655d94a19101460c9191fee93f6ad6dc");
+            quickLogin.setUnifyUiConfig(QuickLoginUiConfig.getUiConfig(LoginActivity.this, quickLogin));
         }
-        login.prefetchMobileNumber(new QuickLoginPreMobileListener() {
+        quickLogin.prefetchMobileNumber(new QuickLoginPreMobileListener() {
             @Override
             public void onGetMobileNumberSuccess(String YDToken, String mobileNumber) {
                 LogUtil.e("onGetMobileNumberSuccess YDToken:" + YDToken + ",mobileNumber:" + mobileNumber);
-                login.onePass(new QuickLoginTokenListener() {
+                quickLogin.onePass(new QuickLoginTokenListener() {
                     @Override
                     public void onGetTokenSuccess(String YDToken, String accessCode) {
                         LogUtil.e("onGetTokenSuccess YDToken:" + YDToken + ",accessCode:" + accessCode);
-                        login.quitActivity();
+                        quickLogin.quitActivity();
                         oneKeyLogin(YDToken, accessCode);
                     }
 

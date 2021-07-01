@@ -1,20 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
+    android:orientation="vertical"
     tools:context=".activity.MainActivity">
 
-    <TextView
-        android:textColor="@color/white"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <FrameLayout
+        android:id="@+id/content_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="onMessageTabClicked">
+
+            <TextView
+                android:id="@+id/tv_message_tab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/tab_message_selected"
+                android:drawablePadding="3.5dp"
+                android:gravity="center_horizontal"
+                android:text="消息"
+                android:textColor="#EBEBED"
+                android:textSize="11sp" />
+
+            <TextView
+                android:id="@+id/tv_un_read"
+                android:layout_width="wrap_content"
+                android:layout_height="15dp"
+                android:layout_above="@id/tv_message_tab"
+                android:layout_marginStart="-5.5dp"
+                android:layout_marginBottom="-8dp"
+                android:lines="1"
+                android:paddingEnd="2dp"
+                android:paddingStart="2dp"
+                android:layout_toEndOf="@id/tv_message_tab"
+                android:background="@drawable/un_read_dot_bg"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:minWidth="15dp"
+                android:text="0"
+                android:textColor="@color/white"
+                android:textSize="10sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+
+        <TextView
+            android:id="@+id/tv_play_tab"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/tab_play_normal"
+            android:drawablePadding="3.5dp"
+            android:gravity="center_horizontal"
+            android:onClick="onPlayTabClicked"
+            android:paddingTop="11dp"
+            android:text="竞技"
+            android:textColor="#EBEBED"
+            android:textSize="11sp" />
+
+        <TextView
+            android:id="@+id/tv_mine_tab"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/tab_mine_normal"
+            android:drawablePadding="3.5dp"
+            android:gravity="center_horizontal"
+            android:onClick="onMineTabClicked"
+            android:paddingTop="11dp"
+            android:text="我的"
+            android:textColor="#EBEBED"
+            android:textSize="11sp" />
+
+    </LinearLayout>
+</LinearLayout>

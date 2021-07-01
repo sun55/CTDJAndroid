@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.text.InputFilter;
 import android.text.Spanned;
 import android.text.TextUtils;
@@ -94,11 +95,10 @@ public class RegisterActivity extends BaseActivity {
                 Utils.showToast(this, "请选择生日");
             } else if (TextUtils.isEmpty(avatarUrl)) {
                 Utils.showToast(this, "请上传头像");
-            } else if (nickname.length() <= 4) {
+            } else if (nickname.length() < 4) {
                 Utils.showToast(this, "请输入4-20位昵称");
             } else {
-                // TODO: 2021/6/30 接口没有验证必填参数
-                HttpClient.registerLogin(this, mobile, nickname, sex, "", birthday, avatarUrl, iCode, new HttpCallback() {
+                HttpClient.registerLogin(this, mobile, nickname, sex, Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID), birthday, avatarUrl, iCode, new HttpCallback() {
                     @Override
                     public void onSuccess(String result) {
                         startActivity(new Intent(RegisterActivity.this, MainActivity.class));
