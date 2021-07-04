@@ -2,8 +2,10 @@ package com.ctdj.djandroid.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 
+import com.ctdj.djandroid.MyApplication;
 import com.ctdj.djandroid.databinding.ActivitySplashBinding;
 
 public class SplashActivity extends BaseActivity {
@@ -18,7 +20,11 @@ public class SplashActivity extends BaseActivity {
         binding.rootView.postDelayed(new Runnable() {
             @Override
             public void run() {
-                startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+                if (TextUtils.isEmpty(MyApplication.getInstance().getMid())) {
+                    startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+                } else {
+                    startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                }
                 finish();
             }
         }, 1000);

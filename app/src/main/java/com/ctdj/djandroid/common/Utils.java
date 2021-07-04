@@ -42,9 +42,12 @@ import com.opensource.svgaplayer.SVGAParser;
 import com.ywl5320.libmusic.WlMusic;
 import com.ywl5320.listener.OnPreparedListener;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 
 public class Utils {
 
@@ -301,14 +304,77 @@ public class Utils {
         }
     }
 
+    public static Date getDateByString(String time, String format) {
+        if (format == null || format.isEmpty()) {
+            format = "yyyy-MM-dd HH:mm:ss";
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.CHINESE);
+        sdf.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
+        Date date = null;
+        try {
+            date = sdf.parse(time);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return date;
+    }
+
+    public static String constellation(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        String constellation = "";
+        if (month == 1 && day >= 20 || month == 2 && day <= 18) {
+            constellation = "水瓶座";
+        }
+        if (month == 2 && day >= 19 || month == 3 && day <= 20) {
+            constellation = "双鱼座";
+        }
+        if (month == 3 && day >= 21 || month == 4 && day <= 19) {
+            constellation = "白羊座";
+        }
+        if (month == 4 && day >= 20 || month == 5 && day <= 20) {
+            constellation = "金牛座";
+        }
+        if (month == 5 && day >= 21 || month == 6 && day <= 21) {
+            constellation = "双子座";
+        }
+        if (month == 6 && day >= 22 || month == 7 && day <= 22) {
+            constellation = "巨蟹座";
+        }
+        if (month == 7 && day >= 23 || month == 8 && day <= 22) {
+            constellation = "狮子座";
+        }
+        if (month == 8 && day >= 23 || month == 9 && day <= 22) {
+            constellation = "处女座";
+        }
+        if (month == 9 && day >= 23 || month == 10 && day <= 23) {
+            constellation = "天秤座";
+        }
+        if (month == 10 && day >= 24 || month == 11 && day <= 22) {
+            constellation = "天蝎座";
+        }
+        if (month == 11 && day >= 23 || month == 12 && day <= 21) {
+            constellation = "射手座";
+        }
+        if (month == 12 && day >= 22 || month == 1 && day <= 19) {
+            constellation = "摩羯座";
+        }
+        return constellation;
+    }
+
     /**
      * 星座
      *
-     * @param month
-     * @param day
      * @return
      */
-    public static String constellation(int month, int day) {
+    public static String constellation(String birthday) {
+        Date date = getDateByString(birthday, "");
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
         String constellation = "";
         if (month == 1 && day >= 20 || month == 2 && day <= 18) {
             constellation = "水瓶座";
@@ -359,6 +425,30 @@ public class Utils {
         int monthNow = cal.get(Calendar.MONTH);  //当前月份
         int dayOfMonthNow = cal.get(Calendar.DAY_OF_MONTH); //当前日期
         cal.setTime(birthDay);
+        int yearBirth = cal.get(Calendar.YEAR);
+        int monthBirth = cal.get(Calendar.MONTH);
+        int dayOfMonthBirth = cal.get(Calendar.DAY_OF_MONTH);
+        int age = yearNow - yearBirth;   //计算整岁数
+        if (monthNow <= monthBirth) {
+            if (monthNow == monthBirth) {
+                if (dayOfMonthNow < dayOfMonthBirth) age--;//当前日期在生日之前，年龄减一
+            } else {
+                age--;//当前月份在生日之前，年龄减一
+            }
+        }
+        return age;
+    }
+    public static int getAge(String birthDay) {
+        Date date = getDateByString(birthDay, "");
+        Calendar cal = Calendar.getInstance();
+        if (cal.before(birthDay)) { //出生日期晚于当前时间，无法计算
+            throw new IllegalArgumentException(
+                    "The birthDay is before Now.It's unbelievable!");
+        }
+        int yearNow = cal.get(Calendar.YEAR);  //当前年份
+        int monthNow = cal.get(Calendar.MONTH);  //当前月份
+        int dayOfMonthNow = cal.get(Calendar.DAY_OF_MONTH); //当前日期
+        cal.setTime(date);
         int yearBirth = cal.get(Calendar.YEAR);
         int monthBirth = cal.get(Calendar.MONTH);
         int dayOfMonthBirth = cal.get(Calendar.DAY_OF_MONTH);

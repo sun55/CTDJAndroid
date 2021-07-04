@@ -26,6 +26,7 @@ public class MainActivity extends BaseActivity {
     private static final String MESSAGE_TAG = "message-page";
     private static final String PLAY_TAG = "play-page";
     private static final String MINE_TAG = "mine-tag";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,8 +49,8 @@ public class MainActivity extends BaseActivity {
                 transaction.remove(mineFragment);
             }
             transaction.commitAllowingStateLoss();
-            onMessageTabClicked(null);
         }
+        onPlayTabClicked(null);
     }
 
     public void onMessageTabClicked(View view) {

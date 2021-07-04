@@ -10,20 +10,22 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
+import com.ctdj.djandroid.MyApplication;
+import com.ctdj.djandroid.bean.LoginBean;
 import com.ctdj.djandroid.common.DisplayUtil;
-import com.ctdj.djandroid.common.LogUtil;
 import com.ctdj.djandroid.common.Utils;
 import com.ctdj.djandroid.databinding.ActivitySmsCodeBinding;
 import com.ctdj.djandroid.net.HttpCallback;
 import com.ctdj.djandroid.net.HttpClient;
 import com.ctdj.djandroid.view.TitleView;
+import com.google.gson.Gson;
 
 public class SmsCodeActivity extends BaseActivity {
 
     ActivitySmsCodeBinding binding;
     String mobile;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,7 +68,7 @@ public class SmsCodeActivity extends BaseActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 if (s.length() == 4) {
-                     checkMobile(s.toString().trim());
+                    checkMobile(s.toString().trim());
                 }
             }
         });
@@ -76,9 +78,17 @@ public class SmsCodeActivity extends BaseActivity {
         HttpClient.checkMobile(this, mobile.replaceAll(" ", ""), smsCode, new HttpCallback() {
             @Override
             public void onSuccess(String result) {
-                Intent intent = new Intent(SmsCodeActivity.this, RegisterActivity.class);
-                intent.putExtra("mobile", mobile.replaceAll(" ", ""));
-                startActivity(intent);
+                LoginBean bean = new Gson().fromJson(result, LoginBean.class);
+                if (bean.data.flag == 0) {
+                    Intent intent = new Intent(SmsCodeActivity.this, RegisterActivity.class);
+                    intent.putExtra("mobile", mobile.replaceAll(" ", ""));
+                    startActivity(intent);
+                } else {
+                    MyApplication.getInstance().saveUserInfo(bean.data.logindata);
+                    Intent intent = new Intent(SmsCodeActivity.this, MainActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                }
 
                 finish();
             }
@@ -92,13 +102,25 @@ public class SmsCodeActivity extends BaseActivity {
 
     /**
      * 重新发送验证码
+     *
      * @param view
      */
     public void reSendCode(View view) {
-        countdown();
+        HttpClient.sendCode(this, mobile, new HttpCallback() {
+            @Override
+            public void onSuccess(String result) {
+                countdown();
+            }
+
+            @Override
+            public void onFailure(String msg) {
+                Utils.showToast(SmsCodeActivity.this, msg);
+            }
+        });
     }
 
     CountDownTimer timer;
+
     private void countdown() {
         binding.tvResendCode.setEnabled(false);
         binding.tvResendCode.setTextColor(Color.parseColor("#80EBEBED"));

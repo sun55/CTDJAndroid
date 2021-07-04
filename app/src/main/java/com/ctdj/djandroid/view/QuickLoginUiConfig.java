@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ctdj.djandroid.activity.PhoneNumActivity;
+import com.ctdj.djandroid.common.DisplayUtil;
 import com.ctdj.djandroid.common.Utils;
 import com.netease.nis.quicklogin.QuickLogin;
 import com.netease.nis.quicklogin.helper.UnifyUiConfig;
@@ -26,7 +27,7 @@ public class QuickLoginUiConfig {
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
         layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
         layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-        layoutParams.bottomMargin = Utils.dip2px(context, 270);
+        layoutParams.bottomMargin = Utils.dip2px(context, 320);
         otherLogin.setLayoutParams(layoutParams);
 
         int X_OFFSET = 0;
@@ -75,10 +76,13 @@ public class QuickLoginUiConfig {
                 .setPrivacySize(10)
                 .setPrivacyBottomYOffset(21)
                 .setPrivacyTextGravityCenter(false)
-
+                .setPrivacyMarginLeft(DisplayUtil.dip2px(context, 20))
+                .setPrivacyMarginRight(DisplayUtil.dip2px(context, 20))
+                .setPrivacyTextGravityCenter(true)
                 .setCheckBoxGravity(Gravity.TOP)
                 .setCheckedImageName("check_box_selected")
                 .setUnCheckedImageName("check_box_unselect")
+                .setHidePrivacyCheckBox(true)
                 .setProtocolPageNavColor(Color.WHITE)
                 .addCustomView(otherLogin, "other_login", UnifyUiConfig.POSITION_IN_BODY, new LoginUiHelper.CustomViewListener() {
                     @Override

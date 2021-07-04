@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_151522"
+    android:orientation="vertical"
+    tools:context=".activity.EditActivity">
+
+    <com.ctdj.djandroid.view.TitleView
+        android:id="@+id/title_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titleText="编辑资料" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/ll_avatar"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="25dp"
+        android:paddingEnd="15dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="个人头像"
+            android:textColor="#ffe8e8e9"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <com.ctdj.djandroid.view.CircleImageView
+            android:id="@+id/avatar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@mipmap/ic_launcher"
+            app:radius="20dp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:background="@drawable/right_more_icon" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="15dp"
+        android:background="#34353F" />
+
+    <com.ctdj.djandroid.view.CommonItemView
+        android:id="@+id/item_nickname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:itemRightText="昵称"
+        app:itemTitleText="昵称" />
+
+    <com.ctdj.djandroid.view.CommonItemView
+        android:id="@+id/item_sex"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:itemRightText="性别"
+        app:showRightArrow="false"
+        app:itemTitleText="性别" />
+
+    <com.ctdj.djandroid.view.CommonItemView
+        android:id="@+id/item_birthday"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:itemRightText="生日"
+        app:itemTitleText="生日" />
+
+    <com.ctdj.djandroid.view.CommonItemView
+        android:id="@+id/item_location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:itemRightText="城市"
+        app:itemTitleText="城市" />
+
+
+</androidx.appcompat.widget.LinearLayoutCompat>

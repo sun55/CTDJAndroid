@@ -11,4 +11,6 @@ public class API {
     public static final String SEND_CODE = "/api/login/sendcode";
     public static final String REGISTER_LOGIN = "/api/login/registerLogin";
     public static final String CHECK_MOBILE = "/api/login/checkMobile";
+    public static final String IS_EXIST_NAME = "/api/login/isExistName";
+    public static final String UPDATE_PERSONAL = "/api/mydata/updatepersonal";
 }

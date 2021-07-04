@@ -161,4 +161,13 @@
         <attr name="rightImgSrc" format="color|reference" />
         <attr name="showRightImg" format="boolean" />
     </declare-styleable>
+
+    <declare-styleable name="CommonItemView">
+        <attr name="itemTitleText" format="string" />
+        <attr name="itemRightText" format="string" />
+        <attr name="itemTitleColor" format="color|reference" />
+        <attr name="itemRightTextColor" format="color|reference" />
+        <attr name="showUnderLine" format="boolean" />
+        <attr name="showRightArrow" format="boolean" />
+    </declare-styleable>
 </resources>

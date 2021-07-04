@@ -16,7 +16,9 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 
 import com.bumptech.glide.Glide;
+import com.ctdj.djandroid.MyApplication;
 import com.ctdj.djandroid.R;
+import com.ctdj.djandroid.bean.BaseBean;
 import com.ctdj.djandroid.bean.RegisterBean;
 import com.ctdj.djandroid.bean.UploadBean;
 import com.ctdj.djandroid.common.GlideEngine;
@@ -89,7 +91,7 @@ public class RegisterActivity extends BaseActivity {
             binding.ll2.setVisibility(View.VISIBLE);
             binding.tvPreStep.setVisibility(View.VISIBLE);
         } else {
-            birthday = binding.selectDate.getSelectedYear() + "" + binding.selectDate.getSelectedMonth() + "" + binding.selectDate.getSelectedDay();
+            birthday = binding.selectDate.getSelectedYear() + "-" + (binding.selectDate.getSelectedMonth() < 10 ? "0" + binding.selectDate.getSelectedMonth() : binding.selectDate.getSelectedMonth()) + "-" + (binding.selectDate.getSelectedDay() < 10 ? "0" + binding.selectDate.getSelectedDay() : binding.selectDate.getSelectedDay());
             nickname = binding.etNickname.getText().toString().trim();
             iCode = binding.etCode.getText().toString().trim();
             if (TextUtils.isEmpty(birthday)) {
@@ -99,21 +101,54 @@ public class RegisterActivity extends BaseActivity {
             } else if (nickname.length() < 4) {
                 Utils.showToast(this, "请输入4-20位昵称");
             } else {
-                HttpClient.registerLogin(this, mobile, nickname, sex, Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID), birthday, avatarUrl, iCode, new HttpCallback() {
-                    @Override
-                    public void onSuccess(String result) {
-                        RegisterBean bean = new Gson().fromJson(result, RegisterBean.class);
-                        startActivity(new Intent(RegisterActivity.this, MainActivity.class));
-                    }
-
-                    @Override
-                    public void onFailure(String msg) {
-                        Utils.showToast(RegisterActivity.this, msg);
-                    }
-                });
+                register();
             }
 
         }
+    }
+
+    private void register() {
+        HttpClient.isExistName(this, nickname, new HttpCallback() {
+            @Override
+            public void onSuccess(String result) {
+                HttpClient.registerLogin(RegisterActivity.this,
+                        mobile,
+                        nickname,
+                        sex,
+                        Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID),
+                        birthday,
+                        avatarUrl,
+                        iCode,
+                        new HttpCallback() {
+                            @Override
+                            public void onSuccess(String result) {
+                                RegisterBean bean = new Gson().fromJson(result, RegisterBean.class);
+                                MyApplication.getInstance().saveUserInfo(bean.data);
+                                Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(intent);
+                                finish();
+                            }
+
+                            @Override
+                            public void onFailure(String msg) {
+                                Utils.showToast(RegisterActivity.this, msg);
+                            }
+                        });
+
+            }
+
+            @Override
+            public void onFailure(String msg) {
+
+            }
+
+            @Override
+            public void onFailure(int code, String msg, String result) {
+                super.onFailure(code, msg, result);
+                Utils.showToast(RegisterActivity.this, msg);
+            }
+        });
     }
 
     public void selectMale(View view) {

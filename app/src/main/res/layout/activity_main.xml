@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
+    android:background="@color/color_151522"
     android:orientation="vertical"
     tools:context=".activity.MainActivity">
 
@@ -39,6 +39,7 @@
                 android:textSize="11sp" />
 
             <TextView
+                android:visibility="gone"
                 android:id="@+id/tv_un_read"
                 android:layout_width="wrap_content"
                 android:layout_height="15dp"
@@ -61,29 +62,29 @@
 
 
         <TextView
+            android:layout_gravity="center_vertical"
             android:id="@+id/tv_play_tab"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:drawableTop="@drawable/tab_play_normal"
             android:drawablePadding="3.5dp"
             android:gravity="center_horizontal"
             android:onClick="onPlayTabClicked"
-            android:paddingTop="11dp"
             android:text="竞技"
             android:textColor="#EBEBED"
             android:textSize="11sp" />
 
         <TextView
+            android:layout_gravity="center_vertical"
             android:id="@+id/tv_mine_tab"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:drawableTop="@drawable/tab_mine_normal"
             android:drawablePadding="3.5dp"
             android:gravity="center_horizontal"
             android:onClick="onMineTabClicked"
-            android:paddingTop="11dp"
             android:text="我的"
             android:textColor="#EBEBED"
             android:textSize="11sp" />

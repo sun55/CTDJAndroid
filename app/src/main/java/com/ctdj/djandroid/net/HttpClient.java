@@ -7,6 +7,22 @@ import java.util.List;
 
 public class HttpClient {
 
+    public static void uploadImage(Context context, String file, HttpCallback callback) {
+        HttpCaller.uploadImageFile(context, API.UPLOAD_FILE, file, callback);
+    }
+
+    public static void uploadFiles(Context context, int type, List<String> files, HttpCallback callback) {
+        HttpCaller.uploadImageFiles(context, API.UPLOAD_FILES, type, files, callback);
+    }
+
+    public static void uploadVideoFile(Context context, String file, HttpCallback callback) {
+        HttpCaller.uploadVideoFile(context, API.UPLOAD_FILE, file, callback);
+    }
+
+    public static void uploadAudioFile(Context context, String file, HttpCallback callback) {
+        HttpCaller.uploadAudioFile(context, API.UPLOAD_FILE, file, callback);
+    }
+
     public static void sendCode(Context context, String mobile, HttpCallback callback) {
         HashMap<String, Object> maps = new HashMap<>();
         maps.put("mobile", mobile);
@@ -65,19 +81,29 @@ public class HttpClient {
         HttpCaller.doPost(context, API.CHECK_MOBILE, maps, callback);
     }
 
-    public static void uploadImage(Context context, String file, HttpCallback callback) {
-        HttpCaller.uploadImageFile(context, API.UPLOAD_FILE, file, callback);
+    /**
+     * 判断昵称是否存在
+     * @param context
+     * @param nickname
+     * @param callback
+     */
+    public static void isExistName(Context context, String nickname, HttpCallback callback) {
+        HashMap<String, Object> maps = new HashMap<>();
+        maps.put("nickname", nickname);
+        HttpCaller.doPost(context, API.IS_EXIST_NAME, maps, callback);
     }
 
-    public static void uploadFiles(Context context, int type, List<String> files, HttpCallback callback) {
-        HttpCaller.uploadImageFiles(context, API.UPLOAD_FILES, type, files, callback);
-    }
-
-    public static void uploadVideoFile(Context context, String file, HttpCallback callback) {
-        HttpCaller.uploadVideoFile(context, API.UPLOAD_FILE, file, callback);
-    }
-
-    public static void uploadAudioFile(Context context, String file, HttpCallback callback) {
-        HttpCaller.uploadAudioFile(context, API.UPLOAD_FILE, file, callback);
+    /**
+     * 修改用户信息
+     * @param context
+     * @param type
+     * @param param
+     * @param callback
+     */
+    public static void updatePersonal(Context context, int type, String param, HttpCallback callback) {
+        HashMap<String, Object> maps = new HashMap<>();
+        maps.put("type", type);
+        maps.put("param", param);
+        HttpCaller.doPost(context, API.UPDATE_PERSONAL, maps, callback);
     }
 }

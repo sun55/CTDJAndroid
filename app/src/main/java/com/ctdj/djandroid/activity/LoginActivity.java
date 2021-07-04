@@ -13,13 +13,15 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 
+import com.ctdj.djandroid.MyApplication;
+import com.ctdj.djandroid.bean.LoginBean;
 import com.ctdj.djandroid.common.LogUtil;
 import com.ctdj.djandroid.common.Utils;
 import com.ctdj.djandroid.databinding.ActivityLoginBinding;
 import com.ctdj.djandroid.net.HttpCallback;
 import com.ctdj.djandroid.net.HttpClient;
 import com.ctdj.djandroid.view.QuickLoginUiConfig;
-import com.github.gzuliyujiang.wheelpicker.BirthdayPicker;
+import com.google.gson.Gson;
 import com.netease.nis.quicklogin.QuickLogin;
 import com.netease.nis.quicklogin.listener.QuickLoginPreMobileListener;
 import com.netease.nis.quicklogin.listener.QuickLoginTokenListener;
@@ -38,6 +40,7 @@ public class LoginActivity extends BaseActivity {
     }
 
     public void login(View view) {
+        Utils.showLoadingDialog(this);
         if (quickLogin == null) {
             quickLogin = QuickLogin.getInstance(getApplicationContext(), "655d94a19101460c9191fee93f6ad6dc");
             quickLogin.setUnifyUiConfig(QuickLoginUiConfig.getUiConfig(LoginActivity.this, quickLogin));
@@ -45,6 +48,7 @@ public class LoginActivity extends BaseActivity {
         quickLogin.prefetchMobileNumber(new QuickLoginPreMobileListener() {
             @Override
             public void onGetMobileNumberSuccess(String YDToken, String mobileNumber) {
+                Utils.hideLoadingDialog();
                 LogUtil.e("onGetMobileNumberSuccess YDToken:" + YDToken + ",mobileNumber:" + mobileNumber);
                 quickLogin.onePass(new QuickLoginTokenListener() {
                     @Override
@@ -64,6 +68,7 @@ public class LoginActivity extends BaseActivity {
 
             @Override
             public void onGetMobileNumberError(String YDToken, String msg) {
+                Utils.hideLoadingDialog();
                 LogUtil.e("onGetMobileNumberError YDToken:" + YDToken + ",msg:" + msg);
                 startActivity(new Intent(LoginActivity.this, PhoneNumActivity.class));
             }
@@ -74,7 +79,15 @@ public class LoginActivity extends BaseActivity {
         HttpClient.oneKeyLogin(this, ydToken, accessCode, new HttpCallback() {
             @Override
             public void onSuccess(String result) {
-                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+                LoginBean bean = new Gson().fromJson(result, LoginBean.class);
+                if (bean.data.flag == 0) {
+                    Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                    intent.putExtra("mobile", bean.data.mobile);
+                    startActivity(intent);
+                } else {
+                    MyApplication.getInstance().saveUserInfo(bean.data.logindata);
+                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                }
             }
 
             @Override

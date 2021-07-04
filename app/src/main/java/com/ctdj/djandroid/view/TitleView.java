@@ -51,7 +51,7 @@ public class TitleView extends RelativeLayout {
         title = typedArray.getString(R.styleable.TitleView_titleText);
         rightText = typedArray.getString(R.styleable.TitleView_rightText);
         rightSize = typedArray.getDimensionPixelSize(R.styleable.TitleView_rightTextSize, 13);
-        titleColor = typedArray.getColor(R.styleable.TitleView_titleColor, Color.parseColor("#313131"));
+        titleColor = typedArray.getColor(R.styleable.TitleView_titleColor, Color.parseColor("#E8E8E9"));
         rightTextColor = typedArray.getColor(R.styleable.TitleView_rightTextColor, Color.parseColor("#C9B1F5"));
         leftSrc = typedArray.getResourceId(R.styleable.TitleView_leftImgSrc, R.drawable.white_back_icon);
         rightSrc = typedArray.getResourceId(R.styleable.TitleView_rightImgSrc, R.drawable.three_dot_icon);
