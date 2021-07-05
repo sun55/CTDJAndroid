@@ -2,6 +2,8 @@ package com.ctdj.djandroid.net;
 
 import android.content.Context;
 
+import com.ctdj.djandroid.MyApplication;
+
 import java.util.HashMap;
 import java.util.List;
 
@@ -102,6 +104,7 @@ public class HttpClient {
      */
     public static void updatePersonal(Context context, int type, String param, HttpCallback callback) {
         HashMap<String, Object> maps = new HashMap<>();
+        maps.put("token", MyApplication.getInstance().getToken());
         maps.put("type", type);
         maps.put("param", param);
         HttpCaller.doPost(context, API.UPDATE_PERSONAL, maps, callback);

@@ -185,9 +185,8 @@ public class EditActivity extends BaseActivity {
                     calendar.setTime(date);
                     int month = calendar.get(Calendar.MONTH);
                     int day = calendar.get(Calendar.DAY_OF_MONTH);
-                    String birthday = calendar.get(Calendar.YEAR) + "-" + (month < 10 ? "0" + month : month) + "-" + (day < 10 ? "0" + date : day);
+                    String birthday = calendar.get(Calendar.YEAR) + "-" + (month < 10 ? "0" + month : month) + "-" + (day < 10 ? "0" + day : day);
                     updatePersonal(4, birthday);
-
                 }
             }).setLayoutRes(R.layout.pickerview_custom_time_view, new CustomListener() {
                 @Override
