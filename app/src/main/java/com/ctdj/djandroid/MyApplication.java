@@ -207,7 +207,8 @@ public class MyApplication extends MultiDexApplication {
                 "user.gold",
                 "user.star",
                 "user.challengeVolume",
-                "user.isNote"
+                "user.isNote",
+                "user.birthday"
         );
     }
 

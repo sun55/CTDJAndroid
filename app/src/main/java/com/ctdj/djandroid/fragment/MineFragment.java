@@ -17,6 +17,7 @@ import com.ctdj.djandroid.R;
 import com.ctdj.djandroid.activity.AboutActivity;
 import com.ctdj.djandroid.activity.EditActivity;
 import com.ctdj.djandroid.activity.FeedBackActivity;
+import com.ctdj.djandroid.activity.SettingActivity;
 import com.ctdj.djandroid.common.Utils;
 import com.ctdj.djandroid.databinding.FragmentMessageBinding;
 import com.ctdj.djandroid.databinding.FragmentMineBinding;
@@ -57,6 +58,13 @@ public class MineFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getActivity(), FeedBackActivity.class));
+            }
+        });
+
+        binding.tvSetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), SettingActivity.class));
             }
         });
     }

@@ -34,7 +34,9 @@ import android.widget.Toast;
 import androidx.core.content.ContextCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import com.ctdj.djandroid.MyApplication;
 import com.ctdj.djandroid.R;
+import com.ctdj.djandroid.activity.LoginActivity;
 import com.ctdj.djandroid.dialog.LoadingDialog;
 import com.ctdj.djandroid.view.MyImageSpan;
 import com.luck.picture.lib.tools.PictureFileUtils;
@@ -139,9 +141,10 @@ public class Utils {
 
     public static void logout(Context context) {
         LocalBroadcastManager.getInstance(context).sendBroadcast(new Intent(Constants.LOGOUT_BROADCAST));
-//        Intent intent = new Intent(context, LoginActivity.class);
-//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-//        context.startActivity(intent);
+        Intent intent = new Intent(context, LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
+        MyApplication.getInstance().cleanUserInfo();
         // 清除所有缓存 例如：压缩、裁剪、视频、音频所生成的临时文件
         PictureFileUtils.deleteAllCacheDirFile(context);
     }

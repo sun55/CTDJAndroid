@@ -42,7 +42,6 @@ import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -97,16 +96,13 @@ public class EditActivity extends BaseActivity {
             }
         });
         parserCity();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
         fillView();
     }
 
+    UserInfoBean bean;
+
     private void fillView() {
-        UserInfoBean bean = MyApplication.getInstance().getUserInfo();
+        bean = MyApplication.getInstance().getUserInfo();
         Glide.with(this).load(bean.headimg).into(binding.avatar);
         binding.itemNickname.setRightText(bean.mname);
         binding.itemSex.setRightText(bean.sex == 1 ? "男" : "女");
@@ -171,7 +167,6 @@ public class EditActivity extends BaseActivity {
             } else {
                 filePaths.add(list.get(0).getCutPath());
             }
-            Glide.with(this).load(filePaths.get(0)).circleCrop().into(binding.avatar);
             uploadImage(filePaths.get(0));
         }
     }
@@ -200,7 +195,11 @@ public class EditActivity extends BaseActivity {
     public void selectBirthday() {
         if (timePickerView == null) {
             Calendar selectedDate = Calendar.getInstance();
-            selectedDate.set(2002, 0, 1);
+            if (TextUtils.isEmpty(bean.birthday)) {
+                selectedDate.set(2002, 0, 1);
+            } else {
+                selectedDate.setTime(Utils.getDateByString(bean.birthday, ""));
+            }
             Calendar startDate = Calendar.getInstance();
             startDate.set(1960, 0, 1);
             Calendar endDate = Calendar.getInstance();
@@ -208,12 +207,6 @@ public class EditActivity extends BaseActivity {
             timePickerView = new TimePickerBuilder(this, new OnTimeSelectListener() {
                 @Override
                 public void onTimeSelect(Date date, View v) {
-                    int age = Utils.getAge(date);
-//                    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-//                    String[] strs = format.format(date).split("-");
-
-                    String constellation = Utils.constellation(date);
-                    binding.itemBirthday.setRightText(age + " " + constellation);
                     Calendar calendar = Calendar.getInstance();
                     calendar.setTime(date);
                     int month = calendar.get(Calendar.MONTH) + 1;
@@ -268,7 +261,6 @@ public class EditActivity extends BaseActivity {
                 public void onOptionsSelect(int options1, int options2, int options3, View v) {
                     String province = provinceList.get(options1);
                     String city = cityList.get(options1).get(options2);
-                    binding.itemLocation.setRightText(province + " " + city);
                     updatePersonal(4, province + "-" + city);
                 }
             }).setLayoutRes(R.layout.pickerview_custom_city_view, new CustomListener() {
@@ -291,8 +283,14 @@ public class EditActivity extends BaseActivity {
                     });
                 }
             }).setDividerColor(Color.parseColor("#00000000"))
+                    .setBgColor(Color.parseColor("#22252f"))
+                    .setTextColorCenter(Color.parseColor("#ebebed"))
                     .setOutSideCancelable(false)
+                    .setLineSpacingMultiplier(2.4f)
                     .build();
+            if (!TextUtils.isEmpty(bean.province) && !TextUtils.isEmpty(bean.city)) {
+                optionsPickerView.setSelectOptions(provinceList.indexOf(bean.province), cityList.get(provinceList.indexOf(bean.province)).indexOf(bean.city));
+            }
             optionsPickerView.setPicker(provinceList, cityList);
         }
         optionsPickerView.show();
@@ -325,6 +323,8 @@ public class EditActivity extends BaseActivity {
             public void onSuccess(String result) {
                 UpdatePersonalBean bean = new Gson().fromJson(result, UpdatePersonalBean.class);
                 MyApplication.getInstance().saveUserInfo(bean.data);
+                Utils.showToast(EditActivity.this, "修改成功");
+                fillView();
             }
 
             @Override
