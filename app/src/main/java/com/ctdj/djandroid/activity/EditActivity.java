@@ -14,13 +14,17 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.core.app.ActivityCompat;
 
+import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.listener.CustomListener;
+import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
+import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.bumptech.glide.Glide;
 import com.ctdj.djandroid.MyApplication;
 import com.ctdj.djandroid.R;
+import com.ctdj.djandroid.bean.CountryBean;
 import com.ctdj.djandroid.bean.UpdatePersonalBean;
 import com.ctdj.djandroid.bean.UploadBean;
 import com.ctdj.djandroid.common.DisplayUtil;
@@ -38,6 +42,7 @@ import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -65,6 +70,42 @@ public class EditActivity extends BaseActivity {
 
             }
         });
+        binding.avatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectPhoto();
+            }
+        });
+
+        binding.itemNickname.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(EditActivity.this, EditNameActivity.class));
+            }
+        });
+
+        binding.itemBirthday.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectBirthday();
+            }
+        });
+        binding.itemLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setCity();
+            }
+        });
+        parserCity();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        fillView();
+    }
+
+    private void fillView() {
         UserInfoBean bean = MyApplication.getInstance().getUserInfo();
         Glide.with(this).load(bean.headimg).into(binding.avatar);
         binding.itemNickname.setRightText(bean.mname);
@@ -77,19 +118,6 @@ public class EditActivity extends BaseActivity {
             binding.itemBirthday.setRightText(age + " " + constellation);
         }
         binding.itemLocation.setRightText(TextUtils.isEmpty(bean.province) || TextUtils.isEmpty(bean.city) ? "" : bean.province + " " + bean.city);
-        binding.avatar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                selectPhoto();
-            }
-        });
-
-        binding.itemBirthday.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                selectBirthday();
-            }
-        });
     }
 
     public void selectPhoto() {
@@ -166,27 +194,33 @@ public class EditActivity extends BaseActivity {
             }
         });
     }
+
     TimePickerView timePickerView;
+
     public void selectBirthday() {
         if (timePickerView == null) {
             Calendar selectedDate = Calendar.getInstance();
-            selectedDate.set(2002, 1, 1);
+            selectedDate.set(2002, 0, 1);
             Calendar startDate = Calendar.getInstance();
-            startDate.set(1960, 1, 1);
+            startDate.set(1960, 0, 1);
             Calendar endDate = Calendar.getInstance();
             endDate.set(2018, 11, 30);
             timePickerView = new TimePickerBuilder(this, new OnTimeSelectListener() {
                 @Override
                 public void onTimeSelect(Date date, View v) {
                     int age = Utils.getAge(date);
+//                    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+//                    String[] strs = format.format(date).split("-");
+
                     String constellation = Utils.constellation(date);
-                    binding.itemBirthday.setRightText(age + " " +constellation);
+                    binding.itemBirthday.setRightText(age + " " + constellation);
                     Calendar calendar = Calendar.getInstance();
                     calendar.setTime(date);
-                    int month = calendar.get(Calendar.MONTH);
+                    int month = calendar.get(Calendar.MONTH) + 1;
                     int day = calendar.get(Calendar.DAY_OF_MONTH);
+                    LogUtil.e("month:" + month + ", day:" + day);
                     String birthday = calendar.get(Calendar.YEAR) + "-" + (month < 10 ? "0" + month : month) + "-" + (day < 10 ? "0" + day : day);
-                    updatePersonal(4, birthday);
+                    updatePersonal(3, birthday);
                 }
             }).setLayoutRes(R.layout.pickerview_custom_time_view, new CustomListener() {
                 @Override
@@ -218,6 +252,71 @@ public class EditActivity extends BaseActivity {
                     .build();
         }
         timePickerView.show();
+    }
+
+    private OptionsPickerView optionsPickerView;
+
+    public void setCity() {
+        if (provinceList.size() == 0) {
+            Utils.showToast(this, "正在加载城市数据。。。");
+            parserCity();
+            return;
+        }
+        if (optionsPickerView == null) {
+            optionsPickerView = new OptionsPickerBuilder(this, new OnOptionsSelectListener() {
+                @Override
+                public void onOptionsSelect(int options1, int options2, int options3, View v) {
+                    String province = provinceList.get(options1);
+                    String city = cityList.get(options1).get(options2);
+                    binding.itemLocation.setRightText(province + " " + city);
+                    updatePersonal(4, province + "-" + city);
+                }
+            }).setLayoutRes(R.layout.pickerview_custom_city_view, new CustomListener() {
+                @Override
+                public void customLayout(View v) {
+                    TextView cancelTv = v.findViewById(R.id.cancel_tv);
+                    TextView sureTv = v.findViewById(R.id.sure_tv);
+                    cancelTv.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            optionsPickerView.dismiss();
+                        }
+                    });
+                    sureTv.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            optionsPickerView.returnData();
+                            optionsPickerView.dismiss();
+                        }
+                    });
+                }
+            }).setDividerColor(Color.parseColor("#00000000"))
+                    .setOutSideCancelable(false)
+                    .build();
+            optionsPickerView.setPicker(provinceList, cityList);
+        }
+        optionsPickerView.show();
+    }
+
+
+    List<String> provinceList = new ArrayList<>();
+    List<List<String>> cityList = new ArrayList<>();
+
+    private void parserCity() {
+        binding.titleView.post(new Runnable() {
+            @Override
+            public void run() {
+                CountryBean countryBean = new Gson().fromJson(getResources().getString(R.string.city_json), CountryBean.class);
+                for (CountryBean.Province province : countryBean.getProvince()) {
+                    provinceList.add(province.getName());
+                    List<String> cityBeans = new ArrayList<>();
+                    for (CountryBean.Province.City c : province.getCity()) {
+                        cityBeans.add(c.getName());
+                    }
+                    cityList.add(cityBeans);
+                }
+            }
+        });
     }
 
     private void updatePersonal(int type, String param) {

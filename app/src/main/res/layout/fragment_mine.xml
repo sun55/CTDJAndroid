@@ -5,6 +5,7 @@
     android:layout_height="match_parent">
 
     <ImageView
+        android:layout_marginTop="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -15,7 +16,7 @@
         android:layout_width="14dp"
         android:layout_height="14dp"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="34dp"
+        android:layout_marginTop="54dp"
         android:layout_marginEnd="20dp"
         android:background="@drawable/mine_icon_01" />
 
@@ -25,7 +26,7 @@
         android:layout_height="84dp"
         android:layout_below="@id/iv_edit"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="7dp"
+        android:layout_marginTop="27dp"
         android:src="@mipmap/ic_launcher"
         app:borderColor="#FACD89"
         app:borderWidth="1dp"

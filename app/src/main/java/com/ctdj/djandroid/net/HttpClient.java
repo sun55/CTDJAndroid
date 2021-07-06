@@ -109,4 +109,17 @@ public class HttpClient {
         maps.put("param", param);
         HttpCaller.doPost(context, API.UPDATE_PERSONAL, maps, callback);
     }
+
+    /**
+     * 意见反馈
+     * @param context
+     * @param callback
+     */
+    public static void opinion(Context context, String opinion, String img, HttpCallback callback) {
+        HashMap<String, Object> maps = new HashMap<>();
+        maps.put("token", MyApplication.getInstance().getToken());
+        maps.put("opinion", opinion);
+        maps.put("img", img);
+        HttpCaller.doPost(context, API.OPINION, maps, callback);
+    }
 }

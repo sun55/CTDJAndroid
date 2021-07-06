@@ -322,7 +322,7 @@ public class Utils {
     public static String constellation(Date date) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
-        int month = calendar.get(Calendar.MONTH);
+        int month = calendar.get(Calendar.MONTH) + 1;
         int day = calendar.get(Calendar.DAY_OF_MONTH);
         String constellation = "";
         if (month == 1 && day >= 20 || month == 2 && day <= 18) {
@@ -373,7 +373,7 @@ public class Utils {
         Date date = getDateByString(birthday, "");
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
-        int month = calendar.get(Calendar.MONTH);
+        int month = calendar.get(Calendar.MONTH) + 1;
         int day = calendar.get(Calendar.DAY_OF_MONTH);
         String constellation = "";
         if (month == 1 && day >= 20 || month == 2 && day <= 18) {

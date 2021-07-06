@@ -108,47 +108,30 @@ public class RegisterActivity extends BaseActivity {
     }
 
     private void register() {
-        HttpClient.isExistName(this, nickname, new HttpCallback() {
-            @Override
-            public void onSuccess(String result) {
-                HttpClient.registerLogin(RegisterActivity.this,
-                        mobile,
-                        nickname,
-                        sex,
-                        Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID),
-                        birthday,
-                        avatarUrl,
-                        iCode,
-                        new HttpCallback() {
-                            @Override
-                            public void onSuccess(String result) {
-                                RegisterBean bean = new Gson().fromJson(result, RegisterBean.class);
-                                MyApplication.getInstance().saveUserInfo(bean.data);
-                                Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                startActivity(intent);
-                                finish();
-                            }
+        HttpClient.registerLogin(RegisterActivity.this,
+                mobile,
+                nickname,
+                sex,
+                Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID),
+                birthday,
+                avatarUrl,
+                iCode,
+                new HttpCallback() {
+                    @Override
+                    public void onSuccess(String result) {
+                        RegisterBean bean = new Gson().fromJson(result, RegisterBean.class);
+                        MyApplication.getInstance().saveUserInfo(bean.data);
+                        Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+                        finish();
+                    }
 
-                            @Override
-                            public void onFailure(String msg) {
-                                Utils.showToast(RegisterActivity.this, msg);
-                            }
-                        });
-
-            }
-
-            @Override
-            public void onFailure(String msg) {
-
-            }
-
-            @Override
-            public void onFailure(int code, String msg, String result) {
-                super.onFailure(code, msg, result);
-                Utils.showToast(RegisterActivity.this, msg);
-            }
-        });
+                    @Override
+                    public void onFailure(String msg) {
+                        Utils.showToast(RegisterActivity.this, msg);
+                    }
+                });
     }
 
     public void selectMale(View view) {

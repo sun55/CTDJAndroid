@@ -14,7 +14,9 @@ import androidx.fragment.app.Fragment;
 import com.bumptech.glide.Glide;
 import com.ctdj.djandroid.MyApplication;
 import com.ctdj.djandroid.R;
+import com.ctdj.djandroid.activity.AboutActivity;
 import com.ctdj.djandroid.activity.EditActivity;
+import com.ctdj.djandroid.activity.FeedBackActivity;
 import com.ctdj.djandroid.common.Utils;
 import com.ctdj.djandroid.databinding.FragmentMessageBinding;
 import com.ctdj.djandroid.databinding.FragmentMineBinding;
@@ -41,6 +43,20 @@ public class MineFragment extends Fragment {
                 } else {
                     startActivity(new Intent(getActivity(), EditActivity.class));
                 }
+            }
+        });
+
+        binding.tvAbout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), AboutActivity.class));
+            }
+        });
+
+        binding.tvFeedback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), FeedBackActivity.class));
             }
         });
     }

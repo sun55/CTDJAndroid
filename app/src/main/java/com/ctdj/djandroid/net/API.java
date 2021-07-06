@@ -13,4 +13,5 @@ public class API {
     public static final String CHECK_MOBILE = "/api/login/checkMobile";
     public static final String IS_EXIST_NAME = "/api/login/isExistName";
     public static final String UPDATE_PERSONAL = "/api/mydata/updatepersonal";
+    public static final String OPINION = "/api/opinion"; // 意见反馈
 }

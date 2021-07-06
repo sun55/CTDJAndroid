@@ -27,9 +27,19 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup">
-        <activity android:name=".activity.EditNameActivity"></activity>
-        <activity android:name=".activity.EditActivity" />
-        <activity android:name=".activity.SmsCodeActivity" />
+        <activity android:name=".activity.FeedBackActivity"></activity>
+        <activity
+            android:name=".activity.AboutActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.EditNameActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.EditActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.SmsCodeActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.PhoneNumActivity"
             android:screenOrientation="portrait" />

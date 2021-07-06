@@ -1,8 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#161824"
+    android:orientation="vertical"
     tools:context=".activity.EditNameActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <com.ctdj.djandroid.view.TitleView
+        android:id="@+id/title_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:rightText="保存"
+        app:rightTextColor="#80E8E8E9"
+        app:rightTextSize="13sp"
+        app:titleText="修改昵称" />
+
+    <com.ctdj.djandroid.view.EditTextWithClear
+        android:id="@+id/et_nickname"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/edit_bg"
+        android:gravity="center_vertical"
+        android:hint="4~20个字符，不支持空格"
+        android:lines="1"
+        android:maxLength="24"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:textColor="#E8E8E9"
+        android:textColorHint="#80E8E8E9"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_success"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginBottom="15dp"
+        android:drawableStart="@drawable/success_icon"
+        android:drawablePadding="6dp"
+        android:text="恭喜您该昵称可使用"
+        android:textColor="#2BF3A5"
+        android:textSize="14sp"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tv_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginBottom="15dp"
+        android:drawableStart="@drawable/error_icon"
+        android:drawablePadding="6dp"
+        android:text="该昵称已被占用或不可用，请修改后重试"
+        android:textColor="#FE2A54"
+        android:textSize="14sp"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tv_tips"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:drawableEnd="@drawable/gold_icon"
+        android:drawablePadding="2.5dp"
+        android:text="本次修改免费，随后每次修改将消耗100"
+        android:textColor="#e8e8e9"
+        android:textSize="14sp" />
+</androidx.appcompat.widget.LinearLayoutCompat>
