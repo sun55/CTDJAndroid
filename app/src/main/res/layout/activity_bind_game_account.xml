@@ -55,9 +55,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="15dp"
                 android:gravity="center"
-                android:text="游戏昵称"
+                android:text="微信游戏昵称"
                 android:textColor="#ffebebed"
                 android:textSize="13sp" />
 
@@ -85,9 +85,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="15dp"
                 android:gravity="center"
-                android:text="游戏昵称"
+                android:text="企鹅游戏昵称"
                 android:textColor="#ffebebed"
                 android:textSize="13sp" />
 
