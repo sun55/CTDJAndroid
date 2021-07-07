@@ -1,8 +1,12 @@
 package com.ctdj.djandroid.activity;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.InputFilter;
 import android.text.Spanned;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 
 import androidx.appcompat.widget.LinearLayoutCompat;
@@ -19,7 +23,7 @@ import com.google.gson.Gson;
 
 public class EditNameActivity extends BaseActivity {
     ActivityEditNameBinding binding;
-
+    String preNickname;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +42,29 @@ public class EditNameActivity extends BaseActivity {
                 updateNickname();
             }
         });
+        preNickname = getIntent().getStringExtra("nickname");
+        binding.etNickname.setText(preNickname);
         binding.etNickname.setFilters(new InputFilter[]{new SpaceFilter()});
+        binding.etNickname.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s.toString().equals(preNickname) || s.length() < 4) {
+                    binding.titleView.setRightTextColor(Color.parseColor("#80E8E8E9"));
+                } else {
+                    binding.titleView.setRightTextColor(Color.parseColor("#E8E8E9"));
+                }
+            }
+        });
     }
 
     private void updateNickname() {

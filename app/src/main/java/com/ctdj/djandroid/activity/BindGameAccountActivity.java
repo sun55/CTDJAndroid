@@ -1,6 +1,7 @@
 package com.ctdj.djandroid.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -75,8 +76,10 @@ public class BindGameAccountActivity extends BaseActivity {
                 BindGameInfoBean bindGameInfoBean = new Gson().fromJson(result, BindGameInfoBean.class);
                 wxName = bindGameInfoBean.getData().get(0).getWxName();
                 qqName = bindGameInfoBean.getData().get(0).getQqName();
-                binding.tvWxNickname.setText(TextUtils.isEmpty(wxName) ? "关联微信区服账号" : wxName);
-                binding.tvQqNickname.setText(TextUtils.isEmpty(qqName) ? "关联企鹅区服账号" : qqName);
+                binding.tvWxNickname.setText(TextUtils.isEmpty(wxName) ? "去关联微信区服账号" : wxName);
+                binding.tvQqNickname.setText(TextUtils.isEmpty(qqName) ? "去关联企鹅区服账号" : qqName);
+                binding.tvWxNickname.setTextColor(Color.parseColor(TextUtils.isEmpty(wxName) ? "#fea13f" : "#ebebed"));
+                binding.tvQqNickname.setTextColor(Color.parseColor(TextUtils.isEmpty(qqName) ? "#fea13f" : "#ebebed"));
             }
 
             @Override

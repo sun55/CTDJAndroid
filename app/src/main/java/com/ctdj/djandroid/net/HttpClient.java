@@ -193,6 +193,20 @@ public class HttpClient {
         HttpCaller.doPost(context, API.DEL_BLACK, maps, callback);
     }
 
+    /**
+     * 实名认证
+     * @param context
+     * @param cmid
+     * @param cmzname
+     * @param callback
+     */
+    public static void realNameAuth(Context context, String cmid, String cmzname, HttpCallback callback) {
+        HashMap<String, Object> maps = new HashMap<>();
+        maps.put("token", MyApplication.getInstance().getToken());
+        maps.put("cmid", cmid);
+        maps.put("cmzname", cmzname);
+        HttpCaller.doPost(context, API.ID_CODE_VAILD, maps, callback);
+    }
 
     /**
      * 意见反馈

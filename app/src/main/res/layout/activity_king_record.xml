@@ -31,6 +31,80 @@
             android:layout_marginTop="20dp"
             android:background="@drawable/hero_jialuo_image" />
 
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/ll_1"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="15dp"
+            android:layout_marginTop="50dp"
+            android:layout_width="219dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="获胜率"
+                android:textColor="#ffa2a2a7"
+                android:textSize="13sp" />
+
+            <TextView
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="参赛数"
+                android:textColor="#ffa2a2a7"
+                android:textSize="13sp" />
+
+            <TextView
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="奖金数"
+                android:textColor="#ffa2a2a7"
+                android:textSize="13sp" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_below="@id/ll_1"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="15dp"
+            android:layout_marginTop="8dp"
+            android:layout_width="219dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:textStyle="bold"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="87.5%"
+                android:textColor="#EBEBED"
+                android:textSize="13sp" />
+
+            <TextView
+                android:textStyle="bold"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="103"
+                android:textColor="#EBEBED"
+                android:textSize="13sp" />
+            <TextView
+                android:textStyle="bold"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="54.80"
+                android:textColor="#EBEBED"
+                android:textSize="13sp" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
         <RelativeLayout
             android:id="@+id/rl_1"
             android:layout_width="match_parent"
@@ -58,8 +132,8 @@
                 android:drawableStart="@drawable/wx_white_icon"
                 android:drawablePadding="3dp"
                 android:gravity="center"
-                android:text="天生爱淘气啦"
-                android:textColor="#ffebebed"
+                android:text="去关联微信区服账号"
+                android:textColor="#fea13f"
                 android:textSize="13sp" />
         </RelativeLayout>
 
@@ -88,8 +162,8 @@
                 android:layout_height="match_parent"
                 android:layout_alignParentEnd="true"
                 android:gravity="center"
-                android:text="关联企鹅区服账号"
-                android:textColor="#ffebebed"
+                android:text="去关联企鹅区服账号"
+                android:textColor="#fea13f"
                 android:textSize="13sp" />
         </RelativeLayout>
     </RelativeLayout>

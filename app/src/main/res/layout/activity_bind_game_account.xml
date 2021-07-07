@@ -69,8 +69,8 @@
                 android:drawableStart="@drawable/wx_white_icon"
                 android:drawablePadding="3dp"
                 android:gravity="center"
-                android:text="天生爱淘气啦"
-                android:textColor="#ffebebed"
+                android:text="去关联微信区服账号"
+                android:textColor="#fea13f"
                 android:textSize="13sp" />
         </RelativeLayout>
 
@@ -99,8 +99,8 @@
                 android:drawableStart="@drawable/qq_white_icon"
                 android:drawablePadding="3dp"
                 android:gravity="center"
-                android:text="关联企鹅区服账号"
-                android:textColor="#ffebebed"
+                android:text="去关联企鹅区服账号"
+                android:textColor="#fea13f"
                 android:textSize="13sp" />
         </RelativeLayout>
     </RelativeLayout>

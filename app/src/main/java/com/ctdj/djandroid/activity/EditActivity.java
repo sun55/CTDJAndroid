@@ -79,7 +79,13 @@ public class EditActivity extends BaseActivity {
         binding.itemNickname.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(EditActivity.this, EditNameActivity.class));
+                Intent intent = new Intent(EditActivity.this, EditNameActivity.class);
+                if (bean == null || TextUtils.isEmpty(bean.mname)) {
+                    intent.putExtra("nickname", "");
+                } else {
+                    intent.putExtra("nickname", bean.mname);
+                }
+                startActivity(intent);
             }
         });
 
@@ -96,6 +102,11 @@ public class EditActivity extends BaseActivity {
             }
         });
         parserCity();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         fillView();
     }
 

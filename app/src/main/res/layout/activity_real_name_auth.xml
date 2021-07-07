@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#161824"
+    android:orientation="vertical"
+    tools:context=".activity.RealNameAuthActivity">
+
+    <com.ctdj.djandroid.view.TitleView
+        android:id="@+id/title_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titleText="实名认证" />
+
+    <ImageView
+        android:layout_width="140dp"
+        android:layout_height="99dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="59dp"
+        android:background="@drawable/auth_success" />
+
+    <TextView
+        android:id="@+id/tv_auth_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:text="实名认证信息未通过"
+        android:textColor="#e8e8e9"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/ll_1"
+        android:layout_width="match_parent"
+        android:layout_height="123dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="15dp"
+        android:background="@drawable/radius_10_22252f"
+        android:orientation="vertical"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <EditText
+            android:id="@+id/et_real_name"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:hint="请输入真实姓名"
+            android:lines="1"
+            android:textColor="#ffe8e8e9"
+            android:textColorHint="#80e8e8e9"
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="#34353F" />
+
+        <EditText
+            android:id="@+id/et_id_card"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:hint="请输入身份证号码"
+            android:lines="1"
+            android:maxLength="18"
+            android:textColor="#ffe8e8e9"
+            android:textColorHint="#80e8e8e9"
+            android:textSize="16sp" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <TextView
+        android:id="@+id/tv_tips"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="28dp"
+        android:text="你提供的证件信息将会受到严格的保护，仅用于身份验证，提现打款，与账号唯一绑定，请务必填写本人真实信息，认证后暂不支持修改"
+        android:textColor="#80e8e8e9"
+        android:textSize="12sp" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/ll_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="15dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <TextView
+            android:id="@+id/tv_real_name_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="真实姓名：郑**"
+            android:textColor="#ffe8e8e9"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_id_card_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="身份证号：3***** **** **** ***0"
+            android:textColor="#ffe8e8e9"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="实名信息认证后暂不支持修改"
+            android:textColor="#80e8e8e9"
+            android:textSize="14sp" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <Button
+        android:id="@+id/btn_auth"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="30dp"
+        android:alpha="0.5"
+        android:background="@drawable/btn_enable_bg"
+        android:text="重新认证"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>

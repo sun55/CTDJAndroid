@@ -4,10 +4,7 @@ import com.ctdj.djandroid.net.UserInfoBean;
 
 import java.io.Serializable;
 
-public class RegisterBean implements Serializable {
+public class RegisterBean extends BaseBean {
 
-
-    public String msg;
-    public String code;
     public UserInfoBean data;
 }

@@ -130,7 +130,6 @@ public class MyApplication extends MultiDexApplication {
         setProperty("user.mname", user.mname);
         setProperty("user.mid", user.mid);
         setProperty("user.sex", String.valueOf(user.sex));
-        setProperty("user.age", String.valueOf(user.age));
         setProperty("user.mobile", user.mobile);
         setProperty("user.sta", String.valueOf(user.sta));
         setProperty("user.cmid", user.cmid);
@@ -142,11 +141,16 @@ public class MyApplication extends MultiDexApplication {
         setProperty("user.ip", user.ip);
         setProperty("user.devicecode", user.devicecode);
         setProperty("user.onlinesta", String.valueOf(user.onlinesta));
-        setProperty("user.gold", user.gold);
-        setProperty("user.star", user.star);
-        setProperty("user.challengeVolume", user.challengeVolume);
+        setProperty("user.gold", String.valueOf(user.gold));
+        setProperty("user.star", String.valueOf(user.star));
+        setProperty("user.challengeVolume", String.valueOf(user.challengeVolume));
         setProperty("user.isNote", String.valueOf(user.isNote));
         setProperty("user.birthday", user.birthday);
+        setProperty("user.isreal", String.valueOf(user.isreal));
+        setProperty("user.bonus", String.valueOf(user.bonus));
+        setProperty("user.isFirst", String.valueOf(user.isFirst));
+        setProperty("user.hideRecord", String.valueOf(user.hideRecord));
+        setProperty("user.isShow", String.valueOf(user.isShow));
     }
 
     public UserInfoBean getUserInfo() {
@@ -155,7 +159,6 @@ public class MyApplication extends MultiDexApplication {
         bean.mname = getProperty("user.mname");
         bean.mid = getProperty("user.mid");
         bean.sex = Integer.parseInt(getProperty("user.sex"));
-        bean.age = Integer.parseInt(getProperty("user.age"));
         bean.mobile = getProperty("user.mobile");
         bean.sta = Integer.parseInt(getProperty("user.sta"));
         bean.cmid = getProperty("user.cmid");
@@ -167,11 +170,16 @@ public class MyApplication extends MultiDexApplication {
         bean.ip = getProperty("user.ip");
         bean.devicecode = getProperty("user.devicecode");
         bean.onlinesta = Integer.parseInt(getProperty("user.onlinesta"));
-        bean.gold = getProperty("user.gold");
-        bean.star = getProperty("user.star");
-        bean.challengeVolume = getProperty("user.challengeVolume");
+        bean.gold = Integer.parseInt(getProperty("user.gold"));
+        bean.star = Integer.parseInt(getProperty("user.star"));
+        bean.challengeVolume = Integer.parseInt(getProperty("user.challengeVolume"));
         bean.isNote = Integer.parseInt(getProperty("user.isNote"));
         bean.birthday = getProperty("user.birthday");
+        bean.isreal = Integer.parseInt(getProperty("user.isreal"));
+        bean.bonus = Integer.parseInt(getProperty("user.bonus"));
+        bean.isFirst = Integer.parseInt(getProperty("user.isFirst"));
+        bean.hideRecord = Integer.parseInt(getProperty("user.hideRecord"));
+        bean.isShow = Integer.parseInt(getProperty("user.isShow"));
         return bean;
     }
 
@@ -192,7 +200,6 @@ public class MyApplication extends MultiDexApplication {
                 "user.mname",
                 "user.mid",
                 "user.sex",
-                "user.age",
                 "user.mobile",
                 "user.sta",
                 "user.cmid",
@@ -208,7 +215,12 @@ public class MyApplication extends MultiDexApplication {
                 "user.star",
                 "user.challengeVolume",
                 "user.isNote",
-                "user.birthday"
+                "user.birthday",
+                "user.isreal",
+                "user.bonus",
+                "user.isFirst",
+                "user.hideRecord",
+                "user.isShow"
         );
     }
 

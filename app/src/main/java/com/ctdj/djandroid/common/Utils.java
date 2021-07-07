@@ -3,6 +3,7 @@ package com.ctdj.djandroid.common;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.ProgressDialog;
+import android.content.ClipboardManager;
 import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -441,6 +442,7 @@ public class Utils {
         }
         return age;
     }
+
     public static int getAge(String birthDay) {
         Date date = getDateByString(birthDay, "");
         Calendar cal = Calendar.getInstance();
@@ -576,5 +578,16 @@ public class Utils {
         if (wlMusic != null && wlMusic.isPlaying()) {
             wlMusic.stop();
         }
+    }
+
+    /**
+     * 实现文本复制功能
+     *
+     * @param content
+     */
+    public static void copy(Context context, String content) {
+        ClipboardManager cmb = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+        cmb.setText(content.trim());
+        Utils.showToast(context, "复制成功");
     }
 }

@@ -71,7 +71,7 @@
             android:drawablePadding="3.5dp"
             android:gravity="center_horizontal"
             android:onClick="onPlayTabClicked"
-            android:text="竞技"
+            android:text="超团"
             android:textColor="#EBEBED"
             android:textSize="11sp" />
 

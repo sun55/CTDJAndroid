@@ -40,6 +40,21 @@ public class SettingActivity extends BaseActivity {
 
             }
         });
+
+        binding.itemPrivacySetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(SettingActivity.this, PrivacySettingActivity.class));
+            }
+        });
+
+        binding.itemRealName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(SettingActivity.this, RealNameAuthActivity.class));
+            }
+        });
+
         binding.itemCleanCache.setRightText(getTotalCacheSize(this));
         binding.itemCleanCache.setOnClickListener(new View.OnClickListener() {
             @Override
