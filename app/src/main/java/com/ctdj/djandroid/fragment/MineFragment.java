@@ -15,8 +15,10 @@ import com.bumptech.glide.Glide;
 import com.ctdj.djandroid.MyApplication;
 import com.ctdj.djandroid.R;
 import com.ctdj.djandroid.activity.AboutActivity;
+import com.ctdj.djandroid.activity.BindGameAccountActivity;
 import com.ctdj.djandroid.activity.EditActivity;
 import com.ctdj.djandroid.activity.FeedBackActivity;
+import com.ctdj.djandroid.activity.KingRecordActivity;
 import com.ctdj.djandroid.activity.SettingActivity;
 import com.ctdj.djandroid.common.Utils;
 import com.ctdj.djandroid.databinding.FragmentMessageBinding;
@@ -44,6 +46,20 @@ public class MineFragment extends Fragment {
                 } else {
                     startActivity(new Intent(getActivity(), EditActivity.class));
                 }
+            }
+        });
+
+        binding.tvKingRecord.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), KingRecordActivity.class));
+            }
+        });
+
+        binding.tvBindGame.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), BindGameAccountActivity.class));
             }
         });
 

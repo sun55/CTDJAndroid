@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#161824"
+    android:orientation="vertical"
+    tools:context=".activity.PrivacySettingActivity">
+
+    <com.ctdj.djandroid.view.TitleView
+        android:id="@+id/title_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titleText="隐私权限设置" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="61dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="25dp"
+            android:gravity="center_vertical"
+            android:text="显示战绩"
+            android:textColor="#E8E8E9"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/iv_toggle"
+            android:layout_width="50dp"
+            android:layout_height="31dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/toggle_close" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="15dp"
+            android:background="#34353F" />
+    </RelativeLayout>
+
+    <com.ctdj.djandroid.view.CommonItemView
+        android:id="@+id/item_black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:itemTitleText="黑名单" />
+</androidx.appcompat.widget.LinearLayoutCompat>

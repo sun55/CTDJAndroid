@@ -27,7 +27,12 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup">
-        <activity android:name=".activity.SettingActivity"></activity>
+        <activity android:name=".activity.PrivacySettingActivity"></activity>
+        <activity android:name=".activity.BindGameNicknameActivity" />
+        <activity android:name=".activity.AboutBindGameActivity" />
+        <activity android:name=".activity.BindGameAccountActivity" />
+        <activity android:name=".activity.KingRecordActivity" />
+        <activity android:name=".activity.SettingActivity" />
         <activity android:name=".activity.FeedBackActivity" />
         <activity
             android:name=".activity.AboutActivity"

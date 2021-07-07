@@ -1,6 +1,7 @@
 package com.ctdj.djandroid.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.LayoutInflater;
@@ -20,6 +21,7 @@ import java.math.BigDecimal;
 public class SettingActivity extends BaseActivity {
 
     ActivitySettingBinding binding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,8 +44,19 @@ public class SettingActivity extends BaseActivity {
         binding.itemCleanCache.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                PictureFileUtils.deleteAllCacheDirFile(SettingActivity.this);
                 clearAllCache(SettingActivity.this);
+            }
+        });
+        binding.itemPrivacySetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(SettingActivity.this, PrivacySettingActivity.class));
+            }
+        });
+        binding.btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Utils.logout(SettingActivity.this);
             }
         });
     }

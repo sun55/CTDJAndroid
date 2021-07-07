@@ -13,5 +13,10 @@ public class API {
     public static final String CHECK_MOBILE = "/api/login/checkMobile";
     public static final String IS_EXIST_NAME = "/api/login/isExistName";
     public static final String UPDATE_PERSONAL = "/api/mydata/updatepersonal";
-    public static final String OPINION = "/api/opinion"; // 意见反馈
+    public static final String OPINION = "/api/opinion/add"; // 意见反馈
+    public static final String GET_BIND_GAME_INFO = "/api/mydata/getBindGameInfo"; // 获取关联游戏账号
+    public static final String BIND_GAME = "/api/mydata/bindGame"; // 绑定游戏昵称
+    public static final String QUERY_BLACK_LIST = "/api/black/queryblacklist"; // 查询黑名单列表
+    public static final String ADD_BLACK = "/api/black/add"; // 添加黑名单
+    public static final String DEL_BLACK = "/api/black/del"; // 移除黑名单
 }

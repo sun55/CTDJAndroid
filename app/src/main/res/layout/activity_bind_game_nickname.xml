@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#161824"
+    tools:context=".activity.BindGameNicknameActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/title_view"
+        android:layout_marginStart="6.5dp"
+        android:layout_marginEnd="6.5dp"
+        android:background="@drawable/bind_game_nickname_04">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="149dp"
+            android:background="@drawable/bind_game_nickname_03" />
+
+        <ImageView
+            android:id="@+id/iv_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="114dp"
+            android:background="@drawable/bind_game_nickname_02" />
+
+        <ImageView
+            android:id="@+id/iv_about_bind"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="93dp"
+            android:layout_toEndOf="@id/iv_1"
+            android:background="@drawable/bind_game_nickname_01" />
+    </RelativeLayout>
+
+    <com.ctdj.djandroid.view.TitleView
+        android:id="@+id/title_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title_view"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="238dp"
+        android:layout_marginEnd="30dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="请选择区服（该游戏赛事区分微信区/企鹅区账号）"
+            android:textColor="#a2a2a7"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_game_area"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/radius_10_22252f"
+            android:gravity="center_vertical"
+            android:paddingStart="15dp"
+            android:text="微信区服"
+            android:textColor="#ffebebed"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="请输入您的游戏昵称"
+            android:textColor="#ffa2a2a7"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/et_game_nickname"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/radius_10_22252f"
+            android:gravity="center_vertical"
+            android:hint="昵称将在完成关联后自动同步"
+            android:lines="1"
+            android:paddingStart="15dp"
+            android:textColor="#ffebebed"
+            android:textColorHint="#A7A7A7"
+            android:textSize="15sp" />
+
+        <LinearLayout
+            android:id="@+id/ll_tips"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_marginTop="2dp"
+                android:layout_width="11dp"
+                android:layout_height="11dp"
+                android:layout_marginEnd="6.5dp"
+                android:background="@drawable/error_icon" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="请保证你的游戏昵称真实有效性，否则导致比赛赛果有误平台不承担任何责任"
+                android:textColor="#fe2a54"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_bind"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/btn_enable_bg"
+            android:text="完成关联"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_contact_customer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="21dp"
+        android:text="联系客服"
+        android:textColor="#ffa2a2a7"
+        android:textSize="12sp" />
+</RelativeLayout>

@@ -33,6 +33,7 @@ public class HttpClient {
 
     /**
      * 一键登录
+     *
      * @param context
      * @param token
      * @param accessToken
@@ -47,6 +48,7 @@ public class HttpClient {
 
     /**
      * 注册登录
+     *
      * @param context
      * @param mobile
      * @param nickname
@@ -71,6 +73,7 @@ public class HttpClient {
 
     /**
      * 验证码登录
+     *
      * @param context
      * @param mobile
      * @param vcode
@@ -85,6 +88,7 @@ public class HttpClient {
 
     /**
      * 判断昵称是否存在
+     *
      * @param context
      * @param nickname
      * @param callback
@@ -97,6 +101,7 @@ public class HttpClient {
 
     /**
      * 修改用户信息
+     *
      * @param context
      * @param type
      * @param param
@@ -111,7 +116,87 @@ public class HttpClient {
     }
 
     /**
+     * 获取关联游戏信息
+     *
+     * @param context
+     * @param callback
+     */
+    public static void getBindGameInfo(Context context, HttpCallback callback) {
+        HashMap<String, Object> maps = new HashMap<>();
+        maps.put("token", MyApplication.getInstance().getToken());
+        HttpCaller.doPost(context, API.GET_BIND_GAME_INFO, maps, callback);
+    }
+
+    /**
+     * 绑定游戏昵称
+     *
+     * @param context
+     * @param wqName
+     * @param qqName
+     * @param callback
+     */
+    public static void bindGame(Context context, String wqName, String qqName, HttpCallback callback) {
+        HashMap<String, Object> maps = new HashMap<>();
+        maps.put("token", MyApplication.getInstance().getToken());
+        maps.put("wqName", wqName);
+        maps.put("qqName", qqName);
+        HttpCaller.doPost(context, API.BIND_GAME, maps, callback);
+    }
+
+    /**
+     * 查询黑名单列表
+     *
+     * @param context
+     * @param page
+     * @param size
+     * @param callback
+     */
+    public static void queryBlackList(Context context, int page, int size, HttpCallback callback) {
+        HashMap<String, Object> maps = new HashMap<>();
+        maps.put("token", MyApplication.getInstance().getToken());
+        maps.put("page", page);
+        maps.put("size", size);
+        HttpCaller.doPost(context, API.QUERY_BLACK_LIST, maps, callback);
+    }
+
+    /**
+     * 添加黑名单
+     *
+     * @param context
+     * @param mid
+     * @param blackmid
+     * @param callback
+     */
+    public static void addBlack(Context context, String mid, String blackmid, HttpCallback callback) {
+        HashMap<String, Object> maps = new HashMap<>();
+        maps.put("token", MyApplication.getInstance().getToken());
+        maps.put("mid", mid);
+        maps.put("blackmid", blackmid);
+        HttpCaller.doPost(context, API.ADD_BLACK, maps, callback);
+    }
+
+    /**
+     * 移除黑名单
+     *
+     * @param context
+     * @param blackid
+     * @param mid
+     * @param blackmid
+     * @param callback
+     */
+    public static void delBlack(Context context, String blackid, String mid, String blackmid, HttpCallback callback) {
+        HashMap<String, Object> maps = new HashMap<>();
+        maps.put("token", MyApplication.getInstance().getToken());
+        maps.put("blackid", blackid);
+        maps.put("mid", mid);
+        maps.put("blackmid", blackmid);
+        HttpCaller.doPost(context, API.DEL_BLACK, maps, callback);
+    }
+
+
+    /**
      * 意见反馈
+     *
      * @param context
      * @param callback
      */

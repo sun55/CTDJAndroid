@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#161824"
+    android:orientation="vertical"
+    tools:context=".activity.BindGameAccountActivity">
+
+    <com.ctdj.djandroid.view.TitleView
+        android:id="@+id/title_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titleText="关联游戏账号" />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="176dp"
+        android:layout_margin="15dp"
+        android:background="@drawable/radius_10_22252f">
+
+        <ImageView
+            android:id="@+id/iv_game_icon"
+            android:layout_width="33dp"
+            android:layout_height="33dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/game_king_icon" />
+
+        <TextView
+            android:id="@+id/tv_game_type"
+            android:layout_width="wrap_content"
+            android:layout_height="33dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="15dp"
+            android:layout_toEndOf="@id/iv_game_icon"
+            android:gravity="center_vertical"
+            android:text="王者荣耀"
+            android:textColor="#ffebebed"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <RelativeLayout
+            android:id="@+id/rl_1"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="69dp"
+            android:background="@drawable/gradient_color_1c1e25_22252f">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:gravity="center"
+                android:text="游戏昵称"
+                android:textColor="#ffebebed"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/tv_wx_nickname"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:drawableStart="@drawable/wx_white_icon"
+                android:drawablePadding="3dp"
+                android:gravity="center"
+                android:text="天生爱淘气啦"
+                android:textColor="#ffebebed"
+                android:textSize="13sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_2"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="15dp"
+            android:background="@drawable/gradient_color_1c1e25_22252f">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:gravity="center"
+                android:text="游戏昵称"
+                android:textColor="#ffebebed"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/tv_qq_nickname"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:drawableStart="@drawable/qq_white_icon"
+                android:drawablePadding="3dp"
+                android:gravity="center"
+                android:text="关联企鹅区服账号"
+                android:textColor="#ffebebed"
+                android:textSize="13sp" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+</androidx.appcompat.widget.LinearLayoutCompat>
