@@ -20,4 +20,5 @@ public class API {
     public static final String ADD_BLACK = "/api/black/add"; // 添加黑名单
     public static final String DEL_BLACK = "/api/black/del"; // 移除黑名单
     public static final String ID_CODE_VAILD = "/api/mydata/IdCodeVaild"; // 实名认证
+    public static final String CHECK_V_CODE = "/api/login/checkVcode"; // 校验验证码
 }

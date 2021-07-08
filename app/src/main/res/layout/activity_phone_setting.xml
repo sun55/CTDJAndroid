@@ -83,7 +83,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="官方赛事，比赛开始前您将会受到短信提醒"
+                android:text="官方赛事，比赛开始前您将会收到短信提醒"
                 android:textColor="#80e8e8e9"
                 android:textSize="13sp" />
         </LinearLayout>

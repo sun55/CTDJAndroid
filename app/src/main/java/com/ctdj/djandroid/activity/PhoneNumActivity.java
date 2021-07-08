@@ -18,6 +18,7 @@ import com.ctdj.djandroid.view.TitleView;
 public class PhoneNumActivity extends BaseActivity {
 
     ActivityPhoneNumBinding binding;
+    int from = 1; // 1 登录页面 2 输入验证码页面
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +26,9 @@ public class PhoneNumActivity extends BaseActivity {
         binding = ActivityPhoneNumBinding.inflate(LayoutInflater.from(this));
         setContentView(binding.getRoot());
         RelativeLayout.LayoutParams l = (RelativeLayout.LayoutParams) binding.titleView.getLayoutParams();
+        from = getIntent().getIntExtra("from", 1);
+        binding.titleView.setTitle(from == 1 ? "" : "更换手机号");
+        binding.tvPhoneNum.setText(from == 1 ? "输入手机号" : "请输入新的手机号");
         l.topMargin = DisplayUtil.getStatusBarHeight(this);
         binding.titleView.setOnBtnListener(new TitleView.OnBtnListener() {
             @Override
@@ -97,7 +101,11 @@ public class PhoneNumActivity extends BaseActivity {
             public void onSuccess(String result) {
                 Intent intent = new Intent(PhoneNumActivity.this, SmsCodeActivity.class);
                 intent.putExtra("phone_num", binding.etPhoneNum.getText().toString().trim());
+                intent.putExtra("from", from == 1 ? 1 : 3);
                 startActivity(intent);
+                if (from == 3) {
+                    finish();
+                }
             }
 
             @Override

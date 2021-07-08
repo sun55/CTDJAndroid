@@ -72,7 +72,7 @@ public class EditNameActivity extends BaseActivity {
         if (nickname.length() < 4) {
             Utils.showToast(this, "请输入4-20位昵称");
         } else {
-            HttpClient.updatePersonal(this, 2, nickname, new HttpCallback() {
+            HttpClient.updatePersonal(this, 2, nickname, "", new HttpCallback() {
                 @Override
                 public void onSuccess(String result) {
                     UpdatePersonalBean bean = new Gson().fromJson(result, UpdatePersonalBean.class);

@@ -329,7 +329,7 @@ public class EditActivity extends BaseActivity {
     }
 
     private void updatePersonal(int type, String param) {
-        HttpClient.updatePersonal(this, type, param, new HttpCallback() {
+        HttpClient.updatePersonal(this, type, param, "", new HttpCallback() {
             @Override
             public void onSuccess(String result) {
                 UpdatePersonalBean bean = new Gson().fromJson(result, UpdatePersonalBean.class);

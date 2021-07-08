@@ -25,6 +25,7 @@ public class SmsCodeActivity extends BaseActivity {
 
     ActivitySmsCodeBinding binding;
     String mobile;
+    int from = 1; // 1 手机号登录 2 手机号设置 3 更换手机号
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +47,12 @@ public class SmsCodeActivity extends BaseActivity {
         });
 
         mobile = getIntent().getStringExtra("phone_num");
+        from = getIntent().getIntExtra("from", 1);
+        if (from == 2 || from == 3) {
+            binding.titleView.setTitle("安全验证");
+        } else {
+            binding.titleView.setTitle("");
+        }
         binding.tvPhoneNum.setText(Html.fromHtml("已发送验证码至 <font color=#5252FE>" + mobile + "</font>"));
         binding.titleView.postDelayed(new Runnable() {
             @Override
@@ -75,29 +82,50 @@ public class SmsCodeActivity extends BaseActivity {
     }
 
     private void checkMobile(String smsCode) {
-        HttpClient.checkMobile(this, mobile.replaceAll(" ", ""), smsCode, new HttpCallback() {
-            @Override
-            public void onSuccess(String result) {
-                LoginBean bean = new Gson().fromJson(result, LoginBean.class);
-                if (bean.data.flag == 0) {
-                    Intent intent = new Intent(SmsCodeActivity.this, RegisterActivity.class);
-                    intent.putExtra("mobile", mobile.replaceAll(" ", ""));
-                    startActivity(intent);
-                } else {
-                    MyApplication.getInstance().saveUserInfo(bean.data.logindata);
-                    Intent intent = new Intent(SmsCodeActivity.this, MainActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);
+        if (from == 1) { // 手机号登录
+            HttpClient.checkMobile(this, mobile.replaceAll(" ", ""), smsCode, new HttpCallback() {
+                @Override
+                public void onSuccess(String result) {
+                    LoginBean bean = new Gson().fromJson(result, LoginBean.class);
+                    if (bean.data.flag == 0) {
+                        Intent intent = new Intent(SmsCodeActivity.this, RegisterActivity.class);
+                        intent.putExtra("mobile", mobile.replaceAll(" ", ""));
+                        startActivity(intent);
+                    } else {
+                        MyApplication.getInstance().saveUserInfo(bean.data.logindata);
+                        Intent intent = new Intent(SmsCodeActivity.this, MainActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+                    }
+
+                    finish();
                 }
 
-                finish();
-            }
+                @Override
+                public void onFailure(String msg) {
+                    Utils.showToast(SmsCodeActivity.this, msg);
+                }
+            });
+        } else {
+            HttpClient.checkVcode(SmsCodeActivity.this, mobile.replaceAll(" ", ""), smsCode, new HttpCallback() {
+                @Override
+                public void onSuccess(String result) {
+                    if (from == 2) {
+                        Intent intent = new Intent(SmsCodeActivity.this, PhoneNumActivity.class);
+                        intent.putExtra("from", 2);
+                        startActivity(intent);
+                    } else {
+                        Utils.showToast(SmsCodeActivity.this, "更换手机号成功");
+                    }
+                    finish();
+                }
 
-            @Override
-            public void onFailure(String msg) {
-                Utils.showToast(SmsCodeActivity.this, msg);
-            }
-        });
+                @Override
+                public void onFailure(String msg) {
+                    Utils.showToast(SmsCodeActivity.this, msg);
+                }
+            });
+        }
     }
 
     /**

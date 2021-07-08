@@ -41,6 +41,13 @@ public class SettingActivity extends BaseActivity {
             }
         });
 
+        binding.itemPhone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(SettingActivity.this, PhoneSettingActivity.class));
+            }
+        });
+
         binding.itemPrivacySetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

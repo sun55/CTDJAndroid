@@ -61,7 +61,9 @@ public class LoginActivity extends BaseActivity {
                     @Override
                     public void onGetTokenError(String YDToken, String msg) {
                         LogUtil.e("onGetTokenError YDToken:" + YDToken + ",msg:" + msg);
-                        startActivity(new Intent(LoginActivity.this, PhoneNumActivity.class));
+                        Intent intent = new Intent(LoginActivity.this, PhoneNumActivity.class);
+                        intent.putExtra("from", 1);
+                        startActivity(intent);
                     }
                 });
             }
@@ -70,7 +72,9 @@ public class LoginActivity extends BaseActivity {
             public void onGetMobileNumberError(String YDToken, String msg) {
                 Utils.hideLoadingDialog();
                 LogUtil.e("onGetMobileNumberError YDToken:" + YDToken + ",msg:" + msg);
-                startActivity(new Intent(LoginActivity.this, PhoneNumActivity.class));
+                Intent intent = new Intent(LoginActivity.this, PhoneNumActivity.class);
+                intent.putExtra("from", 1);
+                startActivity(intent);
             }
         });
     }

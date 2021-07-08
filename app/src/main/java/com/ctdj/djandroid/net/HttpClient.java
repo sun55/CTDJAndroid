@@ -103,15 +103,17 @@ public class HttpClient {
      * 修改用户信息
      *
      * @param context
-     * @param type
+     * @param type 1 修改头像 2 修改昵称 3 修改出生日期 4 地区（拼接，省-市） 5 手机号 6 是否赛事短信提醒（1是 0否） 7 是否隐藏战绩（1是0否）
      * @param param
+     * @param vcode 验证码（只用于修改手机号）
      * @param callback
      */
-    public static void updatePersonal(Context context, int type, String param, HttpCallback callback) {
+    public static void updatePersonal(Context context, int type, String param, String vcode, HttpCallback callback) {
         HashMap<String, Object> maps = new HashMap<>();
         maps.put("token", MyApplication.getInstance().getToken());
         maps.put("type", type);
         maps.put("param", param);
+        maps.put("vcode", vcode);
         HttpCaller.doPost(context, API.UPDATE_PERSONAL, maps, callback);
     }
 
@@ -220,5 +222,17 @@ public class HttpClient {
         maps.put("opinion", opinion);
         maps.put("img", img);
         HttpCaller.doPost(context, API.OPINION, maps, callback);
+    }
+
+    /**
+     * 校验验证码
+     * @param context
+     * @param callback
+     */
+    public static void checkVcode(Context context, String mobile, String vcode, HttpCallback callback) {
+        HashMap<String, Object> maps = new HashMap<>();
+        maps.put("mobile", mobile);
+        maps.put("vcode", vcode);
+        HttpCaller.doPost(context, API.CHECK_V_CODE, maps, callback);
     }
 }

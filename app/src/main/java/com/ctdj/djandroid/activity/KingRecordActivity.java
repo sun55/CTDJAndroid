@@ -1,7 +1,9 @@
 package com.ctdj.djandroid.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.View;
 
 import androidx.appcompat.widget.LinearLayoutCompat;
 
@@ -29,6 +31,26 @@ public class KingRecordActivity extends BaseActivity {
             @Override
             public void onRightClick() {
 
+            }
+        });
+
+        binding.tvWxNickname.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(KingRecordActivity.this, BindGameNicknameActivity.class);
+                intent.putExtra("area", "微信区服");
+                intent.putExtra("nickname", "");
+                startActivity(intent);
+            }
+        });
+
+        binding.tvQqNickname.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(KingRecordActivity.this, BindGameNicknameActivity.class);
+                intent.putExtra("area", "企鹅区服");
+                intent.putExtra("nickname", "");
+                startActivity(intent);
             }
         });
     }
