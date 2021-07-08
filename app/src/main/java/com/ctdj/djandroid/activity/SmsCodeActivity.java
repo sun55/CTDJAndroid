@@ -114,10 +114,21 @@ public class SmsCodeActivity extends BaseActivity {
                         Intent intent = new Intent(SmsCodeActivity.this, PhoneNumActivity.class);
                         intent.putExtra("from", 2);
                         startActivity(intent);
+                        finish();
                     } else {
-                        Utils.showToast(SmsCodeActivity.this, "更换手机号成功");
+                        HttpClient.updatePersonal(SmsCodeActivity.this, 5, mobile.replaceAll(" ", ""), smsCode, new HttpCallback() {
+                            @Override
+                            public void onSuccess(String result) {
+                                Utils.showToast(SmsCodeActivity.this, "更换手机号成功");
+                                finish();
+                            }
+
+                            @Override
+                            public void onFailure(String msg) {
+                                Utils.showToast(SmsCodeActivity.this, msg);
+                            }
+                        });
                     }
-                    finish();
                 }
 
                 @Override
