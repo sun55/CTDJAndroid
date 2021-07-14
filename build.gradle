@@ -24,6 +24,7 @@ allprojects {
         maven {url  "https://dl.bintray.com/rongcloud/maven"}
         maven { url "https://jitpack.io" }
 //        maven { url 'https://maven.google.com' }
+        maven { url "https://mirrors.tencent.com/nexus/repository/maven-public/" }
     }
 }
 

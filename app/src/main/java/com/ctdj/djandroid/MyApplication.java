@@ -71,6 +71,12 @@ public class MyApplication extends MultiDexApplication {
             public void onBack() {
             }
         });
+
+        initIM();
+    }
+
+    private void initIM() {
+
     }
 
     @Override

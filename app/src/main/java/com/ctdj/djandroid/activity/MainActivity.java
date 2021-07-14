@@ -31,7 +31,6 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(LayoutInflater.from(this));
         setContentView(binding.getRoot());
-
         fragmentManager = getSupportFragmentManager();
         if (savedInstanceState != null) {
             FragmentTransaction transaction = fragmentManager.beginTransaction();
