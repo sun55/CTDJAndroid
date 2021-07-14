@@ -20,15 +20,16 @@ android {
         }
 
         ndk {
-            abiFilter("armeabi-v7a")
-            abiFilter("x86")
+//            abiFilter("armeabi-v7a")
+//            abiFilter("x86")
+            abiFilters "armeabi-v7a", "x86","arm64-v8a","x86_64"
         }
     }
 
     signingConfigs {
         debug {
-//            storeFile file('/Users/apple/Desktop/CTDJAndroid/ctdjandroid.jks')
-            storeFile file('../ctdjandroid.jks')
+            storeFile file('/Users/apple/Desktop/CTDJAndroid/ctdjandroid.jks')
+//            storeFile file('../ctdjandroid.jks')
             storePassword 'ctdjandroid'
             keyAlias 'ctdjandroid'
             keyPassword 'ctdjandroid'
@@ -36,8 +37,8 @@ android {
         release {
             keyAlias 'ctdjandroid'
             keyPassword 'ctdjandroid'
-//            storeFile file('/Users/apple/Desktop/CTDJAndroid/ctdjandroid.jks')
-            storeFile file('../ctdjandroid.jks')
+            storeFile file('/Users/apple/Desktop/CTDJAndroid/ctdjandroid.jks')
+//            storeFile file('../ctdjandroid.jks')
             storePassword 'ctdjandroid'
         }
     }
@@ -106,5 +107,11 @@ dependencies {
     implementation 'com.github.gzu-liyujiang.AndroidPicker:WheelView:3.0.2'
     implementation 'com.github.gzu-liyujiang.AndroidPicker:WheelPicker:3.0.2'
     implementation 'com.google.code.gson:gson:2.8.7'
+
+    // 基础功能 (必需)
+    implementation 'com.netease.nimlib:basesdk:8.5.1'
+    // 聊天室需要
+    implementation 'com.netease.nimlib:chatroom:8.5.1'
+    implementation 'com.netease.nimlib:push:8.5.1'
 
 }

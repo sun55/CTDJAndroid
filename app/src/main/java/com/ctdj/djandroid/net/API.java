@@ -21,4 +21,6 @@ public class API {
     public static final String DEL_BLACK = "/api/black/del"; // 移除黑名单
     public static final String ID_CODE_VAILD = "/api/mydata/IdCodeVaild"; // 实名认证
     public static final String CHECK_V_CODE = "/api/login/checkVcode"; // 校验验证码
+    public static final String QUERY_PERSONAL = "/api/mydata/personal"; // 查询个人信息
+    public static final String QUERY_CHALLENGE_RECORD = "/api/challenge/queryChallengeRecord"; // 查询战绩
 }

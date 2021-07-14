@@ -64,6 +64,8 @@
             android:background="#34353F" />
 
         <EditText
+            android:digits="0123456789X"
+            android:inputType="numberSigned"
             android:id="@+id/et_id_card"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -71,7 +73,7 @@
             android:background="@null"
             android:hint="请输入身份证号码"
             android:lines="1"
-            android:maxLength="18"
+            android:maxLength="21"
             android:textColor="#ffe8e8e9"
             android:textColorHint="#80e8e8e9"
             android:textSize="16sp" />

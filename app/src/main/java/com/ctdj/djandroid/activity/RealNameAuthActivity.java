@@ -44,7 +44,8 @@ public class RealNameAuthActivity extends BaseActivity {
         });
         UserInfoBean userInfoBean = MyApplication.getInstance().getUserInfo();
         if (userInfoBean.isreal == 1) {
-            binding.ll1.setVisibility(View.GONE);
+//            binding.ll1.setVisibility(View.GONE);
+            binding.ll1.setVisibility(View.VISIBLE);
             binding.tvTips.setVisibility(View.GONE);
             binding.ll2.setVisibility(View.VISIBLE);
             binding.tvRealName2.setText(TextUtils.isEmpty(userInfoBean.cmzname) || userInfoBean.cmzname.length() < 2 ?
@@ -120,11 +121,39 @@ public class RealNameAuthActivity extends BaseActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+                if (s == null || s.length() == 0) return;
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < s.length(); i++) {
+                    if (i != 6 && i != 11 && i != 16 && s.charAt(i) == ' ') {
+                        continue;
+                    } else {
+                        sb.append(s.charAt(i));
+                        if ((sb.length() == 7 || sb.length() == 12 || sb.length() == 17) && sb.charAt(sb.length() - 1) != ' ') {
+                            sb.insert(sb.length() - 1, ' ');
+                        }
+                    }
+                }
+                if (!sb.toString().equals(s.toString())) {
+                    int index = start + 1;
+                    if (sb.charAt(start) == ' ') {
+                        if (before == 0) {
+                            index++;
+                        } else {
+                            index--;
+                        }
+                    } else {
+                        if (before == 1) {
+                            index--;
+                        }
+                    }
+                    binding.etIdCard.setText(sb.toString());
+                    binding.etIdCard.setSelection(index);
+                }
             }
 
             @Override
             public void afterTextChanged(Editable s) {
+
                 if (TextUtils.isEmpty(binding.etRealName.getText().toString().trim()) || TextUtils.isEmpty(binding.etIdCard.getText().toString().trim())) {
                     binding.btnAuth.setAlpha(0.5f);
                 } else {

@@ -63,7 +63,7 @@ public class PhoneSettingActivity extends BaseActivity {
         binding.ivToggle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HttpClient.updatePersonal(PhoneSettingActivity.this, 6, userInfoBean.isNote == 1 ? "0" : "1", "", new HttpCallback() {
+                HttpClient.updatePersonal(PhoneSettingActivity.this, 6, userInfoBean.isNote == 1 ? 0 : 1, "", new HttpCallback() {
                     @Override
                     public void onSuccess(String result) {
                         UpdatePersonalBean personalBean = new Gson().fromJson(result, UpdatePersonalBean.class);

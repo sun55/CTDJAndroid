@@ -1,6 +1,5 @@
 package com.ctdj.djandroid.activity;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +12,7 @@ import com.ctdj.djandroid.R;
 import com.ctdj.djandroid.databinding.ActivityMainBinding;
 import com.ctdj.djandroid.fragment.MessageFragment;
 import com.ctdj.djandroid.fragment.MineFragment;
-import com.ctdj.djandroid.fragment.PlayFragment;
+import com.ctdj.djandroid.fragment.HomeFragment;
 
 public class MainActivity extends BaseActivity {
 
@@ -21,7 +20,7 @@ public class MainActivity extends BaseActivity {
 
     private FragmentManager fragmentManager;
     private MessageFragment messageFragment;
-    private PlayFragment playFragment;
+    private HomeFragment playFragment;
     private MineFragment mineFragment;
     private static final String MESSAGE_TAG = "message-page";
     private static final String PLAY_TAG = "play-page";
@@ -73,7 +72,7 @@ public class MainActivity extends BaseActivity {
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         hideAllFragment(transaction);
         if (playFragment == null) {
-            playFragment = new PlayFragment();
+            playFragment = new HomeFragment();
             transaction.add(R.id.content_layout, playFragment, PLAY_TAG);
         } else {
             transaction.show(playFragment);

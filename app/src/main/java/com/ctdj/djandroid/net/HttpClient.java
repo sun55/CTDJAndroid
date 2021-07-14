@@ -103,12 +103,12 @@ public class HttpClient {
      * 修改用户信息
      *
      * @param context
-     * @param type 1 修改头像 2 修改昵称 3 修改出生日期 4 地区（拼接，省-市） 5 手机号 6 是否赛事短信提醒（1是 0否） 7 是否隐藏战绩（1是0否）
+     * @param type     1 修改头像 2 修改昵称 3 修改出生日期 4 地区（拼接，省-市） 5 手机号 6 是否赛事短信提醒（1是 0否） 7 是否隐藏战绩（1是0否）
      * @param param
-     * @param vcode 验证码（只用于修改手机号）
+     * @param vcode    验证码（只用于修改手机号）
      * @param callback
      */
-    public static void updatePersonal(Context context, int type, String param, String vcode, HttpCallback callback) {
+    public static void updatePersonal(Context context, int type, Object param, String vcode, HttpCallback callback) {
         HashMap<String, Object> maps = new HashMap<>();
         maps.put("token", MyApplication.getInstance().getToken());
         maps.put("type", type);
@@ -197,6 +197,7 @@ public class HttpClient {
 
     /**
      * 实名认证
+     *
      * @param context
      * @param cmid
      * @param cmzname
@@ -226,6 +227,7 @@ public class HttpClient {
 
     /**
      * 校验验证码
+     *
      * @param context
      * @param callback
      */
@@ -234,5 +236,30 @@ public class HttpClient {
         maps.put("mobile", mobile);
         maps.put("vcode", vcode);
         HttpCaller.doPost(context, API.CHECK_V_CODE, maps, callback);
+    }
+
+    /**
+     * 查询个人信息
+     *
+     * @param context
+     * @param callback
+     */
+    public static void queryPersonal(Context context, String fmid, HttpCallback callback) {
+        HashMap<String, Object> maps = new HashMap<>();
+        maps.put("token", MyApplication.getInstance().getToken());
+        maps.put("fmid", fmid);
+        HttpCaller.doPost(context, API.QUERY_PERSONAL, maps, callback);
+    }
+
+    /**
+     * 查询战绩
+     *
+     * @param context
+     * @param callback
+     */
+    public static void queryChallengeRecord(Context context, HttpCallback callback) {
+        HashMap<String, Object> maps = new HashMap<>();
+        maps.put("token", MyApplication.getInstance().getToken());
+        HttpCaller.doPost(context, API.QUERY_CHALLENGE_RECORD, maps, callback);
     }
 }

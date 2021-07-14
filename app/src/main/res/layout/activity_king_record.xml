@@ -33,76 +33,73 @@
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/ll_1"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="15dp"
-            android:layout_marginTop="50dp"
-            android:layout_width="219dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="15dp"
             android:orientation="horizontal">
+
             <TextView
-                android:gravity="center"
-                android:layout_weight="1"
-                android:layout_width="0dp"
+                android:layout_width="60dp"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:text="获胜率"
                 android:textColor="#ffa2a2a7"
                 android:textSize="13sp" />
 
             <TextView
-                android:gravity="center"
-                android:layout_weight="1"
-                android:layout_width="0dp"
+                android:layout_width="60dp"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:text="参赛数"
                 android:textColor="#ffa2a2a7"
                 android:textSize="13sp" />
 
             <TextView
-                android:gravity="center"
-                android:layout_weight="1"
-                android:layout_width="0dp"
+                android:layout_width="73dp"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:text="奖金数"
                 android:textColor="#ffa2a2a7"
                 android:textSize="13sp" />
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_below="@id/ll_1"
             android:layout_alignParentEnd="true"
-            android:layout_marginEnd="15dp"
             android:layout_marginTop="8dp"
-            android:layout_width="219dp"
-            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
             android:orientation="horizontal">
-            <TextView
-                android:textStyle="bold"
-                android:gravity="center"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="87.5%"
-                android:textColor="#EBEBED"
-                android:textSize="13sp" />
 
             <TextView
-                android:textStyle="bold"
-                android:gravity="center"
-                android:layout_weight="1"
-                android:layout_width="0dp"
+                android:id="@+id/tv_win"
+                android:layout_width="60dp"
                 android:layout_height="wrap_content"
-                android:text="103"
+                android:gravity="center"
                 android:textColor="#EBEBED"
-                android:textSize="13sp" />
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
             <TextView
-                android:textStyle="bold"
-                android:gravity="center"
-                android:layout_weight="1"
-                android:layout_width="0dp"
+                android:id="@+id/tv_count"
+                android:layout_width="60dp"
                 android:layout_height="wrap_content"
-                android:text="54.80"
+                android:gravity="center"
                 android:textColor="#EBEBED"
-                android:textSize="13sp" />
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_bonus"
+                android:layout_width="73dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="#EBEBED"
+                android:textSize="13sp"
+                android:textStyle="bold" />
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <RelativeLayout
@@ -155,12 +152,12 @@
                 android:textSize="13sp" />
 
             <TextView
-                android:drawableStart="@drawable/qq_white_icon"
-                android:drawablePadding="3dp"
                 android:id="@+id/tv_qq_nickname"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentEnd="true"
+                android:drawableStart="@drawable/qq_white_icon"
+                android:drawablePadding="3dp"
                 android:gravity="center"
                 android:text="去关联企鹅区服账号"
                 android:textColor="#fea13f"
