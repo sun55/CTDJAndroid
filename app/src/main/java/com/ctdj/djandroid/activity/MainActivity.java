@@ -8,11 +8,15 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.ctdj.djandroid.MyApplication;
 import com.ctdj.djandroid.R;
+import com.ctdj.djandroid.common.LogUtil;
 import com.ctdj.djandroid.databinding.ActivityMainBinding;
 import com.ctdj.djandroid.fragment.MessageFragment;
 import com.ctdj.djandroid.fragment.MineFragment;
 import com.ctdj.djandroid.fragment.HomeFragment;
+import com.tencent.qcloud.tim.uikit.TUIKit;
+import com.tencent.qcloud.tim.uikit.base.IUIKitCallBack;
 
 public class MainActivity extends BaseActivity {
 
@@ -31,6 +35,17 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(LayoutInflater.from(this));
         setContentView(binding.getRoot());
+        TUIKit.login(MyApplication.getInstance().getMid(), MyApplication.getInstance().getUserInfo().userSig, new IUIKitCallBack() {
+            @Override
+            public void onSuccess(Object data) {
+                LogUtil.i("im login success");
+            }
+
+            @Override
+            public void onError(String module, int errCode, String errMsg) {
+                LogUtil.i("im login error: module:" + module + ", errCode:" + errCode + ", errMsg:" + errMsg);
+            }
+        });
         fragmentManager = getSupportFragmentManager();
         if (savedInstanceState != null) {
             FragmentTransaction transaction = fragmentManager.beginTransaction();

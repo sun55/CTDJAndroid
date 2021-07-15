@@ -42,6 +42,8 @@ import com.ctdj.djandroid.dialog.LoadingDialog;
 import com.ctdj.djandroid.view.MyImageSpan;
 import com.luck.picture.lib.tools.PictureFileUtils;
 import com.opensource.svgaplayer.SVGAParser;
+import com.tencent.qcloud.tim.uikit.TUIKit;
+import com.tencent.qcloud.tim.uikit.base.IUIKitCallBack;
 import com.ywl5320.libmusic.WlMusic;
 import com.ywl5320.listener.OnPreparedListener;
 
@@ -148,6 +150,17 @@ public class Utils {
         MyApplication.getInstance().cleanUserInfo();
         // 清除所有缓存 例如：压缩、裁剪、视频、音频所生成的临时文件
         PictureFileUtils.deleteAllCacheDirFile(context);
+        TUIKit.logout(new IUIKitCallBack() {
+            @Override
+            public void onSuccess(Object data) {
+                LogUtil.i("im logout success");
+            }
+
+            @Override
+            public void onError(String module, int errCode, String errMsg) {
+                LogUtil.i("im logout error: module:" + module + ", errCode:" + errCode + ", errMsg:" + errMsg);
+            }
+        });
     }
 
     /**

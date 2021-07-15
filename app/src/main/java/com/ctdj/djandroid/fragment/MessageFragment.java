@@ -28,6 +28,6 @@ public class MessageFragment extends Fragment {
     }
 
     private void initView() {
-
+        binding.conversationLayout.initDefault();
     }
 }

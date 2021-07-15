@@ -13,11 +13,17 @@ import androidx.multidex.MultiDexApplication;
 
 import com.ctdj.djandroid.common.AppConfig;
 import com.ctdj.djandroid.common.AppFrontBackHelper;
+import com.ctdj.djandroid.common.Constants;
 import com.ctdj.djandroid.common.LogUtil;
 import com.ctdj.djandroid.net.UserInfoBean;
 import com.netease.yunxin.login.OneKeyLoginManager;
 import com.netease.yunxin.login.listener.InitListener;
 import com.scwang.smart.refresh.header.ClassicsHeader;
+import com.tencent.imsdk.v2.V2TIMSDKConfig;
+import com.tencent.qcloud.tim.uikit.TUIKit;
+import com.tencent.qcloud.tim.uikit.config.CustomFaceConfig;
+import com.tencent.qcloud.tim.uikit.config.GeneralConfig;
+import com.tencent.qcloud.tim.uikit.config.TUIKitConfigs;
 
 import java.io.File;
 import java.util.Iterator;
@@ -76,7 +82,11 @@ public class MyApplication extends MultiDexApplication {
     }
 
     private void initIM() {
-
+        TUIKitConfigs configs = TUIKit.getConfigs();
+        configs.setSdkConfig(new V2TIMSDKConfig());
+        configs.setCustomFaceConfig(new CustomFaceConfig());
+        configs.setGeneralConfig(new GeneralConfig());
+        TUIKit.init(this, Constants.IM_APP_ID, configs);
     }
 
     @Override
@@ -157,6 +167,7 @@ public class MyApplication extends MultiDexApplication {
         setProperty("user.isFirst", String.valueOf(user.isFirst));
         setProperty("user.hideRecord", String.valueOf(user.hideRecord));
         setProperty("user.isShow", String.valueOf(user.isShow));
+        setProperty("user.userSig", user.userSig);
     }
 
     public UserInfoBean getUserInfo() {
@@ -186,6 +197,7 @@ public class MyApplication extends MultiDexApplication {
         bean.isFirst = Integer.parseInt(getProperty("user.isFirst"));
         bean.hideRecord = Integer.parseInt(getProperty("user.hideRecord"));
         bean.isShow = Integer.parseInt(getProperty("user.isShow"));
+        bean.userSig = getProperty("user.userSig");
         return bean;
     }
 
@@ -226,7 +238,8 @@ public class MyApplication extends MultiDexApplication {
                 "user.bonus",
                 "user.isFirst",
                 "user.hideRecord",
-                "user.isShow"
+                "user.isShow",
+                "user.userSig"
         );
     }
 

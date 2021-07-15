@@ -21,6 +21,7 @@ public class Constants {
     public static final String DEVICE_FILE = "DEVICE_ID";
     public static final String DEVICE_DIR = "ctdj";
     public static final String API_SIGN = "ctdj";
+    public static final int IM_APP_ID = 1400548123;
 
     // 接口错误码
     public static final int ERROR_NAME_IS_EXIST = 101; // 昵称已存在

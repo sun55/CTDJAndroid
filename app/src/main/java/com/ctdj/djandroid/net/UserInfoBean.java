@@ -29,4 +29,5 @@ public class UserInfoBean implements Serializable {
     public int isFirst;
     public int hideRecord;
     public int isShow;
+    public String userSig;
 }
