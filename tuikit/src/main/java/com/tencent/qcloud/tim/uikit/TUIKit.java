@@ -19,6 +19,7 @@ public class TUIKit {
         TUIKitImpl.init(context, sdkAppID, configs);
     }
 
+
     /**
      * 释放一些资源等，一般可以在退出登录时调用
      */
