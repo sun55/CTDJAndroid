@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#161824"
+    android:orientation="vertical"
+    tools:context=".activity.MessageActivity">
+
+    <com.ctdj.djandroid.view.TitleView
+        android:id="@+id/title_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:rightImgSrc="@drawable/three_dot_icon"
+        app:showRightImg="true"
+        app:titleText="用户名" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcv_message"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="12dp"
+        android:background="@drawable/radius_10_22252f"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/et_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_toStartOf="@id/iv_input"
+            android:background="@null"
+            android:hint="发送消息..."
+            android:imeOptions="actionSend"
+            android:inputType="text"
+            android:maxLines="4"
+            android:paddingStart="12dp"
+            android:paddingTop="14dp"
+            android:paddingEnd="12dp"
+            android:paddingBottom="14dp"
+            android:textColor="#EBEBED"
+            android:textColorHint="#ffebebed"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/iv_input"
+            android:layout_width="27dp"
+            android:layout_height="27dp"
+            android:layout_alignBottom="@id/et_message"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="8.5dp"
+            android:background="@drawable/message_input_icon"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginEnd="3dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/tv_audio"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:scaleType="centerInside"
+            android:src="@drawable/message_audio_normal_icon" />
+
+        <ImageView
+            android:id="@+id/tv_picture"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:scaleType="centerInside"
+            android:src="@drawable/message_picture_icon" />
+
+        <ImageView
+            android:id="@+id/tv_camera"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:scaleType="centerInside"
+            android:src="@drawable/message_camera_icon" />
+
+        <ImageView
+            android:id="@+id/tv_gift"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:scaleType="centerInside"
+            android:src="@drawable/message_gift_icon" />
+
+        <ImageView
+            android:id="@+id/tv_game"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:scaleType="centerInside"
+            android:src="@drawable/message_game_icon" />
+
+        <ImageView
+            android:id="@+id/tv_more"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:scaleType="centerInside"
+            android:src="@drawable/message_more_icon" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</androidx.appcompat.widget.LinearLayoutCompat>

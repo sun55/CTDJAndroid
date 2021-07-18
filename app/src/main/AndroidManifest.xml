@@ -14,24 +14,15 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
-
-    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
-
-    <!-- 控制呼吸灯，振动器等，用于新消息提醒 -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" /> <!-- 控制呼吸灯，振动器等，用于新消息提醒 -->
     <uses-permission android:name="android.permission.FLASHLIGHT" />
-    <uses-permission android:name="android.permission.VIBRATE" />
-
-    <!-- 8.0+系统需要-->
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-
-
-    <!-- 下面的 uses-permission 一起加入到你的 AndroidManifest 文件中。 -->
+    <uses-permission android:name="android.permission.VIBRATE" /> <!-- 8.0+系统需要 -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" /> <!-- 下面的 uses-permission 一起加入到你的 AndroidManifest 文件中。 -->
     <permission
         android:name="com.ctdj.djandroid.permission.RECEIVE_MSG"
-        android:protectionLevel="signature"/>
+        android:protectionLevel="signature" />
 
-    <uses-permission android:name="com.ctdj.djandroid.permission.RECEIVE_MSG"/>
-
+    <uses-permission android:name="com.ctdj.djandroid.permission.RECEIVE_MSG" />
 
     <application
         android:name=".MyApplication"
@@ -45,15 +36,37 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup">
-        <activity android:name=".activity.PhoneSettingActivity"></activity>
-        <activity android:name=".activity.RealNameAuthActivity" />
-        <activity android:name=".activity.PrivacySettingActivity" />
-        <activity android:name=".activity.BindGameNicknameActivity" />
-        <activity android:name=".activity.AboutBindGameActivity" />
-        <activity android:name=".activity.BindGameAccountActivity" />
-        <activity android:name=".activity.KingRecordActivity" />
-        <activity android:name=".activity.SettingActivity" />
-        <activity android:name=".activity.FeedBackActivity" />
+        <activity
+            android:name=".activity.MessageActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".activity.PhoneSettingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.RealNameAuthActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.PrivacySettingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.BindGameNicknameActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.AboutBindGameActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.BindGameAccountActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.KingRecordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.SettingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.FeedBackActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.AboutActivity"
             android:screenOrientation="portrait" />

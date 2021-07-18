@@ -59,7 +59,7 @@ public class BaseActivity extends AppCompatActivity {
             window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             decorView.setSystemUiVisibility(0 | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-            window.setStatusBarColor(Color.WHITE);
+            window.setStatusBarColor(Color.parseColor("#161824"));
         }
         getDisplayMetrics();
         initStatusBarHeight();
