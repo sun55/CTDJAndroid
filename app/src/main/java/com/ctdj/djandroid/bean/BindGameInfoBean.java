@@ -3,7 +3,7 @@ package com.ctdj.djandroid.bean;
 import java.util.List;
 
 /**
- * @ProjectName : 咪兔
+ * @ProjectName : 超团
  * @Author : Sun
  * @Time : 2021/7/7 19:11
  * @Description :

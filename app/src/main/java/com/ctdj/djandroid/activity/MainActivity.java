@@ -15,6 +15,9 @@ import com.ctdj.djandroid.databinding.ActivityMainBinding;
 import com.ctdj.djandroid.fragment.MessageFragment;
 import com.ctdj.djandroid.fragment.MineFragment;
 import com.ctdj.djandroid.fragment.HomeFragment;
+import com.tencent.imsdk.v2.V2TIMCallback;
+import com.tencent.imsdk.v2.V2TIMManager;
+import com.tencent.imsdk.v2.V2TIMUserFullInfo;
 import com.tencent.qcloud.tim.uikit.TUIKit;
 import com.tencent.qcloud.tim.uikit.base.IUIKitCallBack;
 
@@ -64,6 +67,22 @@ public class MainActivity extends BaseActivity {
             transaction.commitAllowingStateLoss();
         }
         onPlayTabClicked(null);
+
+        V2TIMUserFullInfo imUserInfo = new V2TIMUserFullInfo();
+        imUserInfo.setFaceUrl(MyApplication.getInstance().getUserInfo().headimg);
+        imUserInfo.setNickname(MyApplication.getInstance().getUserInfo().mname);
+        imUserInfo.setGender(MyApplication.getInstance().getUserInfo().sex);
+        V2TIMManager.getInstance().setSelfInfo(imUserInfo, new V2TIMCallback() {
+            @Override
+            public void onSuccess() {
+
+            }
+
+            @Override
+            public void onError(int code, String desc) {
+
+            }
+        });
     }
 
     public void onMessageTabClicked(View view) {

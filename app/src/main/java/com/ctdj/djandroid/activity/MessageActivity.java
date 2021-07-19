@@ -1,20 +1,27 @@
 package com.ctdj.djandroid.activity;
 
+import android.Manifest;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Rect;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.RotateAnimation;
 import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.LinearLayoutCompat;
+import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,14 +29,20 @@ import com.ctdj.djandroid.MyApplication;
 import com.ctdj.djandroid.adapter.MessageAdapter;
 import com.ctdj.djandroid.bean.MessageBean;
 import com.ctdj.djandroid.common.DisplayUtil;
+import com.ctdj.djandroid.common.GlideEngine;
 import com.ctdj.djandroid.common.LogUtil;
 import com.ctdj.djandroid.common.Utils;
 import com.ctdj.djandroid.databinding.ActivityMessageBinding;
 import com.ctdj.djandroid.view.TitleView;
+import com.luck.picture.lib.PictureSelector;
+import com.luck.picture.lib.config.PictureConfig;
+import com.luck.picture.lib.config.PictureMimeType;
+import com.luck.picture.lib.entity.LocalMedia;
 import com.tencent.imsdk.v2.V2TIMAdvancedMsgListener;
 import com.tencent.imsdk.v2.V2TIMManager;
 import com.tencent.imsdk.v2.V2TIMMessage;
 import com.tencent.imsdk.v2.V2TIMMessageReceipt;
+import com.tencent.imsdk.v2.V2TIMSendCallback;
 import com.tencent.imsdk.v2.V2TIMValueCallback;
 
 import java.util.ArrayList;
@@ -143,6 +156,28 @@ public class MessageActivity extends AppCompatActivity {
         });
     }
 
+    private void sendImageMessage(String imagePath) {
+        V2TIMMessage imageMessage = V2TIMManager.getMessageManager().createImageMessage(imagePath);
+        V2TIMManager.getMessageManager().sendMessage(imageMessage, userId, "", 0, false, null, new V2TIMSendCallback<V2TIMMessage>() {
+            @Override
+            public void onProgress(int progress) {
+                LogUtil.e("发送中：" + progress);
+            }
+
+            @Override
+            public void onSuccess(V2TIMMessage v2TIMMessage) {
+                adapter.addData(v2TIMMessage);
+                binding.rcvMessage.scrollToPosition(0);
+                binding.etMessage.setText("");
+            }
+
+            @Override
+            public void onError(int code, String desc) {
+                LogUtil.e("发送失败：" + code + ", desc:" + desc);
+            }
+        });
+    }
+
     private void getHistoryMessage() {
         V2TIMManager.getMessageManager().getC2CHistoryMessageList(userId, 20, lastMessage, new V2TIMValueCallback<List<V2TIMMessage>>() {
             @Override
@@ -180,27 +215,111 @@ public class MessageActivity extends AppCompatActivity {
         binding.rcvMessage.scrollToPosition(0);
     }
 
-//    private void possiblyResizeChildOfContent() {
-//        int usableHeightNow = computeUsableHeight();
-//        if (usableHeightNow != usableHeightPrevious) {
-//            int usableHeightSansKeyboard = mChildOfContent.getRootView().getHeight();
-//            int heightDifference = usableHeightSansKeyboard - usableHeightNow;
-//            if (heightDifference > (usableHeightSansKeyboard/4)) {
-//                // keyboard probably just became visible
-//                frameLayoutParams.height = usableHeightSansKeyboard - heightDifference;
-//            } else {
-//                // keyboard probably just became hidden
-//                frameLayoutParams.height = usableHeightSansKeyboard;
-//            }
-//            mChildOfContent.requestLayout();
-//            usableHeightPrevious = usableHeightNow;
-//        }
-//    }
-//
-//    private int computeUsableHeight() {
-//        Rect r = new Rect();
-//        mChildOfContent.getWindowVisibleDisplayFrame(r);
-//        return (r.bottom - r.top);
-//    }
+    public void selectPhoto(View view) {
+        if (!Utils.checkPermissions(this, new String[]{
+                Manifest.permission.CAMERA,
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE})) {
+            LogUtil.e("请求权限");
+            ActivityCompat.requestPermissions(this, new String[]{
+                    Manifest.permission.CAMERA,
+                    Manifest.permission.READ_EXTERNAL_STORAGE,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE}, 111);
+            return;
+        }
+        PictureSelector.create(this)
+                .openGallery(PictureMimeType.ofImage())
+//                    .theme(R.style.picture_white_style)
+                .isCamera(false)
+                .imageEngine(GlideEngine.createGlideEngine())
+                .imageSpanCount(4)
+                .selectionMode(PictureConfig.SINGLE)
+//                .isSingleDirectReturn(true)
+//                .isEnableCrop(true)
+//                .withAspectRatio(1, 1)
+                .freeStyleCropEnabled(true)
+//                .showCropFrame(true)
+                .isDragFrame(false)
+//                .isCompress(true)
+                .maxSelectNum(1)
+                .selectionMode(PictureConfig.MULTIPLE)
+                .synOrAsy(true)
+//                .compressQuality(80)
+                .forResult(1000);
+    }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode != RESULT_OK || data == null) {
+            return;
+        }
+        List<LocalMedia> list = PictureSelector.obtainMultipleResult(data);
+        if (list == null || list.size() <= 0) {
+            return;
+        }
+        if (requestCode == 1000) {
+            String imagePath;
+            LogUtil.e("path:" + list.get(0).getPath());
+            if (list.get(0).getPath().contains("content://")) {
+                LogUtil.e(Utils.getFilePathByUri(this, Uri.parse(list.get(0).getPath())));
+                imagePath = Utils.getFilePathByUri(this, Uri.parse(list.get(0).getPath()));
+            } else {
+                imagePath = list.get(0).getPath();
+            }
+            sendImageMessage(imagePath);
+        }
+    }
+
+    public void pickCamera(View view) {
+        if (!Utils.checkPermissions(this, new String[]{
+                Manifest.permission.CAMERA,
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE})) {
+            LogUtil.e("请求权限");
+            ActivityCompat.requestPermissions(this, new String[]{
+                    Manifest.permission.CAMERA,
+                    Manifest.permission.READ_EXTERNAL_STORAGE,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE}, 111);
+            return;
+        }
+        PictureSelector.create(this)
+                .openCamera(PictureMimeType.ofImage())
+//                    .theme(R.style.picture_white_style)
+                .isCamera(false)
+                .imageEngine(GlideEngine.createGlideEngine())
+                .imageSpanCount(4)
+                .selectionMode(PictureConfig.SINGLE)
+//                .isSingleDirectReturn(true)
+//                .isEnableCrop(true)
+//                .withAspectRatio(1, 1)
+                .freeStyleCropEnabled(true)
+//                .showCropFrame(true)
+                .isDragFrame(false)
+//                .isCompress(true)
+                .maxSelectNum(1)
+                .selectionMode(PictureConfig.MULTIPLE)
+                .synOrAsy(true)
+//                .compressQuality(80)
+                .forResult(1000);
+    }
+
+    boolean isShowMoreLayout = false;
+
+    public void showMore(View view) {
+        if (isShowMoreLayout) {
+            Animation animation = new RotateAnimation(45, 0, binding.ivMore.getWidth() / 2, binding.ivMore.getHeight() / 2);
+            animation.setDuration(1000);
+            animation.setFillAfter(true);//设置为true，动画转化结束后被应用
+            binding.ivMore.startAnimation(animation);
+            binding.llMore.setVisibility(View.GONE);
+        } else {
+            Animation animation = new RotateAnimation(0, 45, binding.ivMore.getWidth() / 2, binding.ivMore.getHeight() / 2);
+            animation.setDuration(1000);
+            animation.setFillAfter(true);//设置为true，动画转化结束后被应用
+            binding.ivMore.startAnimation(animation);
+            binding.llMore.setVisibility(View.VISIBLE);
+        }
+        isShowMoreLayout = !isShowMoreLayout;
+    }
 }

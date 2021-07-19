@@ -9,7 +9,7 @@ import java.io.FileOutputStream;
 import java.util.Properties;
 
 /**
- * @ProjectName : 咪兔
+ * @ProjectName : 超团
  * @Author : Sun
  * @Time : 2021/4/12 13:19
  * @Description :

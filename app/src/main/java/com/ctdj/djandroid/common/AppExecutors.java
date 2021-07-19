@@ -14,7 +14,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @ProjectName : 咪兔
+ * @ProjectName : 超团
  * @Author : Sun
  * @Time : 2021/6/7 18:49
  * @Description :线程池工具类

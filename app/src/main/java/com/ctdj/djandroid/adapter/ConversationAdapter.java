@@ -12,7 +12,9 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.ctdj.djandroid.R;
 import com.ctdj.djandroid.activity.MessageActivity;
 import com.ctdj.djandroid.view.CircleImageView;
+import com.tencent.imsdk.v2.V2TIMCallback;
 import com.tencent.imsdk.v2.V2TIMConversation;
+import com.tencent.imsdk.v2.V2TIMManager;
 import com.tencent.imsdk.v2.V2TIMMessage;
 import com.tencent.qcloud.tim.uikit.utils.DateTimeUtil;
 
@@ -30,7 +32,17 @@ public class ConversationAdapter extends BaseQuickAdapter<V2TIMConversation, Con
         Glide.with(mContext).load(item.getFaceUrl()).error(R.drawable.default_head).into(helper.ivHead);
         V2TIMMessage message = item.getLastMessage();
         helper.tvName.setText(item.getShowName());
-        helper.tvLastMsg.setText(message.getTextElem().getText());
+        String txt = "";
+        if (message.getElemType() == V2TIMMessage.V2TIM_ELEM_TYPE_TEXT) {
+            txt = message.getTextElem().getText();
+        } else if (message.getElemType() == V2TIMMessage.V2TIM_ELEM_TYPE_IMAGE) {
+            txt = "[图片]";
+        } else if (message.getElemType() == V2TIMMessage.V2TIM_ELEM_TYPE_SOUND) {
+            txt = "[语音]";
+        } else if (message.getElemType() == V2TIMMessage.V2TIM_ELEM_TYPE_VIDEO) {
+            txt = "[视频]";
+        }
+        helper.tvLastMsg.setText(txt);
         helper.tvUnReadCount.setVisibility(item.getUnreadCount() > 0 ? View.VISIBLE : View.GONE);
         helper.tvUnReadCount.setText(item.getUnreadCount() + "");
         helper.tvTime.setText(DateTimeUtil.getTimeFormatText(new Date(message.getTimestamp() * 1000)));
@@ -42,6 +54,19 @@ public class ConversationAdapter extends BaseQuickAdapter<V2TIMConversation, Con
                 intent.putExtra("last_message", message);
                 intent.putExtra("user_id", item.getUserID());
                 mContext.startActivity(intent);
+                if (item.getUnreadCount() > 0) {
+                    V2TIMManager.getMessageManager().markC2CMessageAsRead(item.getUserID(), new V2TIMCallback() {
+                        @Override
+                        public void onSuccess() {
+                            helper.tvUnReadCount.setVisibility(View.GONE);
+                        }
+
+                        @Override
+                        public void onError(int code, String desc) {
+
+                        }
+                    });
+                }
             }
         });
     }

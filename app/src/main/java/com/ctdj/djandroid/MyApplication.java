@@ -19,7 +19,10 @@ import com.ctdj.djandroid.net.UserInfoBean;
 import com.netease.yunxin.login.OneKeyLoginManager;
 import com.netease.yunxin.login.listener.InitListener;
 import com.scwang.smart.refresh.header.ClassicsHeader;
+import com.tencent.imsdk.v2.V2TIMCallback;
+import com.tencent.imsdk.v2.V2TIMManager;
 import com.tencent.imsdk.v2.V2TIMSDKConfig;
+import com.tencent.imsdk.v2.V2TIMUserFullInfo;
 import com.tencent.qcloud.tim.uikit.TUIKit;
 import com.tencent.qcloud.tim.uikit.config.CustomFaceConfig;
 import com.tencent.qcloud.tim.uikit.config.GeneralConfig;
@@ -168,6 +171,21 @@ public class MyApplication extends MultiDexApplication {
         setProperty("user.hideRecord", String.valueOf(user.hideRecord));
         setProperty("user.isShow", String.valueOf(user.isShow));
         setProperty("user.userSig", user.userSig);
+        V2TIMUserFullInfo imUserInfo = new V2TIMUserFullInfo();
+        imUserInfo.setFaceUrl(user.headimg);
+        imUserInfo.setNickname(user.mname);
+        imUserInfo.setGender(user.sex);
+        V2TIMManager.getInstance().setSelfInfo(imUserInfo, new V2TIMCallback() {
+            @Override
+            public void onSuccess() {
+
+            }
+
+            @Override
+            public void onError(int code, String desc) {
+
+            }
+        });
     }
 
     public UserInfoBean getUserInfo() {
