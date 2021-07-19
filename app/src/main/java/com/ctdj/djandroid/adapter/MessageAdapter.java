@@ -21,8 +21,10 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
+import static com.ctdj.djandroid.bean.MessageBean.LEFT_AUDIO;
 import static com.ctdj.djandroid.bean.MessageBean.LEFT_IMAGE;
 import static com.ctdj.djandroid.bean.MessageBean.LEFT_TXT;
+import static com.ctdj.djandroid.bean.MessageBean.RIGHT_AUDIO;
 import static com.ctdj.djandroid.bean.MessageBean.RIGHT_IMAGE;
 import static com.ctdj.djandroid.bean.MessageBean.RIGHT_TXT;
 
@@ -34,6 +36,8 @@ public class MessageAdapter extends BaseMultiItemQuickAdapter<MessageBean, BaseV
         addItemType(RIGHT_TXT, R.layout.message_txt_right_item_layout);
         addItemType(LEFT_IMAGE, R.layout.message_image_left_item_layout);
         addItemType(RIGHT_IMAGE, R.layout.message_image_right_item_layout);
+        addItemType(LEFT_AUDIO, R.layout.message_audio_left_item_layout);
+        addItemType(RIGHT_AUDIO, R.layout.message_audio_right_item_layout);
     }
 
     @Override
@@ -58,6 +62,10 @@ public class MessageAdapter extends BaseMultiItemQuickAdapter<MessageBean, BaseV
                 Glide.with(mContext).load(item.getV2TIMMessage().getImageElem().getImageList().get(0).getUrl()).
                         error(R.drawable.default_head).into((ImageView) helper.getView(R.id.image));
                 break;
+            case LEFT_AUDIO:
+            case RIGHT_AUDIO:
+                ((TextView) helper.getView(R.id.tv_voice_time)).setText(item.getV2TIMMessage().getSoundElem().getDuration() + "s");
+                break;
         }
     }
 
@@ -74,6 +82,12 @@ public class MessageAdapter extends BaseMultiItemQuickAdapter<MessageBean, BaseV
                 msgType = MessageBean.RIGHT_IMAGE;
             } else {
                 msgType = MessageBean.LEFT_IMAGE;
+            }
+        } else if (v.getElemType() == V2TIMMessage.V2TIM_ELEM_TYPE_SOUND) {
+            if (v.getSender().equals(MyApplication.getInstance().getMid())) {
+                msgType = RIGHT_AUDIO;
+            } else {
+                msgType = LEFT_AUDIO;
             }
         }
         super.addData(0, new MessageBean(msgType, v));

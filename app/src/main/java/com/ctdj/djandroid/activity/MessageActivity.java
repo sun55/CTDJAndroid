@@ -5,11 +5,13 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -19,6 +21,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.core.app.ActivityCompat;
@@ -26,7 +29,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ctdj.djandroid.MyApplication;
+import com.ctdj.djandroid.R;
 import com.ctdj.djandroid.adapter.MessageAdapter;
+import com.ctdj.djandroid.audio.AudioRecorderButton;
 import com.ctdj.djandroid.bean.MessageBean;
 import com.ctdj.djandroid.common.DisplayUtil;
 import com.ctdj.djandroid.common.GlideEngine;
@@ -56,6 +61,7 @@ public class MessageActivity extends AppCompatActivity {
     String userId;
     String targetName;
     MessageAdapter adapter;
+    boolean wantCancelRecord = false; // 是否想取消录音
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,6 +143,81 @@ public class MessageActivity extends AppCompatActivity {
                 LogUtil.e("onRecvMessageModified");
             }
         });
+
+        binding.rcvMessage.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                hideBottomViews();
+                return false;
+            }
+        });
+
+        binding.btnAudio.setAudioRecordStateListener(new AudioRecorderButton.AudioRecordStateListener() {
+            @Override
+            public void onFinish(float seconds, String filePath) {
+                LogUtil.e("onFinish seconds:" + seconds + ", filePath:" + filePath);
+                sendSoundMessage(filePath, (int) seconds);
+            }
+
+            @Override
+            public void onNormal() {
+                LogUtil.e("onNormal");
+                wantCancelRecord = false;
+                binding.btnAudio.setBackgroundResource(R.drawable.message_recording);
+                binding.tvAudioTime.setText("按住说话");
+                binding.tvAudioTime.setTextColor(Color.parseColor("#E8E8E8"));
+            }
+
+            @Override
+            public void onShort() {
+                LogUtil.e("onShort");
+                Utils.showToast(MessageActivity.this, "录音时间太短");
+            }
+
+            @Override
+            public void onRecording() {
+                LogUtil.e("onRecording");
+                wantCancelRecord = false;
+            }
+
+            @Override
+            public void onCountTime(int second) {
+                LogUtil.e("onCountTime second:" + second);
+                if (wantCancelRecord) {
+                    return;
+                }
+                binding.tvAudioTime.setTextColor(Color.WHITE);
+                binding.tvAudioTime.setText(Utils.getTimeBySecond(second));
+                binding.btnAudio.setBackgroundResource(R.drawable.message_recording);
+            }
+
+            @Override
+            public void onWantCancel() {
+                LogUtil.e("onWantCancel");
+                wantCancelRecord = true;
+                binding.btnAudio.setBackgroundResource(R.drawable.message_record_delete);
+                binding.tvAudioTime.setTextColor(Color.parseColor("#FE2A54"));
+                binding.tvAudioTime.setText("松开取消");
+            }
+
+            @Override
+            public void onNoPermission() {
+                ActivityCompat.requestPermissions(MessageActivity.this, new String[]{
+                        Manifest.permission.RECORD_AUDIO,
+                        Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1001);
+            }
+        });
+    }
+
+    private void hideBottomViews() {
+        if (isShowAudioLayout) {
+            showAudio(null);
+        }
+
+        if (isShowMoreLayout) {
+            showMore(null);
+        }
     }
 
     private void sendTextMessage(String text) {
@@ -178,8 +259,30 @@ public class MessageActivity extends AppCompatActivity {
         });
     }
 
+    private void sendSoundMessage(String soundPath, int duration) {
+        V2TIMMessage soundMessage = V2TIMManager.getMessageManager().createSoundMessage(soundPath, duration);
+        V2TIMManager.getMessageManager().sendMessage(soundMessage, userId, "", 0, false, null, new V2TIMSendCallback<V2TIMMessage>() {
+            @Override
+            public void onProgress(int progress) {
+                LogUtil.e("发送中：" + progress);
+            }
+
+            @Override
+            public void onSuccess(V2TIMMessage v2TIMMessage) {
+                adapter.addData(v2TIMMessage);
+                binding.rcvMessage.scrollToPosition(0);
+                binding.etMessage.setText("");
+            }
+
+            @Override
+            public void onError(int code, String desc) {
+                LogUtil.e("发送失败：" + code + ", desc:" + desc);
+            }
+        });
+    }
+
     private void getHistoryMessage() {
-        V2TIMManager.getMessageManager().getC2CHistoryMessageList(userId, 20, lastMessage, new V2TIMValueCallback<List<V2TIMMessage>>() {
+        V2TIMManager.getMessageManager().getC2CHistoryMessageList(userId, 90, lastMessage, new V2TIMValueCallback<List<V2TIMMessage>>() {
             @Override
             public void onSuccess(List<V2TIMMessage> v2TIMMessages) {
                 ArrayList<MessageBean> messageBeans = new ArrayList<>();
@@ -196,6 +299,12 @@ public class MessageActivity extends AppCompatActivity {
                             msgType = MessageBean.RIGHT_IMAGE;
                         } else {
                             msgType = MessageBean.LEFT_IMAGE;
+                        }
+                    } else if (v.getElemType() == V2TIMMessage.V2TIM_ELEM_TYPE_SOUND) {
+                        if (v.getSender().equals(MyApplication.getInstance().getMid())) {
+                            msgType = MessageBean.RIGHT_AUDIO;
+                        } else {
+                            msgType = MessageBean.LEFT_AUDIO;
                         }
                     }
                     messageBeans.add(new MessageBean(msgType, v));
@@ -305,8 +414,12 @@ public class MessageActivity extends AppCompatActivity {
     }
 
     boolean isShowMoreLayout = false;
+    boolean isShowAudioLayout = false;
 
     public void showMore(View view) {
+        if (isShowAudioLayout) {
+            showAudio(null);
+        }
         if (isShowMoreLayout) {
             Animation animation = new RotateAnimation(45, 0, binding.ivMore.getWidth() / 2, binding.ivMore.getHeight() / 2);
             animation.setDuration(1000);
@@ -321,5 +434,18 @@ public class MessageActivity extends AppCompatActivity {
             binding.llMore.setVisibility(View.VISIBLE);
         }
         isShowMoreLayout = !isShowMoreLayout;
+    }
+
+    public void showAudio(View view) {
+        if (isShowMoreLayout) {
+            showMore(null);
+        }
+
+        if (isShowAudioLayout) {
+            binding.llAudio.setVisibility(View.GONE);
+        } else {
+            binding.llAudio.setVisibility(View.VISIBLE);
+        }
+        isShowAudioLayout = !isShowAudioLayout;
     }
 }
