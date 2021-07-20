@@ -5,16 +5,13 @@ import android.media.MediaPlayer;
 
 import java.io.IOException;
 
-/**
- * Created by lt on 2016/8/7.
- */
 public class MediaManager {
 
     private static MediaPlayer mMediaPlayer;
     private static boolean isPause;
 
-    public static void playSound(String filePath, MediaPlayer.OnCompletionListener onCompletionListener){
-        if(mMediaPlayer == null){
+    public static void playSound(String filePath, MediaPlayer.OnCompletionListener onCompletionListener) {
+        if (mMediaPlayer == null) {
             mMediaPlayer = new MediaPlayer();
             mMediaPlayer.setOnErrorListener(new MediaPlayer.OnErrorListener() {
                 @Override
@@ -23,10 +20,9 @@ public class MediaManager {
                     return false;
                 }
             });
-        }else{
+        } else {
             mMediaPlayer.reset();
         }
-
 
         try {
             mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
@@ -39,22 +35,22 @@ public class MediaManager {
         }
     }
 
-    public static void pause(){
-        if(mMediaPlayer != null && mMediaPlayer.isPlaying()){
+    public static void pause() {
+        if (mMediaPlayer != null && mMediaPlayer.isPlaying()) {
             mMediaPlayer.pause();
             isPause = true;
         }
     }
 
-    public static void resume(){
-        if(mMediaPlayer != null && isPause){
+    public static void resume() {
+        if (mMediaPlayer != null && isPause) {
             mMediaPlayer.start();
             isPause = false;
         }
     }
 
-    public static void release(){
-        if(mMediaPlayer != null){
+    public static void release() {
+        if (mMediaPlayer != null) {
             mMediaPlayer.release();
             mMediaPlayer = null;
         }

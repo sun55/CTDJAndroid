@@ -132,7 +132,9 @@ public class Utils {
         View view = activity.getCurrentFocus();
         if (view != null) {
             InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
-            inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+            if (inputMethodManager.isActive()) {
+                inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+            }
         }
     }
 
@@ -519,29 +521,18 @@ public class Utils {
 
     private static SVGAParser svgaParser;
 
-    public static void playSvgaAnim(Context context, String animName, SVGAParser.ParseCompletion parseCompletion) {
+    /**
+     * 解析动画资源
+     *
+     * @param context
+     * @param fileName
+     * @param parseCompletion
+     */
+    public static void parserSvgaAnim(Context context, String fileName, SVGAParser.ParseCompletion parseCompletion) {
         if (svgaParser == null) {
             svgaParser = new SVGAParser(context);
         }
-        String animSource = "";
-        if ("胡萝卜".equals(animName)) {
-            animSource = "rabbit.svga";
-        } else if ("棒棒糖".equals(animName)) {
-            animSource = "lollipop.svga";
-        } else if ("亲亲".equals(animName)) {
-            animSource = "mouth.svga";
-        } else if ("爱心".equals(animName)) {
-            animSource = "heart.svga";
-        } else if ("玫瑰花".equals(animName)) {
-            animSource = "rose.svga";
-        } else if ("玩一局".equals(animName)) {
-            animSource = "playgame.svga";
-        } else if ("撒钻".equals(animName)) {
-            animSource = "diamond_anim.svga";
-        } else if ("喷钱枪".equals(animName)) {
-            animSource = "gun.svga";
-        }
-        svgaParser.decodeFromAssets(animSource, parseCompletion);
+        svgaParser.decodeFromAssets(fileName, parseCompletion);
     }
 
     private static WlMusic wlMusic;

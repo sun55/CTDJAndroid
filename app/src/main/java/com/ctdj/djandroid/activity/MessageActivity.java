@@ -51,6 +51,8 @@ import com.tencent.imsdk.v2.V2TIMSendCallback;
 import com.tencent.imsdk.v2.V2TIMValueCallback;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 
@@ -94,7 +96,7 @@ public class MessageActivity extends AppCompatActivity {
                     if (TextUtils.isEmpty(binding.etMessage.getText())) {
                         Utils.showToast(MessageActivity.this, "请输入消息内容");
                     } else {
-                        LogUtil.e("发送消息");
+                        LogUtil.e("发送文本消息");
                         sendTextMessage(binding.etMessage.getText().toString());
                     }
                     return true;
@@ -104,7 +106,7 @@ public class MessageActivity extends AppCompatActivity {
             }
         });
         adapter = new MessageAdapter(new ArrayList<>());
-        binding.rcvMessage.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, true));
+        binding.rcvMessage.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
         binding.rcvMessage.setAdapter(adapter);
         Intent intent = getIntent();
         lastMessage = (V2TIMMessage) intent.getSerializableExtra("last_message");
@@ -120,27 +122,23 @@ public class MessageActivity extends AppCompatActivity {
             @Override
             public void onRecvNewMessage(V2TIMMessage msg) {
                 super.onRecvNewMessage(msg);
-                LogUtil.e("onRecvNewMessage");
                 adapter.addData(msg);
-                binding.rcvMessage.scrollToPosition(0);
+                binding.rcvMessage.scrollToPosition(adapter.getItemCount() - 1);
             }
 
             @Override
             public void onRecvC2CReadReceipt(List<V2TIMMessageReceipt> receiptList) {
                 super.onRecvC2CReadReceipt(receiptList);
-                LogUtil.e("onRecvC2CReadReceipt");
             }
 
             @Override
             public void onRecvMessageRevoked(String msgID) {
                 super.onRecvMessageRevoked(msgID);
-                LogUtil.e("onRecvMessageRevoked");
             }
 
             @Override
             public void onRecvMessageModified(V2TIMMessage msg) {
                 super.onRecvMessageModified(msg);
-                LogUtil.e("onRecvMessageModified");
             }
         });
 
@@ -148,6 +146,7 @@ public class MessageActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 hideBottomViews();
+                Utils.hideSoftKeyboard(MessageActivity.this);
                 return false;
             }
         });
@@ -155,13 +154,11 @@ public class MessageActivity extends AppCompatActivity {
         binding.btnAudio.setAudioRecordStateListener(new AudioRecorderButton.AudioRecordStateListener() {
             @Override
             public void onFinish(float seconds, String filePath) {
-                LogUtil.e("onFinish seconds:" + seconds + ", filePath:" + filePath);
                 sendSoundMessage(filePath, (int) seconds);
             }
 
             @Override
             public void onNormal() {
-                LogUtil.e("onNormal");
                 wantCancelRecord = false;
                 binding.btnAudio.setBackgroundResource(R.drawable.message_recording);
                 binding.tvAudioTime.setText("按住说话");
@@ -170,19 +167,16 @@ public class MessageActivity extends AppCompatActivity {
 
             @Override
             public void onShort() {
-                LogUtil.e("onShort");
                 Utils.showToast(MessageActivity.this, "录音时间太短");
             }
 
             @Override
             public void onRecording() {
-                LogUtil.e("onRecording");
                 wantCancelRecord = false;
             }
 
             @Override
             public void onCountTime(int second) {
-                LogUtil.e("onCountTime second:" + second);
                 if (wantCancelRecord) {
                     return;
                 }
@@ -193,7 +187,6 @@ public class MessageActivity extends AppCompatActivity {
 
             @Override
             public void onWantCancel() {
-                LogUtil.e("onWantCancel");
                 wantCancelRecord = true;
                 binding.btnAudio.setBackgroundResource(R.drawable.message_record_delete);
                 binding.tvAudioTime.setTextColor(Color.parseColor("#FE2A54"));
@@ -208,6 +201,8 @@ public class MessageActivity extends AppCompatActivity {
                         Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1001);
             }
         });
+
+        binding.etMessage.requestFocus();
     }
 
     private void hideBottomViews() {
@@ -226,7 +221,7 @@ public class MessageActivity extends AppCompatActivity {
             public void onSuccess(V2TIMMessage v2TIMMessage) {
                 LogUtil.e("发送成功：" + v2TIMMessage.getTextElem().getText());
                 adapter.addData(v2TIMMessage);
-                binding.rcvMessage.scrollToPosition(0);
+                binding.rcvMessage.scrollToPosition(adapter.getItemCount() - 1);
                 binding.etMessage.setText("");
             }
 
@@ -248,7 +243,7 @@ public class MessageActivity extends AppCompatActivity {
             @Override
             public void onSuccess(V2TIMMessage v2TIMMessage) {
                 adapter.addData(v2TIMMessage);
-                binding.rcvMessage.scrollToPosition(0);
+                binding.rcvMessage.scrollToPosition(adapter.getItemCount() - 1);
                 binding.etMessage.setText("");
             }
 
@@ -270,7 +265,7 @@ public class MessageActivity extends AppCompatActivity {
             @Override
             public void onSuccess(V2TIMMessage v2TIMMessage) {
                 adapter.addData(v2TIMMessage);
-                binding.rcvMessage.scrollToPosition(0);
+                binding.rcvMessage.scrollToPosition(adapter.getItemCount() - 1);
                 binding.etMessage.setText("");
             }
 
@@ -282,10 +277,21 @@ public class MessageActivity extends AppCompatActivity {
     }
 
     private void getHistoryMessage() {
-        V2TIMManager.getMessageManager().getC2CHistoryMessageList(userId, 90, lastMessage, new V2TIMValueCallback<List<V2TIMMessage>>() {
+        V2TIMManager.getMessageManager().getC2CHistoryMessageList(userId, 90, null, new V2TIMValueCallback<List<V2TIMMessage>>() {
             @Override
             public void onSuccess(List<V2TIMMessage> v2TIMMessages) {
                 ArrayList<MessageBean> messageBeans = new ArrayList<>();
+
+                Collections.sort(v2TIMMessages, new Comparator<V2TIMMessage>() {
+                    @Override
+                    public int compare(V2TIMMessage o1, V2TIMMessage o2) {
+                        if (o1.getTimestamp() > o2.getTimestamp()) {
+                            return 1;
+                        } else {
+                            return -1;
+                        }
+                    }
+                });
                 for (V2TIMMessage v : v2TIMMessages) {
                     int msgType = 0;
                     if (v.getElemType() == V2TIMMessage.V2TIM_ELEM_TYPE_TEXT) {
@@ -294,6 +300,7 @@ public class MessageActivity extends AppCompatActivity {
                         } else {
                             msgType = MessageBean.LEFT_TXT;
                         }
+                        LogUtil.e("文本消息：" + v.getTextElem().getText() + "----id:" + v.getUserID());
                     } else if (v.getElemType() == V2TIMMessage.V2TIM_ELEM_TYPE_IMAGE) {
                         if (v.getSender().equals(MyApplication.getInstance().getMid())) {
                             msgType = MessageBean.RIGHT_IMAGE;
@@ -321,7 +328,7 @@ public class MessageActivity extends AppCompatActivity {
 
     private void fillView(ArrayList<MessageBean> messageBeans) {
         adapter.addData(messageBeans);
-        binding.rcvMessage.scrollToPosition(0);
+        binding.rcvMessage.scrollToPosition(adapter.getItemCount() - 1);
     }
 
     public void selectPhoto(View view) {
@@ -355,6 +362,7 @@ public class MessageActivity extends AppCompatActivity {
                 .synOrAsy(true)
 //                .compressQuality(80)
                 .forResult(1000);
+        Utils.hideSoftKeyboard(this);
     }
 
     @Override
@@ -381,6 +389,7 @@ public class MessageActivity extends AppCompatActivity {
     }
 
     public void pickCamera(View view) {
+        Utils.hideSoftKeyboard(this);
         if (!Utils.checkPermissions(this, new String[]{
                 Manifest.permission.CAMERA,
                 Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -417,6 +426,7 @@ public class MessageActivity extends AppCompatActivity {
     boolean isShowAudioLayout = false;
 
     public void showMore(View view) {
+        Utils.hideSoftKeyboard(this);
         if (isShowAudioLayout) {
             showAudio(null);
         }
@@ -437,6 +447,7 @@ public class MessageActivity extends AppCompatActivity {
     }
 
     public void showAudio(View view) {
+        Utils.hideSoftKeyboard(this);
         if (isShowMoreLayout) {
             showMore(null);
         }
@@ -447,5 +458,14 @@ public class MessageActivity extends AppCompatActivity {
             binding.llAudio.setVisibility(View.VISIBLE);
         }
         isShowAudioLayout = !isShowAudioLayout;
+    }
+
+    public void editMessage(View view) {
+        if (binding.llMore.getVisibility() == View.VISIBLE) {
+            binding.llMore.setVisibility(View.GONE);
+        }
+        if (binding.llAudio.getVisibility() == View.VISIBLE) {
+            binding.llAudio.setVisibility(View.GONE);
+        }
     }
 }

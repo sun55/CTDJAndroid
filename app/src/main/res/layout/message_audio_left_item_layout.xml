@@ -33,7 +33,7 @@
                 android:id="@+id/iv_voice"
                 android:layout_width="11dp"
                 android:layout_height="16dp"
-                android:background="@drawable/message_audio_left_3" />
+                android:src="@drawable/message_audio_left_3" />
 
             <TextView
                 android:id="@+id/tv_voice_time"

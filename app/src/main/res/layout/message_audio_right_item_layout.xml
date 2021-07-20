@@ -43,7 +43,7 @@
                 android:id="@+id/iv_voice"
                 android:layout_width="11dp"
                 android:layout_height="16dp"
-                android:background="@drawable/message_audio_right_3" />
+                android:src="@drawable/message_audio_right_3" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
     </RelativeLayout>

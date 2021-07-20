@@ -23,7 +23,6 @@
         android:layout_height="0dp"
         android:layout_weight="1" />
 
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -34,6 +33,7 @@
         android:orientation="horizontal">
 
         <EditText
+            android:onClick="editMessage"
             android:id="@+id/et_message"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -301,37 +301,38 @@
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <RelativeLayout
         android:id="@+id/ll_audio"
         android:layout_width="match_parent"
         android:layout_height="250dp"
-        android:orientation="vertical"
+        android:gravity="center_horizontal"
         android:visibility="gone">
 
-        <androidx.appcompat.widget.LinearLayoutCompat
+        <TextView
+            android:layout_centerHorizontal="true"
+            android:id="@+id/tv_audio_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
             android:layout_marginTop="40dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/tv_audio_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:includeFontPadding="false"
-                android:text="按住说话"
-                android:textColor="#ffe8e8e8"
-                android:textSize="16sp" />
-        </androidx.appcompat.widget.LinearLayoutCompat>
+            android:includeFontPadding="false"
+            android:text="按住说话"
+            android:textColor="#ffe8e8e8"
+            android:textSize="16sp" />
 
         <com.ctdj.djandroid.audio.AudioRecorderButton
             android:id="@+id/btn_audio"
             android:layout_width="104dp"
+            android:layout_centerHorizontal="true"
             android:layout_height="104dp"
-            android:layout_gravity="center_horizontal"
+            android:layout_below="@id/tv_audio_time"
             android:layout_marginTop="38dp"
             android:background="@drawable/message_recording" />
-    </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <com.opensource.svgaplayer.SVGAImageView
+            android:id="@+id/svga_flow"
+            android:layout_centerHorizontal="true"
+            android:layout_width="104dp"
+            android:layout_height="104dp" />
+    </RelativeLayout>
 
 </androidx.appcompat.widget.LinearLayoutCompat>

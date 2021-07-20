@@ -30,6 +30,7 @@
             android:textSize="16sp" />
 
         <TextView
+            android:layout_toStartOf="@id/tv_time"
             android:id="@+id/tv_last_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
