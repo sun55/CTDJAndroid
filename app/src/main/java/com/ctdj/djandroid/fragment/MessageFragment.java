@@ -46,7 +46,7 @@ public class MessageFragment extends Fragment {
         binding.ivContacts.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                V2TIMManager.getInstance().sendC2CTextMessage("ce shi text" + new Random().nextInt(), "100014", new V2TIMValueCallback<V2TIMMessage>() {
+                V2TIMManager.getInstance().sendC2CTextMessage("ce shi text" + new Random().nextInt(), "100015", new V2TIMValueCallback<V2TIMMessage>() {
                     @Override
                     public void onSuccess(V2TIMMessage v2TIMMessage) {
                         LogUtil.e("发送成功：" + v2TIMMessage.getMessage().getMessageKey());

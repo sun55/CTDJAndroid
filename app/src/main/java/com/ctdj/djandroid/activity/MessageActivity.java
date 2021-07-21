@@ -38,6 +38,7 @@ import com.ctdj.djandroid.common.GlideEngine;
 import com.ctdj.djandroid.common.LogUtil;
 import com.ctdj.djandroid.common.Utils;
 import com.ctdj.djandroid.databinding.ActivityMessageBinding;
+import com.ctdj.djandroid.dialog.InvitePlayDialog;
 import com.ctdj.djandroid.view.TitleView;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
@@ -87,6 +88,7 @@ public class MessageActivity extends AppCompatActivity {
 
             }
         });
+        LogUtil.e("IM 版本号：" + V2TIMManager.getInstance().getVersion());
         binding.etMessage.setHorizontallyScrolling(false);
         binding.etMessage.setMaxLines(4);
         binding.etMessage.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -467,5 +469,10 @@ public class MessageActivity extends AppCompatActivity {
         if (binding.llAudio.getVisibility() == View.VISIBLE) {
             binding.llAudio.setVisibility(View.GONE);
         }
+    }
+
+    public void showInviteDialog(View view) {
+        InvitePlayDialog dialog = new InvitePlayDialog(this);
+        dialog.show();
     }
 }

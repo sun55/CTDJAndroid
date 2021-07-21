@@ -46,7 +46,7 @@ public class MainActivity extends BaseActivity {
 
             @Override
             public void onError(String module, int errCode, String errMsg) {
-                LogUtil.i("im login error: module:" + module + ", errCode:" + errCode + ", errMsg:" + errMsg);
+                LogUtil.e("im login error: module:" + module + ", errCode:" + errCode + ", errMsg:" + errMsg);
             }
         });
         fragmentManager = getSupportFragmentManager();
