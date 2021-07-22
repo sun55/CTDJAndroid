@@ -45,12 +45,18 @@ import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.tencent.imsdk.v2.V2TIMAdvancedMsgListener;
+import com.tencent.imsdk.v2.V2TIMDownloadCallback;
+import com.tencent.imsdk.v2.V2TIMElem;
 import com.tencent.imsdk.v2.V2TIMManager;
 import com.tencent.imsdk.v2.V2TIMMessage;
 import com.tencent.imsdk.v2.V2TIMMessageReceipt;
 import com.tencent.imsdk.v2.V2TIMSendCallback;
 import com.tencent.imsdk.v2.V2TIMValueCallback;
+import com.tencent.qcloud.tim.uikit.component.AudioPlayer;
+import com.tencent.qcloud.tim.uikit.utils.TUIKitConstants;
 
+import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -88,7 +94,6 @@ public class MessageActivity extends AppCompatActivity {
 
             }
         });
-        LogUtil.e("IM 版本号：" + V2TIMManager.getInstance().getVersion());
         binding.etMessage.setHorizontallyScrolling(false);
         binding.etMessage.setMaxLines(4);
         binding.etMessage.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -295,6 +300,7 @@ public class MessageActivity extends AppCompatActivity {
                     }
                 });
                 for (V2TIMMessage v : v2TIMMessages) {
+                    MessageBean bean = new MessageBean(v);
                     int msgType = 0;
                     if (v.getElemType() == V2TIMMessage.V2TIM_ELEM_TYPE_TEXT) {
                         if (v.getSender().equals(MyApplication.getInstance().getMid())) {
@@ -315,8 +321,36 @@ public class MessageActivity extends AppCompatActivity {
                         } else {
                             msgType = MessageBean.LEFT_AUDIO;
                         }
+                        if (TextUtils.isEmpty(v.getSoundElem().getPath())) {
+                            String path = TUIKitConstants.RECORD_DOWNLOAD_DIR + v.getSoundElem().getUUID();
+                            File file = new File(path);
+                            if (!file.exists()) {
+                                v.getSoundElem().downloadSound(path, new V2TIMDownloadCallback() {
+                                    @Override
+                                    public void onProgress(V2TIMElem.V2ProgressInfo progressInfo) {
+                                        LogUtil.e("下载音频：" + progressInfo.getCurrentSize() + " / " + progressInfo.getTotalSize());
+                                    }
+
+                                    @Override
+                                    public void onSuccess() {
+                                        LogUtil.e("下载音频成功");
+                                        bean.setMediaPath(path);
+                                    }
+
+                                    @Override
+                                    public void onError(int code, String desc) {
+                                        LogUtil.e("下载音频失败code:" + code + "desc:" + desc);
+                                    }
+                                });
+                            } else {
+                                bean.setMediaPath(path);
+                            }
+                        }
+                    } else if (v.getElemType() == V2TIMMessage.V2TIM_ELEM_TYPE_CUSTOM) {
+                        msgType = MessageBean.CUSTOM;
                     }
-                    messageBeans.add(new MessageBean(msgType, v));
+                    bean.setFieldType(msgType);
+                    messageBeans.add(bean);
                 }
                 fillView(messageBeans);
             }
@@ -474,5 +508,13 @@ public class MessageActivity extends AppCompatActivity {
     public void showInviteDialog(View view) {
         InvitePlayDialog dialog = new InvitePlayDialog(this);
         dialog.show();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (AudioPlayer.getInstance().isPlaying()) {
+            AudioPlayer.getInstance().stopPlay();
+        }
     }
 }

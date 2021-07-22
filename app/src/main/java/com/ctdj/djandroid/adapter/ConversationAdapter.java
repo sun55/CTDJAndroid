@@ -41,6 +41,8 @@ public class ConversationAdapter extends BaseQuickAdapter<V2TIMConversation, Con
             txt = "[语音]";
         } else if (message.getElemType() == V2TIMMessage.V2TIM_ELEM_TYPE_VIDEO) {
             txt = "[视频]";
+        } else if (message.getElemType() == V2TIMMessage.V2TIM_ELEM_TYPE_CUSTOM) {
+            txt = "[自定义]";
         }
         helper.tvLastMsg.setText(txt);
         helper.tvUnReadCount.setVisibility(item.getUnreadCount() > 0 ? View.VISIBLE : View.GONE);

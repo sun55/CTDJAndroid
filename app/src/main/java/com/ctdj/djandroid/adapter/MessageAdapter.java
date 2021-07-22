@@ -14,19 +14,28 @@ import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.ctdj.djandroid.MyApplication;
 import com.ctdj.djandroid.R;
+import com.ctdj.djandroid.bean.CustomMessageBean;
 import com.ctdj.djandroid.bean.MessageBean;
 import com.ctdj.djandroid.common.DisplayUtil;
 import com.ctdj.djandroid.common.LogUtil;
 import com.ctdj.djandroid.common.Utils;
+import com.google.gson.Gson;
+import com.tencent.imsdk.v2.V2TIMDownloadCallback;
+import com.tencent.imsdk.v2.V2TIMElem;
 import com.tencent.imsdk.v2.V2TIMMessage;
+import com.tencent.imsdk.v2.V2TIMSoundElem;
 import com.tencent.qcloud.tim.uikit.TUIKit;
 import com.tencent.qcloud.tim.uikit.component.AudioPlayer;
+import com.tencent.qcloud.tim.uikit.utils.TUIKitConstants;
 import com.tencent.qcloud.tim.uikit.utils.ToastUtil;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
+import static com.ctdj.djandroid.bean.MessageBean.CUSTOM;
 import static com.ctdj.djandroid.bean.MessageBean.LEFT_AUDIO;
 import static com.ctdj.djandroid.bean.MessageBean.LEFT_IMAGE;
 import static com.ctdj.djandroid.bean.MessageBean.LEFT_TXT;
@@ -45,18 +54,20 @@ public class MessageAdapter extends BaseMultiItemQuickAdapter<MessageBean, BaseV
         addItemType(RIGHT_IMAGE, R.layout.message_image_right_item_layout);
         addItemType(LEFT_AUDIO, R.layout.message_audio_left_item_layout);
         addItemType(RIGHT_AUDIO, R.layout.message_audio_right_item_layout);
+        addItemType(CUSTOM, R.layout.message_custom_item_layout);
     }
 
     @Override
     protected void convert(@NonNull @NotNull BaseViewHolder helper, MessageBean item) {
-        Glide.with(mContext).load(item.getV2TIMMessage().getFaceUrl()).error(R.drawable.default_head).into((ImageView) helper.getView(R.id.iv_avatar));
         switch (helper.getItemViewType()) {
             case LEFT_TXT:
             case RIGHT_TXT:
+                Glide.with(mContext).load(item.getV2TIMMessage().getFaceUrl()).error(R.drawable.default_head).into((ImageView) helper.getView(R.id.iv_avatar));
                 ((TextView) helper.getView(R.id.tv_content)).setText(item.getV2TIMMessage().getTextElem().getText());
                 break;
             case LEFT_IMAGE:
             case RIGHT_IMAGE:
+                Glide.with(mContext).load(item.getV2TIMMessage().getFaceUrl()).error(R.drawable.default_head).into((ImageView) helper.getView(R.id.iv_avatar));
                 View image = helper.getView(R.id.image);
                 int width = item.getV2TIMMessage().getImageElem().getImageList().get(0).getWidth();
                 int height = item.getV2TIMMessage().getImageElem().getImageList().get(0).getHeight();
@@ -68,6 +79,9 @@ public class MessageAdapter extends BaseMultiItemQuickAdapter<MessageBean, BaseV
                 break;
             case LEFT_AUDIO:
             case RIGHT_AUDIO:
+                Glide.with(mContext).load(item.getV2TIMMessage().getFaceUrl()).error(R.drawable.default_head).into((ImageView) helper.getView(R.id.iv_avatar));
+                V2TIMSoundElem soundElem = item.getV2TIMMessage().getSoundElem();
+                LogUtil.e("sound path:" + soundElem.getPath() + ", UUID:" + soundElem.getUUID());
                 ((TextView) helper.getView(R.id.tv_voice_time)).setText(item.getV2TIMMessage().getSoundElem().getDuration() + "s");
                 helper.getView(R.id.ll_audio_layout).setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -75,6 +89,14 @@ public class MessageAdapter extends BaseMultiItemQuickAdapter<MessageBean, BaseV
                         playSound(helper.getView(R.id.iv_voice), item);
                     }
                 });
+                break;
+            case CUSTOM:
+                try {
+                    CustomMessageBean bean = new Gson().fromJson(new String(item.getV2TIMMessage().getCustomElem().getData()), CustomMessageBean.class);
+                    ((TextView) helper.getView(R.id.tv_content)).setText(bean.getContent());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 break;
         }
     }
@@ -84,9 +106,35 @@ public class MessageAdapter extends BaseMultiItemQuickAdapter<MessageBean, BaseV
             AudioPlayer.getInstance().stopPlay();
             return;
         }
+        final String[] soundPath = new String[1];
         if (TextUtils.isEmpty(item.getV2TIMMessage().getSoundElem().getPath())) {
-            Utils.showToast(mContext, "语音文件还未下载完成");
-            return;
+            String path = TUIKitConstants.RECORD_DOWNLOAD_DIR + item.getV2TIMMessage().getSoundElem().getUUID();
+            File file = new File(path);
+            if (!file.exists()) {
+                Utils.showToast(mContext, "语音文件还未下载完成");
+                item.getV2TIMMessage().getSoundElem().downloadSound(path, new V2TIMDownloadCallback() {
+                    @Override
+                    public void onProgress(V2TIMElem.V2ProgressInfo progressInfo) {
+                        LogUtil.e("下载音频：" + progressInfo.getCurrentSize() + " / " + progressInfo.getTotalSize());
+                    }
+
+                    @Override
+                    public void onSuccess() {
+                        LogUtil.e("下载音频成功");
+                        soundPath[0] = path;
+                    }
+
+                    @Override
+                    public void onError(int code, String desc) {
+                        LogUtil.e("下载音频失败code:" + code + "desc:" + desc);
+                    }
+                });
+                return;
+            } else {
+                soundPath[0] = path;
+            }
+        } else {
+            soundPath[0] = item.getV2TIMMessage().getSoundElem().getPath();
         }
         if (item.getItemType() == LEFT_AUDIO) {
             audioPlayImage.setImageResource(R.drawable.voice_receive);
@@ -95,7 +143,7 @@ public class MessageAdapter extends BaseMultiItemQuickAdapter<MessageBean, BaseV
         }
         final AnimationDrawable animationDrawable = (AnimationDrawable) audioPlayImage.getDrawable();
         animationDrawable.start();
-        AudioPlayer.getInstance().startPlay(item.getV2TIMMessage().getSoundElem().getPath(), new AudioPlayer.Callback() {
+        AudioPlayer.getInstance().startPlay(soundPath[0], new AudioPlayer.Callback() {
             @Override
             public void onCompletion(Boolean success) {
                 audioPlayImage.post(new Runnable() {

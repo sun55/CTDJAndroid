@@ -17,11 +17,103 @@
         app:showRightImg="true"
         app:titleText="用户名" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rcv_message"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="1">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcv_message"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <RelativeLayout
+            android:id="@+id/rl_play_info"
+            android:layout_width="match_parent"
+            android:layout_height="86dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="15dp"
+            android:background="@drawable/gradient_color_161824_23273a_161824"
+            android:visibility="gone">
+
+            <RelativeLayout
+                android:id="@+id/rl_play_status"
+                android:layout_width="52dp"
+                android:layout_height="52dp"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="10dp">
+
+                <ImageView
+                    android:id="@+id/iv_game_icon"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:alpha="0.5"
+                    android:src="@drawable/game_king_icon" />
+
+                <TextView
+                    android:id="@+id/tv_play_status"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:gravity="center"
+                    android:text="约战中"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tv_play_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="23dp"
+                android:layout_toEndOf="@id/rl_play_status"
+                android:includeFontPadding="false"
+                android:text="金币挑战赛"
+                android:textColor="#e8e8e9"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_play_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_play_type"
+                android:layout_toEndOf="@id/rl_play_status"
+                android:drawableEnd="@drawable/gold_icon_2"
+                android:drawablePadding="7dp"
+                android:text="0"
+                android:textColor="#e8e8e9"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_play_status_2"
+                android:layout_width="80dp"
+                android:layout_height="26dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="45dp"
+                android:alpha="0.5"
+                android:background="@drawable/radius_13_5252fe"
+                android:gravity="center"
+                android:text="等待应战"
+                android:textColor="#e8e8e9"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/iv_play_info_more"
+                android:layout_width="35dp"
+                android:layout_height="27dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/radius_13_3a3c45"
+                android:src="@drawable/three_dot_icon" />
+        </RelativeLayout>
+    </RelativeLayout>
+
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -33,7 +125,6 @@
         android:orientation="horizontal">
 
         <EditText
-            android:onClick="editMessage"
             android:id="@+id/et_message"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -44,6 +135,7 @@
             android:imeOptions="actionSend"
             android:inputType="text"
             android:maxLines="4"
+            android:onClick="editMessage"
             android:paddingStart="12dp"
             android:paddingTop="14dp"
             android:paddingEnd="12dp"
@@ -108,11 +200,11 @@
             android:src="@drawable/message_gift_icon" />
 
         <ImageView
-            android:onClick="showInviteDialog"
             android:id="@+id/iv_game"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:onClick="showInviteDialog"
             android:scaleType="centerInside"
             android:src="@drawable/message_game_icon" />
 
@@ -310,10 +402,10 @@
         android:visibility="gone">
 
         <TextView
-            android:layout_centerHorizontal="true"
             android:id="@+id/tv_audio_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="40dp"
             android:includeFontPadding="false"
             android:text="按住说话"
@@ -323,17 +415,17 @@
         <com.ctdj.djandroid.audio.AudioRecorderButton
             android:id="@+id/btn_audio"
             android:layout_width="104dp"
-            android:layout_centerHorizontal="true"
             android:layout_height="104dp"
             android:layout_below="@id/tv_audio_time"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="38dp"
             android:background="@drawable/message_recording" />
 
         <com.opensource.svgaplayer.SVGAImageView
             android:id="@+id/svga_flow"
-            android:layout_centerHorizontal="true"
             android:layout_width="104dp"
-            android:layout_height="104dp" />
+            android:layout_height="104dp"
+            android:layout_centerHorizontal="true" />
     </RelativeLayout>
 
 </androidx.appcompat.widget.LinearLayoutCompat>
