@@ -47,7 +47,7 @@ public class ConversationAdapter extends BaseQuickAdapter<V2TIMConversation, Con
         helper.tvLastMsg.setText(txt);
         helper.tvUnReadCount.setVisibility(item.getUnreadCount() > 0 ? View.VISIBLE : View.GONE);
         helper.tvUnReadCount.setText(item.getUnreadCount() + "");
-        helper.tvTime.setText(DateTimeUtil.getTimeFormatText(new Date(message.getTimestamp() * 1000)));
+        helper.tvTime.setText(DateTimeUtil.getConversationTime(new Date(message.getTimestamp() * 1000)));
         helper.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
