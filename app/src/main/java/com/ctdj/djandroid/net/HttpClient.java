@@ -262,4 +262,47 @@ public class HttpClient {
         maps.put("token", MyApplication.getInstance().getToken());
         HttpCaller.doPost(context, API.QUERY_CHALLENGE_RECORD, maps, callback);
     }
+
+    /**
+     *  关注粉丝列表
+     * @param context
+     * @param type 1 关注 2 粉丝
+     * @param page
+     * @param size
+     * @param callback
+     */
+    public static void followList(Context context, int type, int page, int size, HttpCallback callback) {
+        HashMap<String, Object> maps = new HashMap<>();
+        maps.put("token", MyApplication.getInstance().getToken());
+        maps.put("type", type);
+        maps.put("page", page);
+        maps.put("size", size);
+        HttpCaller.doPost(context, API.FOLLOW_LIST, maps, callback);
+    }
+
+    /**
+     * 添加关注
+     * @param context
+     * @param fmid
+     * @param callback
+     */
+    public static void addFollow(Context context, String fmid, HttpCallback callback) {
+        HashMap<String, Object> maps = new HashMap<>();
+        maps.put("token", MyApplication.getInstance().getToken());
+        maps.put("fmid", fmid);
+        HttpCaller.doPost(context, API.ADD_FOLLOW, maps, callback);
+    }
+
+    /**
+     * 取消关注
+     * @param context
+     * @param fmid
+     * @param callback
+     */
+    public static void deleteFollow(Context context, String fmid, HttpCallback callback) {
+        HashMap<String, Object> maps = new HashMap<>();
+        maps.put("token", MyApplication.getInstance().getToken());
+        maps.put("fmid", fmid);
+        HttpCaller.doPost(context, API.DELETE_FOLLOW, maps, callback);
+    }
 }

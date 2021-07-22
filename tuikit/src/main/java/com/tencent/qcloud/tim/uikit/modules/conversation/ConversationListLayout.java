@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 import com.tencent.qcloud.tim.uikit.R;
@@ -131,6 +132,7 @@ public class ConversationListLayout extends RecyclerView implements IConversatio
             @Override
             public void onSuccess(ConversationProvider provider, boolean isFinished, long nextSeq) {
                 if (mAdapter != null) {
+                    Log.e("load conversation", "conversation size:" + provider.getDataSource().size());
                     mAdapter.setDataProvider(provider);
                     mAdapter.setIsLoading(false);
                 }

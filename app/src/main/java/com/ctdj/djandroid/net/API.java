@@ -23,4 +23,7 @@ public class API {
     public static final String CHECK_V_CODE = "/api/login/checkVcode"; // 校验验证码
     public static final String QUERY_PERSONAL = "/api/mydata/personal"; // 查询个人信息
     public static final String QUERY_CHALLENGE_RECORD = "/api/challenge/queryChallengeRecord"; // 查询战绩
+    public static final String FOLLOW_LIST = "/api/follow/followList"; // 关注或粉丝列表
+    public static final String ADD_FOLLOW = "/api/follow/addFollow"; // 添加关注
+    public static final String DELETE_FOLLOW = "/api/follow/delFollow"; //  移除关注
 }

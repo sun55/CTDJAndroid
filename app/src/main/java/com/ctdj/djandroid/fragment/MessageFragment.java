@@ -1,5 +1,6 @@
 package com.ctdj.djandroid.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.ctdj.djandroid.activity.AddressBookActivity;
 import com.ctdj.djandroid.adapter.ConversationAdapter;
 import com.ctdj.djandroid.common.LogUtil;
 import com.ctdj.djandroid.databinding.FragmentMessageBinding;
@@ -46,18 +48,19 @@ public class MessageFragment extends Fragment {
         binding.ivContacts.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                V2TIMManager.getInstance().sendC2CTextMessage("ce shi text" + new Random().nextInt(), "100015", new V2TIMValueCallback<V2TIMMessage>() {
-                    @Override
-                    public void onSuccess(V2TIMMessage v2TIMMessage) {
-                        LogUtil.e("发送成功：" + v2TIMMessage.getMessage().getMessageKey());
-
-                    }
-
-                    @Override
-                    public void onError(int code, String desc) {
-                        LogUtil.e("发送失败：" + code + "， msg：" + desc);
-                    }
-                });
+                startActivity(new Intent(getActivity(), AddressBookActivity.class));
+//                V2TIMManager.getInstance().sendC2CTextMessage("ce shi text" + new Random().nextInt(), "100015", new V2TIMValueCallback<V2TIMMessage>() {
+//                    @Override
+//                    public void onSuccess(V2TIMMessage v2TIMMessage) {
+//                        LogUtil.e("发送成功：" + v2TIMMessage.getMessage().getMessageKey());
+//
+//                    }
+//
+//                    @Override
+//                    public void onError(int code, String desc) {
+//                        LogUtil.e("发送失败：" + code + "， msg：" + desc);
+//                    }
+//                });
             }
         });
 
