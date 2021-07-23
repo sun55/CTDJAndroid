@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Rect;
+import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -28,6 +29,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.ctdj.djandroid.MyApplication;
 import com.ctdj.djandroid.R;
 import com.ctdj.djandroid.adapter.MessageAdapter;
@@ -77,12 +79,10 @@ public class MessageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMessageBinding.inflate(LayoutInflater.from(this));
         setContentView(binding.getRoot());
-
         Window window = getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.setStatusBarColor(Color.parseColor("#161824"));
-
         binding.titleView.setOnBtnListener(new TitleView.OnBtnListener() {
             @Override
             public void onLeftClick() {
@@ -131,6 +131,29 @@ public class MessageActivity extends AppCompatActivity {
                 super.onRecvNewMessage(msg);
                 adapter.addData(msg);
                 binding.rcvMessage.scrollToPosition(adapter.getItemCount() - 1);
+                V2TIMManager.getMessageManager().markC2CMessageAsRead(msg.getUserID(), null);
+                if (msg.getElemType() == V2TIMMessage.V2TIM_ELEM_TYPE_SOUND) {
+                    String path = TUIKitConstants.RECORD_DOWNLOAD_DIR + msg.getSoundElem().getUUID();
+                    File file = new File(path);
+                    if (!file.exists()) {
+                        msg.getSoundElem().downloadSound(path, new V2TIMDownloadCallback() {
+                            @Override
+                            public void onProgress(V2TIMElem.V2ProgressInfo progressInfo) {
+                                LogUtil.e("下载音频：" + progressInfo.getCurrentSize() + " / " + progressInfo.getTotalSize());
+                            }
+
+                            @Override
+                            public void onSuccess() {
+                                LogUtil.e("下载音频成功");
+                            }
+
+                            @Override
+                            public void onError(int code, String desc) {
+                                LogUtil.e("下载音频失败code:" + code + "desc:" + desc);
+                            }
+                        });
+                    }
+                }
             }
 
             @Override
@@ -166,6 +189,7 @@ public class MessageActivity extends AppCompatActivity {
 
             @Override
             public void onNormal() {
+                Utils.vibrator();
                 wantCancelRecord = false;
                 binding.btnAudio.setBackgroundResource(R.drawable.message_recording);
                 binding.tvAudioTime.setText("按住说话");

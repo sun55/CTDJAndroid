@@ -13,6 +13,7 @@ import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Vibrator;
 import android.provider.MediaStore;
 import android.text.Html;
 import android.text.Selection;
@@ -593,5 +594,13 @@ public class Utils {
         ClipboardManager cmb = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
         cmb.setText(content.trim());
         Utils.showToast(context, "复制成功");
+    }
+
+    /**
+     * 震动
+     */
+    public static void vibrator() {
+        Vibrator vibrator = (Vibrator)MyApplication.getInstance().getSystemService(MyApplication.getInstance().VIBRATOR_SERVICE);
+        vibrator.vibrate(200);
     }
 }

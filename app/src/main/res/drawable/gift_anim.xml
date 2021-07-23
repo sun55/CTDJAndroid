@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/volume_animation"
+    android:oneshot="false" >
+
+    <item
+        android:drawable="@drawable/gift_1"
+        android:duration="100"/>
+    <item
+        android:drawable="@drawable/gift_2"
+        android:duration="100"/>
+    <item
+        android:drawable="@drawable/gift_3"
+        android:duration="100"/>
+    <item
+        android:drawable="@drawable/gift_4"
+        android:duration="100"/>
+    <item
+        android:drawable="@drawable/gift_5"
+        android:duration="100"/>
+    <item
+        android:drawable="@drawable/gift_6"
+        android:duration="100"/>
+    <item
+        android:drawable="@drawable/gift_7"
+        android:duration="100"/>
+    <item
+        android:drawable="@drawable/gift_8"
+        android:duration="100"/>
+    <item
+        android:drawable="@drawable/gift_9"
+        android:duration="100"/>
+    <item
+        android:drawable="@drawable/gift_10"
+        android:duration="100"/>
+    <item
+        android:drawable="@drawable/gift_11"
+        android:duration="100"/>
+    <item
+        android:drawable="@drawable/gift_12"
+        android:duration="100"/>
+    <item
+        android:drawable="@drawable/gift_13"
+        android:duration="100"/>
+
+</animation-list>

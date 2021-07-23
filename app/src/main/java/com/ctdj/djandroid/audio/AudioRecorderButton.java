@@ -55,6 +55,7 @@ public class AudioRecorderButton extends androidx.appcompat.widget.AppCompatText
                         Manifest.permission.WRITE_EXTERNAL_STORAGE})) {
                     mReady = true;
                     mAudioManager.prepareAudio();
+                    Utils.vibrator();
                 } else {
                     if (audioRecordStateListener != null) {
                         audioRecordStateListener.onNoPermission();

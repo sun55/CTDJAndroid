@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/volume_animation"
+    android:oneshot="false" >
+
+    <item
+        android:drawable="@drawable/gray_right_sound_1"
+        android:duration="50"/>
+    <item
+        android:drawable="@drawable/gray_right_sound_2"
+        android:duration="50"/>
+    <item
+        android:drawable="@drawable/gray_right_sound_3"
+        android:duration="50"/>
+    <item
+        android:drawable="@drawable/gray_right_sound_4"
+        android:duration="50"/>
+    <item
+        android:drawable="@drawable/gray_right_sound_5"
+        android:duration="50"/>
+    <item
+        android:drawable="@drawable/gray_right_sound_6"
+        android:duration="50"/>
+    <item
+        android:drawable="@drawable/gray_right_sound_7"
+        android:duration="50"/>
+    <item
+        android:drawable="@drawable/gray_right_sound_8"
+        android:duration="50"/>
+    <item
+        android:drawable="@drawable/gray_right_sound_9"
+        android:duration="50"/>
+    <item
+        android:drawable="@drawable/gray_right_sound_10"
+        android:duration="50"/>
+    <item
+        android:drawable="@drawable/gray_right_sound_11"
+        android:duration="50"/>
+    <item
+        android:drawable="@drawable/gray_right_sound_12"
+        android:duration="50"/>
+    <item
+        android:drawable="@drawable/gray_right_sound_13"
+        android:duration="50"/>
+</animation-list>
