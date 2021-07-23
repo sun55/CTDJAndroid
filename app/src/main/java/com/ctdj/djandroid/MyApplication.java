@@ -171,6 +171,8 @@ public class MyApplication extends MultiDexApplication {
         setProperty("user.hideRecord", String.valueOf(user.hideRecord));
         setProperty("user.isShow", String.valueOf(user.isShow));
         setProperty("user.userSig", user.userSig);
+        setProperty("user.remarkName", user.remarkName);
+        setProperty("user.signature", user.signature);
         V2TIMUserFullInfo imUserInfo = new V2TIMUserFullInfo();
         imUserInfo.setFaceUrl(user.headimg);
         imUserInfo.setNickname(user.mname);
@@ -216,6 +218,8 @@ public class MyApplication extends MultiDexApplication {
         bean.hideRecord = Integer.parseInt(getProperty("user.hideRecord"));
         bean.isShow = Integer.parseInt(getProperty("user.isShow"));
         bean.userSig = getProperty("user.userSig");
+        bean.remarkName = getProperty("user.remarkName");
+        bean.signature = getProperty("user.signature");
         return bean;
     }
 
@@ -257,7 +261,9 @@ public class MyApplication extends MultiDexApplication {
                 "user.isFirst",
                 "user.hideRecord",
                 "user.isShow",
-                "user.userSig"
+                "user.userSig",
+                "user.remarkName",
+                "user.signature"
         );
     }
 

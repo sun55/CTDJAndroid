@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.ctdj.djandroid.R;
 import com.ctdj.djandroid.adapter.FollowUserAdapter;
 import com.ctdj.djandroid.bean.UserListBean;
+import com.ctdj.djandroid.common.LogUtil;
 import com.ctdj.djandroid.common.Utils;
 import com.ctdj.djandroid.databinding.FragmentUserListBinding;
 import com.ctdj.djandroid.net.HttpCallback;
@@ -24,8 +26,8 @@ import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener;
 import java.util.ArrayList;
 
 public class UserListFragment extends Fragment {
-    public static final int FOLLOW = 2;
-    public static final int FANS = 1;
+    public static final int FOLLOW = 1;
+    public static final int FANS = 2;
     private int type = 1;
      private int page = 1;
     FragmentUserListBinding binding;
@@ -53,7 +55,15 @@ public class UserListFragment extends Fragment {
         binding.rcvUserList.setLayoutManager(new LinearLayoutManager(getActivity()));
         adapter = new FollowUserAdapter(new ArrayList<>(), type);
         binding.rcvUserList.setAdapter(adapter);
-        adapter.setEmptyView(getLayoutInflater().inflate(R.layout.empty_layout, null));
+        View empty = getLayoutInflater().inflate(R.layout.empty_layout, null);
+        TextView emptyTitle = empty.findViewById(R.id.tv_empty_title);
+        LogUtil.e("------type:" + type);
+        if (type == FOLLOW) {
+            emptyTitle.setText("你还没有关注任何人");
+        } else {
+            emptyTitle.setText("你还没有任何粉丝哦");
+        }
+        adapter.setEmptyView(empty);
 
         binding.refresh.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
             @Override
@@ -79,17 +89,17 @@ public class UserListFragment extends Fragment {
             @Override
             public void onSuccess(String result) {
                 UserListBean bean = new Gson().fromJson(result, UserListBean.class);
-//                if (isRefresh) {
-//                    binding.refresh.finishRefresh();
-//                    adapter.setNewData(bean.getData().getList());
-//                } else {
-//                    if (bean.getData().getList().size() > 0) {
-//                        binding.refresh.finishLoadMore();
-//                        adapter.addData(bean.getData().getList());
-//                    } else {
-//                        binding.refresh.finishLoadMoreWithNoMoreData();
-//                    }
-//                }
+                if (isRefresh) {
+                    binding.refresh.finishRefresh();
+                    adapter.setNewData(bean.getRows());
+                } else {
+                    if (bean.getRows().size() > 0) {
+                        binding.refresh.finishLoadMore();
+                        adapter.addData(bean.getRows());
+                    } else {
+                        binding.refresh.finishLoadMoreWithNoMoreData();
+                    }
+                }
             }
 
             @Override

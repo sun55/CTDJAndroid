@@ -30,4 +30,6 @@ public class UserInfoBean implements Serializable {
     public int hideRecord;
     public int isShow;
     public String userSig;
+    public String remarkName;
+    public String signature;
 }

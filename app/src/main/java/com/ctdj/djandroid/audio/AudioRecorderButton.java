@@ -31,6 +31,7 @@ public class AudioRecorderButton extends androidx.appcompat.widget.AppCompatText
 
     //记时
     private float mTime;
+    private float maxTime = 60; // 最大时长
     //是否触发长按事件
     private boolean mReady;
 
@@ -101,6 +102,11 @@ public class AudioRecorderButton extends androidx.appcompat.widget.AppCompatText
                     mHandler.sendEmptyMessage(MSG_VOICE_CHANGED);
                     if (audioRecordStateListener != null) {
                         audioRecordStateListener.onCountTime((int) mTime);
+                        if (mTime >= maxTime) {
+                            MotionEvent motionEvent = MotionEvent.obtain(0, 0, (int)getX(), getY(), 0, 0, 0, 0, 0, 0, 0, 0);
+                            motionEvent.setAction(MotionEvent.ACTION_UP);
+                            onTouchEvent(motionEvent);
+                        }
                     }
                     postDelayed(mGetVoiceLevelRunnable, 100);
             }
@@ -249,12 +255,12 @@ public class AudioRecorderButton extends androidx.appcompat.widget.AppCompatText
                 case STATE_RECORDING:
 //                    setBackgroundResource(R.drawable.btn_recording);
 //                    setText(R.string.str_recorder_recording);
-                    if (isRecording) {
+//                    if (isRecording) {
 //                        mDialogManager.recording();
                         if (audioRecordStateListener != null) {
                             audioRecordStateListener.onRecording();
                         }
-                    }
+//                    }
                     break;
                 case STATE_WANT_TO_CANCEL:
                     if (audioRecordStateListener != null) {

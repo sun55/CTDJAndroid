@@ -73,6 +73,10 @@ public class MessageActivity extends AppCompatActivity {
     String targetName;
     MessageAdapter adapter;
     boolean wantCancelRecord = false; // 是否想取消录音
+    AnimationDrawable leftGrayAnim;
+    AnimationDrawable leftRedAnim;
+    AnimationDrawable rightGrayAnim;
+    AnimationDrawable rightRedAnim;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +98,10 @@ public class MessageActivity extends AppCompatActivity {
 
             }
         });
+        leftGrayAnim = (AnimationDrawable) getDrawable(R.drawable.gray_left_sound_anim);
+        leftRedAnim = (AnimationDrawable) getDrawable(R.drawable.red_left_sound_anim);
+        rightGrayAnim = (AnimationDrawable) getDrawable(R.drawable.gray_right_sound_anim);
+        rightRedAnim = (AnimationDrawable) getDrawable(R.drawable.red_right_sound_anim);
         binding.etMessage.setHorizontallyScrolling(false);
         binding.etMessage.setMaxLines(4);
         binding.etMessage.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -194,6 +202,32 @@ public class MessageActivity extends AppCompatActivity {
                 binding.btnAudio.setBackgroundResource(R.drawable.message_recording);
                 binding.tvAudioTime.setText("按住说话");
                 binding.tvAudioTime.setTextColor(Color.parseColor("#E8E8E8"));
+                binding.ivLeftAnim.setBackgroundResource(0);
+                binding.ivRightAnim.setBackgroundResource(0);
+                if (leftGrayAnim != null) {
+                    if (leftGrayAnim.isRunning()) {
+                        leftGrayAnim.stop();
+                    }
+                    leftGrayAnim = null;
+                }
+                if (leftRedAnim != null) {
+                    if (leftRedAnim.isRunning()) {
+                        leftRedAnim.stop();
+                    }
+                    leftRedAnim = null;
+                }
+                if (rightGrayAnim != null) {
+                    if (rightGrayAnim.isRunning()) {
+                        rightGrayAnim.stop();
+                    }
+                    rightGrayAnim = null;
+                }
+                if (rightRedAnim != null) {
+                    if (rightRedAnim.isRunning()) {
+                        rightRedAnim.stop();
+                    }
+                    rightRedAnim = null;
+                }
             }
 
             @Override
@@ -204,6 +238,25 @@ public class MessageActivity extends AppCompatActivity {
             @Override
             public void onRecording() {
                 wantCancelRecord = false;
+                LogUtil.e("onRecording");
+                if (leftRedAnim != null && leftRedAnim.isRunning()) {
+                    leftRedAnim.stop();
+                    leftRedAnim = null;
+                }
+                if (rightRedAnim != null && rightRedAnim.isRunning()) {
+                    rightRedAnim.stop();
+                    rightRedAnim = null;
+                }
+                if (leftGrayAnim == null) {
+                    leftGrayAnim = (AnimationDrawable) getDrawable(R.drawable.gray_left_sound_anim);
+                }
+                if (rightGrayAnim == null) {
+                    rightGrayAnim = (AnimationDrawable) getDrawable(R.drawable.gray_right_sound_anim);
+                }
+                binding.ivLeftAnim.setBackground(leftGrayAnim);
+                binding.ivRightAnim.setBackground(rightGrayAnim);
+                leftGrayAnim.start();
+                rightGrayAnim.start();
             }
 
             @Override
@@ -222,6 +275,24 @@ public class MessageActivity extends AppCompatActivity {
                 binding.btnAudio.setBackgroundResource(R.drawable.message_record_delete);
                 binding.tvAudioTime.setTextColor(Color.parseColor("#FE2A54"));
                 binding.tvAudioTime.setText("松开取消");
+                if (leftGrayAnim != null && leftGrayAnim.isRunning()) {
+                    leftGrayAnim.stop();
+                    leftGrayAnim = null;
+                }
+                if (rightGrayAnim != null && rightGrayAnim.isRunning()) {
+                    rightGrayAnim.stop();
+                    rightGrayAnim = null;
+                }
+                if (leftRedAnim == null) {
+                    leftRedAnim = (AnimationDrawable) getDrawable(R.drawable.red_left_sound_anim);
+                }
+                if (rightRedAnim == null) {
+                    rightRedAnim = (AnimationDrawable) getDrawable(R.drawable.red_right_sound_anim);
+                }
+                binding.ivLeftAnim.setBackground(leftRedAnim);
+                binding.ivRightAnim.setBackground(rightRedAnim);
+                leftRedAnim.start();
+                rightRedAnim.start();
             }
 
             @Override

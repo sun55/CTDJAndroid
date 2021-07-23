@@ -17,14 +17,14 @@ import java.util.List;
 /**
  * 关注粉丝adapter
  */
-public class FollowUserAdapter extends BaseQuickAdapter<UserListBean, FollowUserAdapter.UserHolder> {
+public class FollowUserAdapter extends BaseQuickAdapter<UserListBean.Row, FollowUserAdapter.UserHolder> {
 
-    public FollowUserAdapter(List<UserListBean> data, int type) {
+    public FollowUserAdapter(List<UserListBean.Row> data, int type) {
         super(R.layout.user_item_layout, data);
     }
 
     @Override
-    protected void convert(@NonNull UserHolder helper, UserListBean item) {
+    protected void convert(@NonNull UserHolder helper, UserListBean.Row item) {
 
     }
 
