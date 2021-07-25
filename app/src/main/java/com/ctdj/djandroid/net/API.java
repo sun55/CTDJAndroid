@@ -26,4 +26,11 @@ public class API {
     public static final String FOLLOW_LIST = "/api/follow/followList"; // 关注或粉丝列表
     public static final String ADD_FOLLOW = "/api/follow/addFollow"; // 添加关注
     public static final String DELETE_FOLLOW = "/api/follow/delFollow"; //  移除关注
+    public static final String CREATE_MATCH_RECORD = "/api/challenge/createMatchRecord"; // 发起约战
+    public static final String CLOSE_MATCH = "/api/challenge/closeMatch"; // 取消约战
+    public static final String CLOSE_CHALLENGE = "/api/challenge/closeChallenge"; // 取消比赛
+    public static final String RECEIVE_OR_REFUSE_CHALLENGE = "/api/challenge/recevieOrRefuseChallenge"; // 接受或拒绝比赛
+    public static final String SUBMIT_AUDIT = "/api/challenge/submitAudit"; // 提交待审
+    public static final String QUERY_MATCH_RECORD = "/api/challenge/queryMatchRecordByNo"; // 查询匹配记录
+    public static final String QUERY_MATCH_RECORD_LIST = "/api/challenge/queryMatchRecordList"; // 查询用户匹配列表列表
 }

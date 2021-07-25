@@ -201,7 +201,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:background="@drawable/gift_anim" />
+                android:background="@drawable/message_gift_icon" />
         </RelativeLayout>
 
         <ImageView

@@ -34,6 +34,7 @@ import com.ctdj.djandroid.MyApplication;
 import com.ctdj.djandroid.R;
 import com.ctdj.djandroid.adapter.MessageAdapter;
 import com.ctdj.djandroid.audio.AudioRecorderButton;
+import com.ctdj.djandroid.bean.CustomMessageBean;
 import com.ctdj.djandroid.bean.MessageBean;
 import com.ctdj.djandroid.common.DisplayUtil;
 import com.ctdj.djandroid.common.GlideEngine;
@@ -41,7 +42,10 @@ import com.ctdj.djandroid.common.LogUtil;
 import com.ctdj.djandroid.common.Utils;
 import com.ctdj.djandroid.databinding.ActivityMessageBinding;
 import com.ctdj.djandroid.dialog.InvitePlayDialog;
+import com.ctdj.djandroid.net.HttpCallback;
+import com.ctdj.djandroid.net.HttpClient;
 import com.ctdj.djandroid.view.TitleView;
+import com.google.gson.Gson;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
@@ -121,7 +125,9 @@ public class MessageActivity extends AppCompatActivity {
             }
         });
         adapter = new MessageAdapter(new ArrayList<>());
-        binding.rcvMessage.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
+        LinearLayoutManager manager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
+        manager.setStackFromEnd(true);
+        binding.rcvMessage.setLayoutManager(manager);
         binding.rcvMessage.setAdapter(adapter);
         Intent intent = getIntent();
         lastMessage = (V2TIMMessage) intent.getSerializableExtra("last_message");
@@ -161,6 +167,10 @@ public class MessageActivity extends AppCompatActivity {
                             }
                         });
                     }
+                } else if (msg.getElemType() == V2TIMMessage.V2TIM_ELEM_TYPE_CUSTOM) {
+                    CustomMessageBean bean = new Gson().fromJson(new String(msg.getCustomElem().getData()), CustomMessageBean.class);
+                    LogUtil.e("新的自定义消息：" +bean.toString());
+
                 }
             }
 
@@ -305,6 +315,8 @@ public class MessageActivity extends AppCompatActivity {
         });
 
         binding.etMessage.requestFocus();
+
+        queryMatchRecord();
     }
 
     private void hideBottomViews() {
@@ -611,5 +623,22 @@ public class MessageActivity extends AppCompatActivity {
         if (AudioPlayer.getInstance().isPlaying()) {
             AudioPlayer.getInstance().stopPlay();
         }
+    }
+
+    /**
+     * 查询约战信息
+     */
+    private void queryMatchRecord() {
+        HttpClient.queryMatchRecord(this, userId, new HttpCallback() {
+            @Override
+            public void onSuccess(String result) {
+
+            }
+
+            @Override
+            public void onFailure(String msg) {
+
+            }
+        });
     }
 }

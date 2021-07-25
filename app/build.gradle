@@ -28,8 +28,8 @@ android {
 
     signingConfigs {
         debug {
-//            storeFile file('/Users/apple/Desktop/CTDJAndroid/ctdjandroid.jks')
-            storeFile file('../ctdjandroid.jks')
+            storeFile file('/Users/apple/Desktop/CTDJAndroid/ctdjandroid.jks')
+//            storeFile file('../ctdjandroid.jks')
             storePassword 'ctdjandroid'
             keyAlias 'ctdjandroid'
             keyPassword 'ctdjandroid'
@@ -37,8 +37,8 @@ android {
         release {
             keyAlias 'ctdjandroid'
             keyPassword 'ctdjandroid'
-//            storeFile file('/Users/apple/Desktop/CTDJAndroid/ctdjandroid.jks')
-            storeFile file('../ctdjandroid.jks')
+            storeFile file('/Users/apple/Desktop/CTDJAndroid/ctdjandroid.jks')
+//            storeFile file('../ctdjandroid.jks')
             storePassword 'ctdjandroid'
         }
     }

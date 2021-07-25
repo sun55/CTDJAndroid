@@ -69,13 +69,17 @@ public class MessageAdapter extends BaseMultiItemQuickAdapter<MessageBean, BaseV
             case RIGHT_IMAGE:
                 Glide.with(mContext).load(item.getV2TIMMessage().getFaceUrl()).error(R.drawable.default_head).into((ImageView) helper.getView(R.id.iv_avatar));
                 View image = helper.getView(R.id.image);
-                int width = item.getV2TIMMessage().getImageElem().getImageList().get(0).getWidth();
-                int height = item.getV2TIMMessage().getImageElem().getImageList().get(0).getHeight();
-                RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) image.getLayoutParams();
-                layoutParams.height = DisplayUtil.dip2px(mContext, 156 * height / width);
+                if (item.getV2TIMMessage().getImageElem().getImageList().get(0) != null) {
+                    int width = item.getV2TIMMessage().getImageElem().getImageList().get(0).getWidth();
+                    int height = item.getV2TIMMessage().getImageElem().getImageList().get(0).getHeight();
+                    if (width != 0 && height != 0) {
+                    RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) image.getLayoutParams();
+                    layoutParams.height = DisplayUtil.dip2px(mContext, 156 * height / width);
+                    }
 
-                Glide.with(mContext).load(item.getV2TIMMessage().getImageElem().getImageList().get(0).getUrl()).
-                        error(R.drawable.default_head).into((ImageView) helper.getView(R.id.image));
+                    Glide.with(mContext).load(item.getV2TIMMessage().getImageElem().getImageList().get(0).getUrl()).
+                            error(R.drawable.default_head).into((ImageView) helper.getView(R.id.image));
+                }
                 break;
             case LEFT_AUDIO:
             case RIGHT_AUDIO:
@@ -181,6 +185,8 @@ public class MessageAdapter extends BaseMultiItemQuickAdapter<MessageBean, BaseV
             } else {
                 msgType = LEFT_AUDIO;
             }
+        } else {
+            msgType = CUSTOM;
         }
         super.addData(getItemCount(), new MessageBean(msgType, v));
     }

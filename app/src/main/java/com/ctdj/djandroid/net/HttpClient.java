@@ -305,4 +305,81 @@ public class HttpClient {
         maps.put("fmid", fmid);
         HttpCaller.doPost(context, API.DELETE_FOLLOW, maps, callback);
     }
+
+    /**
+     * 发起约战
+     */
+    public static void createMatchRecord(Context context, String gameName, int area, int challengeType, int award, String fmid, HttpCallback callback) {
+        HashMap<String, Object> maps = new HashMap<>();
+        maps.put("token", MyApplication.getInstance().getToken());
+        maps.put("gameName", gameName);
+        maps.put("area", area);
+        maps.put("challengeType", challengeType);
+        maps.put("award", award);
+        maps.put("fmid", fmid);
+        HttpCaller.doPost(context, API.CREATE_MATCH_RECORD, maps, callback);
+    }
+
+    /**
+     * 取消匹配
+     */
+    public static void closeMatch(Context context, String matchId, HttpCallback callback) {
+        HashMap<String, Object> maps = new HashMap<>();
+        maps.put("token", MyApplication.getInstance().getToken());
+        maps.put("matchId", matchId);
+        HttpCaller.doPost(context, API.CLOSE_MATCH, maps, callback);
+    }
+
+    /**
+     * 取消比赛
+     */
+    public static void closeChallenge(Context context, int challengeId, int sta, HttpCallback callback) {
+        HashMap<String, Object> maps = new HashMap<>();
+        maps.put("token", MyApplication.getInstance().getToken());
+        maps.put("challengeId", challengeId);
+        maps.put("sta", sta);
+        HttpCaller.doPost(context, API.CLOSE_CHALLENGE, maps, callback);
+    }
+
+    /**
+     * 接受或拒绝约战
+     */
+    public static void receiveOrRefuseChallenge(Context context, int challengeId, int type, HttpCallback callback) {
+        HashMap<String, Object> maps = new HashMap<>();
+        maps.put("token", MyApplication.getInstance().getToken());
+        maps.put("challengeId", challengeId);
+        maps.put("type", type);
+        HttpCaller.doPost(context, API.RECEIVE_OR_REFUSE_CHALLENGE, maps, callback);
+    }
+
+    /**
+     * 提交待审
+     */
+    public static void submitAudit(Context context, int challengeId, int sta, String img, HttpCallback callback) {
+        HashMap<String, Object> maps = new HashMap<>();
+        maps.put("token", MyApplication.getInstance().getToken());
+        maps.put("challengeId", challengeId);
+        maps.put("sta", sta);
+        maps.put("img", img);
+        HttpCaller.doPost(context, API.SUBMIT_AUDIT, maps, callback);
+    }
+
+    /**
+     * 查询匹配记录
+     */
+    public static void queryMatchRecord(Context context, String fmid, HttpCallback callback) {
+        HashMap<String, Object> maps = new HashMap<>();
+        maps.put("token", MyApplication.getInstance().getToken());
+        maps.put("fmid", fmid);
+        HttpCaller.doPost(context, API.QUERY_MATCH_RECORD, maps, callback);
+    }
+
+    /**
+     * 查询匹配记录
+     */
+    public static void queryMatchRecordList(Context context, HttpCallback callback) {
+        HashMap<String, Object> maps = new HashMap<>();
+        maps.put("token", MyApplication.getInstance().getToken());
+        HttpCaller.doPost(context, API.QUERY_MATCH_RECORD_LIST, maps, callback);
+    }
 }
