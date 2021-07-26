@@ -18,7 +18,8 @@
     <uses-permission android:name="android.permission.FLASHLIGHT" />
     <uses-permission android:name="android.permission.VIBRATE" /> <!-- 8.0+系统需要 -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" /> <!-- 下面的 uses-permission 一起加入到你的 AndroidManifest 文件中。 -->
-    <uses-permission android:name="android.permission.VIBRATE"/> // 震动
+    <uses-permission android:name="android.permission.VIBRATE" />
+
     <permission
         android:name="com.ctdj.djandroid.permission.RECEIVE_MSG"
         android:protectionLevel="signature" />
@@ -37,7 +38,11 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup">
-        <activity android:name=".activity.AddressBookActivity"></activity>
+        <activity
+            android:name=".activity.MessageSettingActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity android:name=".activity.AddressBookActivity" />
         <activity
             android:name=".activity.MessageActivity"
             android:screenOrientation="portrait"

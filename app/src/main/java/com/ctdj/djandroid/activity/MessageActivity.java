@@ -91,6 +91,11 @@ public class MessageActivity extends AppCompatActivity {
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.setStatusBarColor(Color.parseColor("#161824"));
+        Intent intent = getIntent();
+        lastMessage = (V2TIMMessage) intent.getSerializableExtra("last_message");
+        userId = intent.getStringExtra("user_id");
+        targetName = intent.getStringExtra("target_name");
+
         binding.titleView.setOnBtnListener(new TitleView.OnBtnListener() {
             @Override
             public void onLeftClick() {
@@ -99,7 +104,9 @@ public class MessageActivity extends AppCompatActivity {
 
             @Override
             public void onRightClick() {
-
+                Intent intent = new Intent(MessageActivity.this, MessageSettingActivity.class);
+                intent.putExtra("user_id", userId);
+                startActivityForResult(intent, 101);
             }
         });
         leftGrayAnim = (AnimationDrawable) getDrawable(R.drawable.gray_left_sound_anim);
@@ -129,10 +136,6 @@ public class MessageActivity extends AppCompatActivity {
         manager.setStackFromEnd(true);
         binding.rcvMessage.setLayoutManager(manager);
         binding.rcvMessage.setAdapter(adapter);
-        Intent intent = getIntent();
-        lastMessage = (V2TIMMessage) intent.getSerializableExtra("last_message");
-        userId = intent.getStringExtra("user_id");
-        targetName = intent.getStringExtra("target_name");
         binding.titleView.setTitle(targetName);
         if (lastMessage == null || userId == null) {
 
@@ -169,7 +172,7 @@ public class MessageActivity extends AppCompatActivity {
                     }
                 } else if (msg.getElemType() == V2TIMMessage.V2TIM_ELEM_TYPE_CUSTOM) {
                     CustomMessageBean bean = new Gson().fromJson(new String(msg.getCustomElem().getData()), CustomMessageBean.class);
-                    LogUtil.e("新的自定义消息：" +bean.toString());
+                    LogUtil.e("新的自定义消息：" + bean.toString());
 
                 }
             }
@@ -470,7 +473,7 @@ public class MessageActivity extends AppCompatActivity {
     }
 
     private void fillView(ArrayList<MessageBean> messageBeans) {
-        adapter.addData(messageBeans);
+        adapter.setNewData(messageBeans);
         binding.rcvMessage.scrollToPosition(adapter.getItemCount() - 1);
     }
 
@@ -511,14 +514,20 @@ public class MessageActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (101 == requestCode) {
+            if (data.getExtras().getBoolean("is_clear", false)) {
+                getHistoryMessage();
+            }
+            return;
+        }
         if (resultCode != RESULT_OK || data == null) {
             return;
         }
-        List<LocalMedia> list = PictureSelector.obtainMultipleResult(data);
-        if (list == null || list.size() <= 0) {
-            return;
-        }
         if (requestCode == 1000) {
+            List<LocalMedia> list = PictureSelector.obtainMultipleResult(data);
+            if (list == null || list.size() <= 0) {
+                return;
+            }
             String imagePath;
             LogUtil.e("path:" + list.get(0).getPath());
             if (list.get(0).getPath().contains("content://")) {
@@ -528,6 +537,8 @@ public class MessageActivity extends AppCompatActivity {
                 imagePath = list.get(0).getPath();
             }
             sendImageMessage(imagePath);
+        } else if (requestCode == 101) { // 聊天设置页面
+
         }
     }
 

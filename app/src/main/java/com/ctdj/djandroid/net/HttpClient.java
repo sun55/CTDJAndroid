@@ -264,6 +264,17 @@ public class HttpClient {
     }
 
     /**
+     * 查询王者战绩和绑定游戏账号信息
+     * @param context
+     * @param callback
+     */
+    public static void queryChallengeAndGame(Context context, HttpCallback callback) {
+        HashMap<String, Object> maps = new HashMap<>();
+        maps.put("token", MyApplication.getInstance().getToken());
+        HttpCaller.doPost(context, API.QUERY_CHALLENGE_AND_GAME, maps, callback);
+    }
+
+    /**
      *  关注粉丝列表
      * @param context
      * @param type 1 关注 2 粉丝

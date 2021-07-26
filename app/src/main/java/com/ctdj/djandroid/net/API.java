@@ -14,7 +14,7 @@ public class API {
     public static final String IS_EXIST_NAME = "/api/login/isExistName";
     public static final String UPDATE_PERSONAL = "/api/mydata/updatepersonal";
     public static final String OPINION = "/api/opinion/add"; // 意见反馈
-    public static final String GET_BIND_GAME_INFO = "/api/mydata/getBindGameInfo"; // 获取关联游戏账号
+     public static final String GET_BIND_GAME_INFO = "/api/mydata/getBindGameInfo"; // 获取关联游戏账号
     public static final String BIND_GAME = "/api/mydata/bindGame"; // 绑定游戏昵称
     public static final String QUERY_BLACK_LIST = "/api/black/queryblacklist"; // 查询黑名单列表
     public static final String ADD_BLACK = "/api/black/add"; // 添加黑名单
@@ -23,6 +23,7 @@ public class API {
     public static final String CHECK_V_CODE = "/api/login/checkVcode"; // 校验验证码
     public static final String QUERY_PERSONAL = "/api/mydata/personal"; // 查询个人信息
     public static final String QUERY_CHALLENGE_RECORD = "/api/challenge/queryChallengeRecord"; // 查询战绩
+    public static final String QUERY_CHALLENGE_AND_GAME = "/api/challenge/queryChallengeAndGame"; // 查询战绩绑定游戏账号信息
     public static final String FOLLOW_LIST = "/api/follow/followList"; // 关注或粉丝列表
     public static final String ADD_FOLLOW = "/api/follow/addFollow"; // 添加关注
     public static final String DELETE_FOLLOW = "/api/follow/delFollow"; //  移除关注

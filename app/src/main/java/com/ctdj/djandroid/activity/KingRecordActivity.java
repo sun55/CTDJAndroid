@@ -68,7 +68,7 @@ public class KingRecordActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        HttpClient.queryChallengeRecord(this, new HttpCallback() {
+        HttpClient.queryChallengeAndGame(this, new HttpCallback() {
             @Override
             public void onSuccess(String result) {
                 ChallengeRecordBean bean = new Gson().fromJson(result, ChallengeRecordBean.class);

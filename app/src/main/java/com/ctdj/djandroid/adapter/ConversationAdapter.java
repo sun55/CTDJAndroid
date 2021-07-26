@@ -33,21 +33,23 @@ public class ConversationAdapter extends BaseQuickAdapter<V2TIMConversation, Con
         V2TIMMessage message = item.getLastMessage();
         helper.tvName.setText(item.getShowName());
         String txt = "";
-        if (message.getElemType() == V2TIMMessage.V2TIM_ELEM_TYPE_TEXT) {
-            txt = message.getTextElem().getText();
-        } else if (message.getElemType() == V2TIMMessage.V2TIM_ELEM_TYPE_IMAGE) {
-            txt = "[图片]";
-        } else if (message.getElemType() == V2TIMMessage.V2TIM_ELEM_TYPE_SOUND) {
-            txt = "[语音]";
-        } else if (message.getElemType() == V2TIMMessage.V2TIM_ELEM_TYPE_VIDEO) {
-            txt = "[视频]";
-        } else if (message.getElemType() == V2TIMMessage.V2TIM_ELEM_TYPE_CUSTOM) {
-            txt = "[自定义]";
+        if (message != null) {
+            if (message.getElemType() == V2TIMMessage.V2TIM_ELEM_TYPE_TEXT) {
+                txt = message.getTextElem().getText();
+            } else if (message.getElemType() == V2TIMMessage.V2TIM_ELEM_TYPE_IMAGE) {
+                txt = "[图片]";
+            } else if (message.getElemType() == V2TIMMessage.V2TIM_ELEM_TYPE_SOUND) {
+                txt = "[语音]";
+            } else if (message.getElemType() == V2TIMMessage.V2TIM_ELEM_TYPE_VIDEO) {
+                txt = "[视频]";
+            } else if (message.getElemType() == V2TIMMessage.V2TIM_ELEM_TYPE_CUSTOM) {
+                txt = "[自定义]";
+            }
+            helper.tvLastMsg.setText(txt);
+            helper.tvUnReadCount.setVisibility(item.getUnreadCount() > 0 ? View.VISIBLE : View.GONE);
+            helper.tvUnReadCount.setText(item.getUnreadCount() + "");
+            helper.tvTime.setText(DateTimeUtil.getConversationTime(new Date(message.getTimestamp() * 1000)));
         }
-        helper.tvLastMsg.setText(txt);
-        helper.tvUnReadCount.setVisibility(item.getUnreadCount() > 0 ? View.VISIBLE : View.GONE);
-        helper.tvUnReadCount.setText(item.getUnreadCount() + "");
-        helper.tvTime.setText(DateTimeUtil.getConversationTime(new Date(message.getTimestamp() * 1000)));
         helper.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
