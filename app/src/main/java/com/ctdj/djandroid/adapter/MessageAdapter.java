@@ -166,6 +166,7 @@ public class MessageAdapter extends BaseMultiItemQuickAdapter<MessageBean, BaseV
     }
 
     public void addData(V2TIMMessage v) {
+        LogUtil.e("------------------------------------");
         int msgType = 0;
         if (v.getElemType() == V2TIMMessage.V2TIM_ELEM_TYPE_TEXT) {
             if (v.getSender().equals(MyApplication.getInstance().getMid())) {

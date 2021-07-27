@@ -10,11 +10,15 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.ctdj.djandroid.MyApplication;
 import com.ctdj.djandroid.R;
+import com.ctdj.djandroid.bean.RegisterBean;
 import com.ctdj.djandroid.common.LogUtil;
 import com.ctdj.djandroid.databinding.ActivityMainBinding;
 import com.ctdj.djandroid.fragment.MessageFragment;
 import com.ctdj.djandroid.fragment.MineFragment;
 import com.ctdj.djandroid.fragment.HomeFragment;
+import com.ctdj.djandroid.net.HttpCallback;
+import com.ctdj.djandroid.net.HttpClient;
+import com.google.gson.Gson;
 import com.tencent.imsdk.v2.V2TIMCallback;
 import com.tencent.imsdk.v2.V2TIMManager;
 import com.tencent.imsdk.v2.V2TIMUserFullInfo;
@@ -38,17 +42,30 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(LayoutInflater.from(this));
         setContentView(binding.getRoot());
-        TUIKit.login(MyApplication.getInstance().getMid(), MyApplication.getInstance().getUserInfo().userSig, new IUIKitCallBack() {
+        HttpClient.intoPersonal(this, new HttpCallback() {
             @Override
-            public void onSuccess(Object data) {
-                LogUtil.i("im login success");
+            public void onSuccess(String result) {
+                RegisterBean bean = new Gson().fromJson(result, RegisterBean.class);
+                MyApplication.getInstance().saveUserInfo(bean.data);
+                TUIKit.login(MyApplication.getInstance().getMid(), MyApplication.getInstance().getUserInfo().userSig, new IUIKitCallBack() {
+                    @Override
+                    public void onSuccess(Object data) {
+                        LogUtil.i("im login success");
+                    }
+
+                    @Override
+                    public void onError(String module, int errCode, String errMsg) {
+                        LogUtil.e("im login error: module:" + module + ", errCode:" + errCode + ", errMsg:" + errMsg);
+                    }
+                });
             }
 
             @Override
-            public void onError(String module, int errCode, String errMsg) {
-                LogUtil.e("im login error: module:" + module + ", errCode:" + errCode + ", errMsg:" + errMsg);
+            public void onFailure(String msg) {
+
             }
         });
+
         fragmentManager = getSupportFragmentManager();
         if (savedInstanceState != null) {
             FragmentTransaction transaction = fragmentManager.beginTransaction();

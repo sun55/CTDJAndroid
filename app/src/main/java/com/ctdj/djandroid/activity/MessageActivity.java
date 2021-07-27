@@ -35,6 +35,7 @@ import com.ctdj.djandroid.R;
 import com.ctdj.djandroid.adapter.MessageAdapter;
 import com.ctdj.djandroid.audio.AudioRecorderButton;
 import com.ctdj.djandroid.bean.CustomMessageBean;
+import com.ctdj.djandroid.bean.MatchOrderBean;
 import com.ctdj.djandroid.bean.MessageBean;
 import com.ctdj.djandroid.common.DisplayUtil;
 import com.ctdj.djandroid.common.GlideEngine;
@@ -131,68 +132,13 @@ public class MessageActivity extends AppCompatActivity {
                 return false;
             }
         });
+        binding.etMessage.requestFocus();
         adapter = new MessageAdapter(new ArrayList<>());
         LinearLayoutManager manager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         manager.setStackFromEnd(true);
         binding.rcvMessage.setLayoutManager(manager);
         binding.rcvMessage.setAdapter(adapter);
         binding.titleView.setTitle(targetName);
-        if (lastMessage == null || userId == null) {
-
-        } else {
-            getHistoryMessage();
-        }
-        V2TIMManager.getMessageManager().addAdvancedMsgListener(new V2TIMAdvancedMsgListener() {
-            @Override
-            public void onRecvNewMessage(V2TIMMessage msg) {
-                super.onRecvNewMessage(msg);
-                adapter.addData(msg);
-                binding.rcvMessage.scrollToPosition(adapter.getItemCount() - 1);
-                V2TIMManager.getMessageManager().markC2CMessageAsRead(msg.getUserID(), null);
-                if (msg.getElemType() == V2TIMMessage.V2TIM_ELEM_TYPE_SOUND) {
-                    String path = TUIKitConstants.RECORD_DOWNLOAD_DIR + msg.getSoundElem().getUUID();
-                    File file = new File(path);
-                    if (!file.exists()) {
-                        msg.getSoundElem().downloadSound(path, new V2TIMDownloadCallback() {
-                            @Override
-                            public void onProgress(V2TIMElem.V2ProgressInfo progressInfo) {
-                                LogUtil.e("下载音频：" + progressInfo.getCurrentSize() + " / " + progressInfo.getTotalSize());
-                            }
-
-                            @Override
-                            public void onSuccess() {
-                                LogUtil.e("下载音频成功");
-                            }
-
-                            @Override
-                            public void onError(int code, String desc) {
-                                LogUtil.e("下载音频失败code:" + code + "desc:" + desc);
-                            }
-                        });
-                    }
-                } else if (msg.getElemType() == V2TIMMessage.V2TIM_ELEM_TYPE_CUSTOM) {
-                    CustomMessageBean bean = new Gson().fromJson(new String(msg.getCustomElem().getData()), CustomMessageBean.class);
-                    LogUtil.e("新的自定义消息：" + bean.toString());
-
-                }
-            }
-
-            @Override
-            public void onRecvC2CReadReceipt(List<V2TIMMessageReceipt> receiptList) {
-                super.onRecvC2CReadReceipt(receiptList);
-            }
-
-            @Override
-            public void onRecvMessageRevoked(String msgID) {
-                super.onRecvMessageRevoked(msgID);
-            }
-
-            @Override
-            public void onRecvMessageModified(V2TIMMessage msg) {
-                super.onRecvMessageModified(msg);
-            }
-        });
-
         binding.rcvMessage.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -201,7 +147,19 @@ public class MessageActivity extends AppCompatActivity {
                 return false;
             }
         });
+        if (lastMessage == null || userId == null) {
 
+        } else {
+            getHistoryMessage();
+        }
+        addAdvancedMsgListener();
+
+        setAudioRecordStateListener();
+
+        queryMatchRecord();
+    }
+
+    private void setAudioRecordStateListener() {
         binding.btnAudio.setAudioRecordStateListener(new AudioRecorderButton.AudioRecordStateListener() {
             @Override
             public void onFinish(float seconds, String filePath) {
@@ -316,10 +274,59 @@ public class MessageActivity extends AppCompatActivity {
                         Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1001);
             }
         });
+    }
 
-        binding.etMessage.requestFocus();
+    private void addAdvancedMsgListener() {
+        V2TIMManager.getMessageManager().addAdvancedMsgListener(new V2TIMAdvancedMsgListener() {
+            @Override
+            public void onRecvNewMessage(V2TIMMessage msg) {
+                super.onRecvNewMessage(msg);
+                adapter.addData(msg);
+                binding.rcvMessage.scrollToPosition(adapter.getItemCount() - 1);
+                V2TIMManager.getMessageManager().markC2CMessageAsRead(msg.getUserID(), null);
+                if (msg.getElemType() == V2TIMMessage.V2TIM_ELEM_TYPE_SOUND) {
+                    String path = TUIKitConstants.RECORD_DOWNLOAD_DIR + msg.getSoundElem().getUUID();
+                    File file = new File(path);
+                    if (!file.exists()) {
+                        msg.getSoundElem().downloadSound(path, new V2TIMDownloadCallback() {
+                            @Override
+                            public void onProgress(V2TIMElem.V2ProgressInfo progressInfo) {
+                                LogUtil.e("下载音频：" + progressInfo.getCurrentSize() + " / " + progressInfo.getTotalSize());
+                            }
 
-        queryMatchRecord();
+                            @Override
+                            public void onSuccess() {
+                                LogUtil.e("下载音频成功");
+                            }
+
+                            @Override
+                            public void onError(int code, String desc) {
+                                LogUtil.e("下载音频失败code:" + code + "desc:" + desc);
+                            }
+                        });
+                    }
+                } else if (msg.getElemType() == V2TIMMessage.V2TIM_ELEM_TYPE_CUSTOM) {
+                    CustomMessageBean bean = new Gson().fromJson(new String(msg.getCustomElem().getData()), CustomMessageBean.class);
+                    LogUtil.e("新的自定义消息：" + bean.toString());
+                    queryMatchRecord();
+                }
+            }
+
+            @Override
+            public void onRecvC2CReadReceipt(List<V2TIMMessageReceipt> receiptList) {
+                super.onRecvC2CReadReceipt(receiptList);
+            }
+
+            @Override
+            public void onRecvMessageRevoked(String msgID) {
+                super.onRecvMessageRevoked(msgID);
+            }
+
+            @Override
+            public void onRecvMessageModified(V2TIMMessage msg) {
+                super.onRecvMessageModified(msg);
+            }
+        });
     }
 
     private void hideBottomViews() {
@@ -624,7 +631,7 @@ public class MessageActivity extends AppCompatActivity {
     }
 
     public void showInviteDialog(View view) {
-        InvitePlayDialog dialog = new InvitePlayDialog(this);
+        InvitePlayDialog dialog = new InvitePlayDialog(this, userId);
         dialog.show();
     }
 
@@ -643,13 +650,19 @@ public class MessageActivity extends AppCompatActivity {
         HttpClient.queryMatchRecord(this, userId, new HttpCallback() {
             @Override
             public void onSuccess(String result) {
-
+                MatchOrderBean bean = new Gson().fromJson(result, MatchOrderBean.class);
+                fillOrderView(bean);
             }
 
             @Override
             public void onFailure(String msg) {
-
+                Utils.showToast(MessageActivity.this, msg);
             }
         });
+    }
+
+    private void fillOrderView(MatchOrderBean bean) {
+        binding.rlPlayInfo.setVisibility((bean.getData().getGameName() == null) ? View.GONE : View.VISIBLE);
+
     }
 }

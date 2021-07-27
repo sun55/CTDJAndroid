@@ -41,6 +41,11 @@ public class MessageFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initView();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         initData();
     }
 
@@ -104,6 +109,7 @@ public class MessageFragment extends Fragment {
             public void onTotalUnreadMessageCountChanged(long totalUnreadCount) {
                 super.onTotalUnreadMessageCountChanged(totalUnreadCount);
                 LogUtil.e("onTotalUnreadMessageCountChanged :" + totalUnreadCount);
+                initData();
             }
         });
     }

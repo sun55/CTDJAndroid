@@ -18,7 +18,7 @@ import java.util.List;
  */
 public class PlayPriceAdapter extends BaseQuickAdapter<String, PlayPriceAdapter.PlayPriceHolder> {
 
-    private String playType = "金币挑战赛"; // 金币挑战赛 赏金挑战赛
+    private int playType = 1; // 1金币挑战赛 2赏金挑战赛
     private int selectedIndex = 0; // 选择下标
 
     public PlayPriceAdapter(List<String> data) {
@@ -28,7 +28,7 @@ public class PlayPriceAdapter extends BaseQuickAdapter<String, PlayPriceAdapter.
     @Override
     protected void convert(@NonNull PlayPriceHolder helper, String item) {
         helper.tvPrice.setText(item);
-        helper.tvPrice.setCompoundDrawablesWithIntrinsicBounds(0, 0, "金币挑战赛".equals(playType) ? R.drawable.gold_icon_2 : R.drawable.diamond_icon, 0);
+        helper.tvPrice.setCompoundDrawablesWithIntrinsicBounds(0, 0, playType == 1 ? R.drawable.gold_icon_2 : R.drawable.diamond_icon, 0);
         if (helper.getAdapterPosition() == selectedIndex) {
             helper.rlItem.setBackgroundResource(R.drawable.play_item_select_bg);
             helper.ivSelect.setVisibility(View.VISIBLE);
@@ -49,7 +49,7 @@ public class PlayPriceAdapter extends BaseQuickAdapter<String, PlayPriceAdapter.
         });
     }
 
-    public void setPlayType(String playType) {
+    public void setPlayType(int playType) {
         this.playType = playType;
         notifyDataSetChanged();
     }
@@ -57,6 +57,10 @@ public class PlayPriceAdapter extends BaseQuickAdapter<String, PlayPriceAdapter.
     public void setSelectedIndex(int selectedIndex) {
         this.selectedIndex = selectedIndex;
         notifyDataSetChanged();
+    }
+
+    public String getSelectedItem() {
+        return getItem(selectedIndex);
     }
 
     public class PlayPriceHolder extends BaseViewHolder {

@@ -21,7 +21,8 @@ public class API {
     public static final String DEL_BLACK = "/api/black/del"; // 移除黑名单
     public static final String ID_CODE_VAILD = "/api/mydata/IdCodeVaild"; // 实名认证
     public static final String CHECK_V_CODE = "/api/login/checkVcode"; // 校验验证码
-    public static final String QUERY_PERSONAL = "/api/mydata/personal"; // 查询个人信息
+    public static final String QUERY_PERSONAL = "/api/mydata/personal"; // 查询个人主页
+    public static final String INTO_PERSONAL = "/api/mydata/intopersonal"; // 查询个人信息
     public static final String QUERY_CHALLENGE_RECORD = "/api/challenge/queryChallengeRecord"; // 查询战绩
     public static final String QUERY_CHALLENGE_AND_GAME = "/api/challenge/queryChallengeAndGame"; // 查询战绩绑定游戏账号信息
     public static final String FOLLOW_LIST = "/api/follow/followList"; // 关注或粉丝列表
@@ -32,6 +33,6 @@ public class API {
     public static final String CLOSE_CHALLENGE = "/api/challenge/closeChallenge"; // 取消比赛
     public static final String RECEIVE_OR_REFUSE_CHALLENGE = "/api/challenge/recevieOrRefuseChallenge"; // 接受或拒绝比赛
     public static final String SUBMIT_AUDIT = "/api/challenge/submitAudit"; // 提交待审
-    public static final String QUERY_MATCH_RECORD = "/api/challenge/queryMatchRecordByNo"; // 查询匹配记录
+    public static final String QUERY_MATCH_RECORD = "/api/challenge/queryMatchOrderById"; // 查询匹配记录
     public static final String QUERY_MATCH_RECORD_LIST = "/api/challenge/queryMatchRecordList"; // 查询用户匹配列表列表
 }

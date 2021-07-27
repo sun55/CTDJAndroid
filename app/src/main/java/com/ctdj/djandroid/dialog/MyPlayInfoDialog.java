@@ -24,8 +24,8 @@ import com.ctdj.djandroid.common.DisplayUtil;
  */
 public class MyPlayInfoDialog extends Dialog {
     private Context context;
-    private String playType;
-    private String playArea;
+    private int playType;
+    private int playArea;
     TextView tvType1;
     TextView tvType2;
     TextView tvArea1;
@@ -113,34 +113,32 @@ public class MyPlayInfoDialog extends Dialog {
     }
 
     public void selectType(int i) {
+        playType = i;
         if (i == 1) {
             rlType1.setBackgroundResource(R.drawable.play_item_select_bg);
             ivType1.setVisibility(View.VISIBLE);
             rlType2.setBackgroundResource(R.drawable.radius_5_22252f);
             ivType2.setVisibility(View.GONE);
-            playType = "金币挑战赛";
         } else {
             rlType1.setBackgroundResource(R.drawable.radius_5_22252f);
             ivType1.setVisibility(View.GONE);
             rlType2.setBackgroundResource(R.drawable.play_item_select_bg);
             ivType2.setVisibility(View.VISIBLE);
-            playType = "赏金挑战赛";
         }
     }
 
     public void selectArea(int i) {
+        playArea = i;
         if (i == 1) {
             rlArea1.setBackgroundResource(R.drawable.play_item_select_bg);
             ivArea1.setVisibility(View.VISIBLE);
             rlArea2.setBackgroundResource(R.drawable.radius_5_22252f);
             ivArea2.setVisibility(View.GONE);
-            playArea = "微信区服";
         } else {
             rlArea1.setBackgroundResource(R.drawable.radius_5_22252f);
             ivArea1.setVisibility(View.GONE);
             rlArea2.setBackgroundResource(R.drawable.play_item_select_bg);
             ivArea2.setVisibility(View.VISIBLE);
-            playArea = "企鹅区服";
         }
     }
 
@@ -155,6 +153,6 @@ public class MyPlayInfoDialog extends Dialog {
     }
 
     public interface OnBtnClickListener {
-        void onConfirmClick(String playType, String playArea);
+        void onConfirmClick(int playType, int playArea);
     }
 }

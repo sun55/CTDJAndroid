@@ -239,7 +239,7 @@ public class HttpClient {
     }
 
     /**
-     * 查询个人信息
+     * 查询个人主页
      *
      * @param context
      * @param callback
@@ -249,6 +249,17 @@ public class HttpClient {
         maps.put("token", MyApplication.getInstance().getToken());
         maps.put("fmid", fmid);
         HttpCaller.doPost(context, API.QUERY_PERSONAL, maps, callback);
+    }
+
+    /**
+     * 查询个人信息
+     * @param context
+     * @param callback
+     */
+    public static void intoPersonal(Context context, HttpCallback callback) {
+        HashMap<String, Object> maps = new HashMap<>();
+        maps.put("token", MyApplication.getInstance().getToken());
+        HttpCaller.doPost(context, API.INTO_PERSONAL, maps, callback);
     }
 
     /**

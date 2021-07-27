@@ -11,6 +11,7 @@ import androidx.appcompat.widget.LinearLayoutCompat;
 
 import com.ctdj.djandroid.bean.BindGameInfoBean;
 import com.ctdj.djandroid.common.DisplayUtil;
+import com.ctdj.djandroid.common.Utils;
 import com.ctdj.djandroid.databinding.ActivityBindGameAccountBinding;
 import com.ctdj.djandroid.net.HttpCallback;
 import com.ctdj.djandroid.net.HttpClient;
@@ -84,7 +85,7 @@ public class BindGameAccountActivity extends BaseActivity {
 
             @Override
             public void onFailure(String msg) {
-
+                Utils.showToast(BindGameAccountActivity.this, msg);
             }
         });
     }
