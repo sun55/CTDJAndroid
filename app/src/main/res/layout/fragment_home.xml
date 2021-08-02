@@ -61,7 +61,7 @@
                     android:layout_width="49dp"
                     android:layout_height="27dp"
                     android:layout_alignParentEnd="true"
-                    android:background="@drawable/roll_label_bg"
+                    android:background="@drawable/radius_10_left_bottom_right_top_3a3c45"
                     android:gravity="center"
                     android:text="规则"
                     android:textColor="#ffebebed"

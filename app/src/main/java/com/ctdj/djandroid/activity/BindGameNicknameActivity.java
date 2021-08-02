@@ -22,7 +22,7 @@ import com.ctdj.djandroid.view.TitleView;
 public class BindGameNicknameActivity extends BaseActivity {
 
     ActivityBindGameNicknameBinding binding;
-    String area;
+    int area;
     String nickname;
 
     @Override
@@ -32,9 +32,9 @@ public class BindGameNicknameActivity extends BaseActivity {
         setContentView(binding.getRoot());
         RelativeLayout.LayoutParams l = (RelativeLayout.LayoutParams) binding.titleView.getLayoutParams();
         l.topMargin = DisplayUtil.getStatusBarHeight(this);
-        area = getIntent().getStringExtra("area");
+        area = getIntent().getIntExtra("area", 1);
         nickname = getIntent().getStringExtra("nickname");
-        binding.tvGameArea.setText(area);
+        binding.tvGameArea.setText(area == 1 ? "微信区服" : "企鹅区服");
         binding.etGameNickname.setText(nickname);
         if (TextUtils.isEmpty(nickname)) {
             binding.llTips.setVisibility(View.VISIBLE);
@@ -92,8 +92,8 @@ public class BindGameNicknameActivity extends BaseActivity {
                     Utils.showToast(BindGameNicknameActivity.this, "请输入游戏昵称");
                 } else {
                     HttpClient.bindGame(BindGameNicknameActivity.this,
-                            area.equals("微信区服") ? binding.etGameNickname.getText().toString().trim() : "",
-                            area.equals("微信区服") ? "" : binding.etGameNickname.getText().toString().trim(),
+                            area == 1 ? binding.etGameNickname.getText().toString().trim() : "",
+                            area == 1 ? "" : binding.etGameNickname.getText().toString().trim(),
                             new HttpCallback() {
                                 @Override
                                 public void onSuccess(String result) {

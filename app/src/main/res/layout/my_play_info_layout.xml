@@ -175,7 +175,7 @@
         android:layout_marginTop="60dp"
         android:layout_marginEnd="67dp"
         android:layout_marginBottom="15dp"
-        android:background="@drawable/login_btn_bg"
+        android:background="@drawable/radius_10_5252fe"
         android:text="确定"
         android:textColor="#EBEBED"
         android:textSize="15sp" />

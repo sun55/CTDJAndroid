@@ -41,14 +41,19 @@ import com.ctdj.djandroid.R;
 import com.ctdj.djandroid.activity.LoginActivity;
 import com.ctdj.djandroid.dialog.LoadingDialog;
 import com.ctdj.djandroid.view.MyImageSpan;
+import com.luck.picture.lib.PictureSelector;
+import com.luck.picture.lib.entity.LocalMedia;
 import com.luck.picture.lib.tools.PictureFileUtils;
 import com.opensource.svgaplayer.SVGAParser;
+import com.tencent.android.tpush.XGIOperateCallback;
+import com.tencent.android.tpush.XGPushManager;
 import com.tencent.qcloud.tim.uikit.TUIKit;
 import com.tencent.qcloud.tim.uikit.base.IUIKitCallBack;
 import com.ywl5320.libmusic.WlMusic;
 import com.ywl5320.listener.OnPreparedListener;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -162,6 +167,17 @@ public class Utils {
             @Override
             public void onError(String module, int errCode, String errMsg) {
                 LogUtil.i("im logout error: module:" + module + ", errCode:" + errCode + ", errMsg:" + errMsg);
+            }
+        });
+        XGPushManager.unregisterPush(MyApplication.getInstance(), new XGIOperateCallback() {
+            @Override
+            public void onSuccess(Object o, int i) {
+                LogUtil.i("腾讯推送退出成功");
+            }
+
+            @Override
+            public void onFail(Object o, int i, String s) {
+                LogUtil.e("腾讯推送退出失败 i:" + i + ", s:" + s);
             }
         });
     }
@@ -600,7 +616,21 @@ public class Utils {
      * 震动
      */
     public static void vibrator() {
-        Vibrator vibrator = (Vibrator)MyApplication.getInstance().getSystemService(MyApplication.getInstance().VIBRATOR_SERVICE);
+        Vibrator vibrator = (Vibrator) MyApplication.getInstance().getSystemService(MyApplication.getInstance().VIBRATOR_SERVICE);
         vibrator.vibrate(200);
+    }
+
+    public static void previewSingleImage(Activity context, String imageUrl) {
+        List<LocalMedia> list = new ArrayList<>();
+        LocalMedia localMedia = new LocalMedia();
+        localMedia.setCutPath(imageUrl);
+        localMedia.setCut(true);
+        localMedia.setCompressed(false);
+        list.add(localMedia);
+        PictureSelector.create(context)
+                .themeStyle(R.style.picture_default_style)
+                .isNotPreviewDownload(true)
+                .imageEngine(GlideEngine.createGlideEngine())
+                .openExternalPreview(0, list);
     }
 }

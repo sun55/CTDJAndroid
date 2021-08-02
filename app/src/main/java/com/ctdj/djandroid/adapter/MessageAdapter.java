@@ -85,7 +85,6 @@ public class MessageAdapter extends BaseMultiItemQuickAdapter<MessageBean, BaseV
             case RIGHT_AUDIO:
                 Glide.with(mContext).load(item.getV2TIMMessage().getFaceUrl()).error(R.drawable.default_head).into((ImageView) helper.getView(R.id.iv_avatar));
                 V2TIMSoundElem soundElem = item.getV2TIMMessage().getSoundElem();
-                LogUtil.e("sound path:" + soundElem.getPath() + ", UUID:" + soundElem.getUUID());
                 ((TextView) helper.getView(R.id.tv_voice_time)).setText(item.getV2TIMMessage().getSoundElem().getDuration() + "s");
                 helper.getView(R.id.ll_audio_layout).setOnClickListener(new View.OnClickListener() {
                     @Override

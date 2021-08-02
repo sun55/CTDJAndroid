@@ -19,6 +19,8 @@ import com.ctdj.djandroid.fragment.HomeFragment;
 import com.ctdj.djandroid.net.HttpCallback;
 import com.ctdj.djandroid.net.HttpClient;
 import com.google.gson.Gson;
+import com.tencent.android.tpush.XGIOperateCallback;
+import com.tencent.android.tpush.XGPushManager;
 import com.tencent.imsdk.v2.V2TIMCallback;
 import com.tencent.imsdk.v2.V2TIMManager;
 import com.tencent.imsdk.v2.V2TIMUserFullInfo;
@@ -98,6 +100,22 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onError(int code, String desc) {
 
+            }
+        });
+
+        registerPush();
+    }
+
+    private void registerPush() {
+        XGPushManager.registerPush(MyApplication.getInstance(), new XGIOperateCallback() {
+            @Override
+            public void onSuccess(Object o, int i) {
+                LogUtil.i("注册推送成功");
+            }
+
+            @Override
+            public void onFail(Object o, int i, String s) {
+                LogUtil.e("注册推送失败 i:" + i + ", s:" + s);
             }
         });
     }

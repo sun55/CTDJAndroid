@@ -35,4 +35,5 @@ public class API {
     public static final String SUBMIT_AUDIT = "/api/challenge/submitAudit"; // 提交待审
     public static final String QUERY_MATCH_RECORD = "/api/challenge/queryMatchOrderById"; // 查询匹配记录
     public static final String QUERY_MATCH_RECORD_LIST = "/api/challenge/queryMatchRecordList"; // 查询用户匹配列表列表
+    public static final String QUERY_CHALLENGE_ORDER_DTL = "/api/challenge/queryChallengeOrderDtl"; // 查询订单详情
 }

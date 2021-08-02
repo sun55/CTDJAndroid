@@ -253,6 +253,7 @@ public class HttpClient {
 
     /**
      * 查询个人信息
+     *
      * @param context
      * @param callback
      */
@@ -276,6 +277,7 @@ public class HttpClient {
 
     /**
      * 查询王者战绩和绑定游戏账号信息
+     *
      * @param context
      * @param callback
      */
@@ -286,9 +288,10 @@ public class HttpClient {
     }
 
     /**
-     *  关注粉丝列表
+     * 关注粉丝列表
+     *
      * @param context
-     * @param type 1 关注 2 粉丝
+     * @param type     1 关注 2 粉丝
      * @param page
      * @param size
      * @param callback
@@ -304,6 +307,7 @@ public class HttpClient {
 
     /**
      * 添加关注
+     *
      * @param context
      * @param fmid
      * @param callback
@@ -317,6 +321,7 @@ public class HttpClient {
 
     /**
      * 取消关注
+     *
      * @param context
      * @param fmid
      * @param callback
@@ -339,16 +344,17 @@ public class HttpClient {
         maps.put("challengeType", challengeType);
         maps.put("award", award);
         maps.put("fmid", fmid);
+        maps.put("gameType", "王者荣耀");
         HttpCaller.doPost(context, API.CREATE_MATCH_RECORD, maps, callback);
     }
 
     /**
      * 取消匹配
      */
-    public static void closeMatch(Context context, String matchId, HttpCallback callback) {
+    public static void closeMatch(Context context, int challengeId, HttpCallback callback) {
         HashMap<String, Object> maps = new HashMap<>();
         maps.put("token", MyApplication.getInstance().getToken());
-        maps.put("matchId", matchId);
+        maps.put("challengeId", challengeId);
         HttpCaller.doPost(context, API.CLOSE_MATCH, maps, callback);
     }
 
@@ -366,23 +372,27 @@ public class HttpClient {
     /**
      * 接受或拒绝约战
      */
-    public static void receiveOrRefuseChallenge(Context context, int challengeId, int type, HttpCallback callback) {
+    public static void receiveOrRefuseChallenge(Context context, int challengeId, int type, String fgameName, HttpCallback callback) {
         HashMap<String, Object> maps = new HashMap<>();
         maps.put("token", MyApplication.getInstance().getToken());
         maps.put("challengeId", challengeId);
         maps.put("type", type);
+        maps.put("fgameName", fgameName);
         HttpCaller.doPost(context, API.RECEIVE_OR_REFUSE_CHALLENGE, maps, callback);
     }
 
     /**
      * 提交待审
+     *
+     * @param sta 2 游戏审核 4 申诉审核
      */
-    public static void submitAudit(Context context, int challengeId, int sta, String img, HttpCallback callback) {
+    public static void submitAudit(Context context, int challengeId, int sta, String img, String remarks, HttpCallback callback) {
         HashMap<String, Object> maps = new HashMap<>();
         maps.put("token", MyApplication.getInstance().getToken());
         maps.put("challengeId", challengeId);
         maps.put("sta", sta);
         maps.put("img", img);
+        maps.put("remarks", remarks);
         HttpCaller.doPost(context, API.SUBMIT_AUDIT, maps, callback);
     }
 
@@ -403,5 +413,18 @@ public class HttpClient {
         HashMap<String, Object> maps = new HashMap<>();
         maps.put("token", MyApplication.getInstance().getToken());
         HttpCaller.doPost(context, API.QUERY_MATCH_RECORD_LIST, maps, callback);
+    }
+
+    /**
+     * 查询订单详情
+     *
+     * @param context
+     * @param callback
+     */
+    public static void queryChallengeOrderDtl(Context context, String orderno, HttpCallback callback) {
+        HashMap<String, Object> maps = new HashMap<>();
+        maps.put("token", MyApplication.getInstance().getToken());
+        maps.put("orderno", orderno);
+        HttpCaller.doPost(context, API.QUERY_CHALLENGE_ORDER_DTL, maps, callback);
     }
 }

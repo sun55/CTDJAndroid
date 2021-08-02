@@ -25,7 +25,10 @@ public class MatchOrderBean extends BaseBean {
         private String orderno; //类型：Number  必有字段  备注：单号
         private String gameName;//类型：String  必有字段  备注：游戏名
         private int challengeType; //类型：Number  必有字段  备注：比赛类型
-
+        private String updateby;//类型：String  上传图片者的id
+        private int area;
+        private String gameimg; // 赛果截图
+        private String appealimg; // 申诉截图
         public int getIsdefier() {
             return isdefier;
         }
@@ -80,6 +83,38 @@ public class MatchOrderBean extends BaseBean {
 
         public void setChallengeType(int challengeType) {
             this.challengeType = challengeType;
+        }
+
+        public String getUpdateby() {
+            return updateby;
+        }
+
+        public void setUpdateby(String updateby) {
+            this.updateby = updateby;
+        }
+
+        public int getArea() {
+            return area;
+        }
+
+        public void setArea(int area) {
+            this.area = area;
+        }
+
+        public String getGameimg() {
+            return gameimg;
+        }
+
+        public void setGameimg(String gameimg) {
+            this.gameimg = gameimg;
+        }
+
+        public String getAppealimg() {
+            return appealimg;
+        }
+
+        public void setAppealimg(String appealimg) {
+            this.appealimg = appealimg;
         }
     }
 }

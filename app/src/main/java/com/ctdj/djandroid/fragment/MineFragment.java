@@ -73,7 +73,9 @@ public class MineFragment extends Fragment {
         binding.tvFeedback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), FeedBackActivity.class));
+                Intent intent = new Intent(getActivity(), FeedBackActivity.class);
+                intent.putExtra("from", 1);
+                startActivity(intent);
             }
         });
 

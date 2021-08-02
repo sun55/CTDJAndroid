@@ -48,7 +48,7 @@ public class KingRecordActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(KingRecordActivity.this, BindGameNicknameActivity.class);
-                intent.putExtra("area", "微信区服");
+                intent.putExtra("area", 1);
                 intent.putExtra("nickname", wxName);
                 startActivity(intent);
             }
@@ -58,7 +58,7 @@ public class KingRecordActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(KingRecordActivity.this, BindGameNicknameActivity.class);
-                intent.putExtra("area", "企鹅区服");
+                intent.putExtra("area", 2);
                 intent.putExtra("nickname", qqName);
                 startActivity(intent);
             }

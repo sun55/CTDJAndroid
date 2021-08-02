@@ -24,6 +24,10 @@ android {
 //            abiFilter("x86")
             abiFilters "armeabi-v7a", "x86","arm64-v8a","x86_64"
         }
+        manifestPlaceholders = [
+                XG_ACCESS_ID : "1500021207",
+                XG_ACCESS_KEY : "AZJYHDCQS13I",
+        ]
     }
 
     signingConfigs {
@@ -108,4 +112,7 @@ dependencies {
     implementation 'com.github.gzu-liyujiang.AndroidPicker:WheelPicker:3.0.2'
     implementation 'com.google.code.gson:gson:2.8.7'
     implementation project(path: ':tuikit')
+
+    // 腾讯推送sdk
+    implementation 'com.tencent.tpns:tpns:1.2.6.0-release'
 }

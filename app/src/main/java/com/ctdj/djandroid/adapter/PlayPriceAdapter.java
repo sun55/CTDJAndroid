@@ -51,12 +51,10 @@ public class PlayPriceAdapter extends BaseQuickAdapter<String, PlayPriceAdapter.
 
     public void setPlayType(int playType) {
         this.playType = playType;
-        notifyDataSetChanged();
     }
 
     public void setSelectedIndex(int selectedIndex) {
         this.selectedIndex = selectedIndex;
-        notifyDataSetChanged();
     }
 
     public String getSelectedItem() {

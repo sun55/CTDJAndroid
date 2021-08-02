@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#161824"
+    android:orientation="vertical"
+    tools:context=".activity.PlayDetailActivity">
+
+    <com.ctdj.djandroid.view.TitleView
+        android:id="@+id/title_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titleText="比赛详情" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_play_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="15dp"
+                android:text="比赛进行中..."
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_status_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="15dp"
+                android:text="请于6小时内上传比赛结果，否则将自动解散比赛"
+                android:textColor="#ffe8e8e9"
+                android:textSize="15sp" />
+
+            <RelativeLayout
+                android:id="@+id/rl_top"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="15dp"
+                android:background="@drawable/radius_10_22252f"
+                android:paddingStart="15dp"
+                android:paddingTop="20dp"
+                android:paddingEnd="15dp"
+                android:paddingBottom="15dp">
+
+                <TextView
+                    android:id="@+id/tv_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="请及时上传比赛赛果截图"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <com.ctdj.djandroid.view.DrawableCenterTextView
+                    android:id="@+id/tv_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_1"
+                    android:layout_marginTop="22dp"
+                    android:drawableStart="@drawable/blue_dot_6dp"
+                    android:drawablePadding="6dp"
+                    android:text="请在比赛有效时间内，上传截图，否则将解散比赛"
+                    android:textColor="#E8E8E9"
+                    android:textSize="14sp"
+                    app:isAliganCenter="false" />
+
+                <com.ctdj.djandroid.view.DrawableCenterTextView
+                    android:id="@+id/tv_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_2"
+                    android:layout_marginTop="12dp"
+                    android:drawableStart="@drawable/blue_dot_6dp"
+                    android:drawablePadding="6dp"
+                    android:text="请上传正确的比赛截图信息，恶意随意上传其他图片将会自动判定为失败"
+                    android:textColor="#E8E8E9"
+                    android:textSize="14sp"
+                    app:isAliganCenter="false" />
+
+                <com.ctdj.djandroid.view.DrawableCenterTextView
+                    android:id="@+id/tv_4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_3"
+                    android:layout_marginTop="12dp"
+                    android:drawableStart="@drawable/blue_dot_6dp"
+                    android:drawablePadding="6dp"
+                    android:text="可举报玩家违规行为，审核通过将获取平台奖励"
+                    android:textColor="#E8E8E9"
+                    android:textSize="14sp"
+                    app:isAliganCenter="false" />
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:layout_below="@id/tv_4"
+                    android:layout_marginTop="28dp"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:onClick="onBtn1Click"
+                        android:id="@+id/btn_1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/radius_10_3a3c45"
+                        android:text="拒绝"
+                        android:textColor="#80E8E8E9"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <Button
+                        android:onClick="onBtn2Click"
+                        android:id="@+id/btn_2"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1.6"
+                        android:background="@drawable/radius_10_5252fe"
+                        android:text="同意"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/radius_10_22252f"
+                android:paddingStart="15dp"
+                android:paddingBottom="10dp">
+
+                <com.ctdj.djandroid.view.CircleImageView
+                    android:id="@+id/avatar"
+                    android:layout_width="52dp"
+                    android:layout_height="52dp"
+                    android:layout_marginTop="15dp"
+                    android:src="@drawable/default_head"
+                    app:radius="12dp" />
+
+                <TextView
+                    android:id="@+id/tv_nickname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/avatar"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_toEndOf="@id/avatar"
+                    android:text="皮卡丘是只喵"
+                    android:textColor="#ffe8e8e9"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_challenge_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/avatar"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="2dp"
+                    android:layout_toEndOf="@id/avatar"
+                    android:text="金币挑战赛"
+                    android:textColor="#80e8e8e9"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/tv_call"
+                    android:layout_width="70dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentEnd="true"
+                    android:background="@drawable/play_desc_call_bg"
+                    android:gravity="center"
+                    android:text="联系她"
+                    android:onClick="onCallClick"
+                    android:textColor="@color/white"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/avatar"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="15dp"
+                    android:drawableEnd="@drawable/gold_icon_2"
+                    android:drawablePadding="5dp"
+                    android:gravity="center"
+                    android:text="2000"
+                    android:textColor="#ffe8e8e9"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:id="@+id/view_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_below="@id/avatar"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:background="#34353F" />
+
+                <TextView
+                    android:id="@+id/tv_game_type_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/view_1"
+                    android:layout_marginTop="15dp"
+                    android:text="游戏类型"
+                    android:textColor="#ffe8e8e9"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/tv_game_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/tv_game_type_title"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="15dp"
+                    android:text="王者荣耀"
+                    android:textColor="@color/white"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/tv_game_area_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_game_type_title"
+                    android:layout_marginTop="15dp"
+                    android:text="赛事区服"
+                    android:textColor="#ffe8e8e9"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/tv_game_area"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/tv_game_area_title"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="15dp"
+                    android:text="微信区服"
+                    android:textColor="@color/white"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/tv_game_nickname_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_game_area_title"
+                    android:layout_marginTop="15dp"
+                    android:text="对方游戏昵称"
+                    android:textColor="#ffe8e8e9"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/tv_game_nickname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/tv_game_nickname_title"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="15dp"
+                    android:drawableEnd="@drawable/copy_icon"
+                    android:drawablePadding="6dp"
+                    android:text="拒绝平庸的狂"
+                    android:textColor="@color/white"
+                    android:textSize="15sp" />
+
+                <View
+                    android:id="@+id/view_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_below="@id/tv_game_nickname_title"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:background="#34353F" />
+
+                <TextView
+                    android:id="@+id/tv_order_no_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/view_2"
+                    android:layout_marginTop="15dp"
+                    android:text="比赛编号"
+                    android:textColor="#ffe8e8e9"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/tv_order_no"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/tv_order_no_title"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="15dp"
+                    android:drawableEnd="@drawable/copy_icon"
+                    android:drawablePadding="6dp"
+                    android:text="CT202106210001"
+                    android:textColor="@color/white"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/tv_create_time_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_order_no_title"
+                    android:layout_marginTop="15dp"
+                    android:text="比赛时间"
+                    android:textColor="#ffe8e8e9"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/tv_create_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/tv_create_time_title"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="15dp"
+                    android:drawablePadding="6dp"
+                    android:text="2021.06.10  18:25:38"
+                    android:textColor="@color/white"
+                    android:textSize="15sp" />
+            </RelativeLayout>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </ScrollView>
+</androidx.appcompat.widget.LinearLayoutCompat>

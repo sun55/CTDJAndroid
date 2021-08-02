@@ -34,7 +34,7 @@
             android:layout_marginStart="30dp"
             android:layout_marginTop="48dp"
             android:layout_marginEnd="30dp"
-            android:background="@drawable/login_btn_bg"
+            android:background="@drawable/radius_10_5252fe"
             android:onClick="oneKeyLogin"
             android:text="本机号码一键登录"
             android:textColor="#EBEBED"

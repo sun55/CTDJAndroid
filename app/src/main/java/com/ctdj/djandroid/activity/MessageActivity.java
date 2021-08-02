@@ -3,12 +3,9 @@ package com.ctdj.djandroid.activity;
 import android.Manifest;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.Rect;
 import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.text.Editable;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -22,14 +19,11 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.ctdj.djandroid.MyApplication;
 import com.ctdj.djandroid.R;
 import com.ctdj.djandroid.adapter.MessageAdapter;
@@ -37,12 +31,13 @@ import com.ctdj.djandroid.audio.AudioRecorderButton;
 import com.ctdj.djandroid.bean.CustomMessageBean;
 import com.ctdj.djandroid.bean.MatchOrderBean;
 import com.ctdj.djandroid.bean.MessageBean;
-import com.ctdj.djandroid.common.DisplayUtil;
+import com.ctdj.djandroid.bean.UploadBean;
 import com.ctdj.djandroid.common.GlideEngine;
 import com.ctdj.djandroid.common.LogUtil;
 import com.ctdj.djandroid.common.Utils;
 import com.ctdj.djandroid.databinding.ActivityMessageBinding;
 import com.ctdj.djandroid.dialog.InvitePlayDialog;
+import com.ctdj.djandroid.dialog.PlayMoreBottomDialog;
 import com.ctdj.djandroid.net.HttpCallback;
 import com.ctdj.djandroid.net.HttpClient;
 import com.ctdj.djandroid.view.TitleView;
@@ -63,12 +58,10 @@ import com.tencent.qcloud.tim.uikit.component.AudioPlayer;
 import com.tencent.qcloud.tim.uikit.utils.TUIKitConstants;
 
 import java.io.File;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Random;
 
 public class MessageActivity extends AppCompatActivity {
 
@@ -82,6 +75,8 @@ public class MessageActivity extends AppCompatActivity {
     AnimationDrawable leftRedAnim;
     AnimationDrawable rightGrayAnim;
     AnimationDrawable rightRedAnim;
+    private static int SEND_IMAGE_MESSAGE = 1000;
+    private static int UPLOAD_IMAGE_FOR_GAME = 1001;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -276,57 +271,63 @@ public class MessageActivity extends AppCompatActivity {
         });
     }
 
+    V2TIMAdvancedMsgListener v2TIMAdvancedMsgListener;
+
     private void addAdvancedMsgListener() {
-        V2TIMManager.getMessageManager().addAdvancedMsgListener(new V2TIMAdvancedMsgListener() {
-            @Override
-            public void onRecvNewMessage(V2TIMMessage msg) {
-                super.onRecvNewMessage(msg);
-                adapter.addData(msg);
-                binding.rcvMessage.scrollToPosition(adapter.getItemCount() - 1);
-                V2TIMManager.getMessageManager().markC2CMessageAsRead(msg.getUserID(), null);
-                if (msg.getElemType() == V2TIMMessage.V2TIM_ELEM_TYPE_SOUND) {
-                    String path = TUIKitConstants.RECORD_DOWNLOAD_DIR + msg.getSoundElem().getUUID();
-                    File file = new File(path);
-                    if (!file.exists()) {
-                        msg.getSoundElem().downloadSound(path, new V2TIMDownloadCallback() {
-                            @Override
-                            public void onProgress(V2TIMElem.V2ProgressInfo progressInfo) {
-                                LogUtil.e("下载音频：" + progressInfo.getCurrentSize() + " / " + progressInfo.getTotalSize());
-                            }
+        if (v2TIMAdvancedMsgListener == null) {
+            v2TIMAdvancedMsgListener = new V2TIMAdvancedMsgListener() {
+                @Override
+                public void onRecvNewMessage(V2TIMMessage msg) {
+                    super.onRecvNewMessage(msg);
 
-                            @Override
-                            public void onSuccess() {
-                                LogUtil.e("下载音频成功");
-                            }
+                    adapter.addData(msg);
+                    binding.rcvMessage.scrollToPosition(adapter.getItemCount() - 1);
+                    V2TIMManager.getMessageManager().markC2CMessageAsRead(msg.getUserID(), null);
+                    if (msg.getElemType() == V2TIMMessage.V2TIM_ELEM_TYPE_SOUND) {
+                        String path = TUIKitConstants.RECORD_DOWNLOAD_DIR + msg.getSoundElem().getUUID();
+                        File file = new File(path);
+                        if (!file.exists()) {
+                            msg.getSoundElem().downloadSound(path, new V2TIMDownloadCallback() {
+                                @Override
+                                public void onProgress(V2TIMElem.V2ProgressInfo progressInfo) {
+                                    LogUtil.e("下载音频：" + progressInfo.getCurrentSize() + " / " + progressInfo.getTotalSize());
+                                }
 
-                            @Override
-                            public void onError(int code, String desc) {
-                                LogUtil.e("下载音频失败code:" + code + "desc:" + desc);
-                            }
-                        });
+                                @Override
+                                public void onSuccess() {
+                                    LogUtil.e("下载音频成功");
+                                }
+
+                                @Override
+                                public void onError(int code, String desc) {
+                                    LogUtil.e("下载音频失败code:" + code + "desc:" + desc);
+                                }
+                            });
+                        }
+                    } else if (msg.getElemType() == V2TIMMessage.V2TIM_ELEM_TYPE_CUSTOM) {
+                        CustomMessageBean bean = new Gson().fromJson(new String(msg.getCustomElem().getData()), CustomMessageBean.class);
+                        LogUtil.e("新的自定义消息：" + bean.toString());
+                        queryMatchRecord();
                     }
-                } else if (msg.getElemType() == V2TIMMessage.V2TIM_ELEM_TYPE_CUSTOM) {
-                    CustomMessageBean bean = new Gson().fromJson(new String(msg.getCustomElem().getData()), CustomMessageBean.class);
-                    LogUtil.e("新的自定义消息：" + bean.toString());
-                    queryMatchRecord();
                 }
-            }
 
-            @Override
-            public void onRecvC2CReadReceipt(List<V2TIMMessageReceipt> receiptList) {
-                super.onRecvC2CReadReceipt(receiptList);
-            }
+                @Override
+                public void onRecvC2CReadReceipt(List<V2TIMMessageReceipt> receiptList) {
+                    super.onRecvC2CReadReceipt(receiptList);
+                }
 
-            @Override
-            public void onRecvMessageRevoked(String msgID) {
-                super.onRecvMessageRevoked(msgID);
-            }
+                @Override
+                public void onRecvMessageRevoked(String msgID) {
+                    super.onRecvMessageRevoked(msgID);
+                }
 
-            @Override
-            public void onRecvMessageModified(V2TIMMessage msg) {
-                super.onRecvMessageModified(msg);
-            }
-        });
+                @Override
+                public void onRecvMessageModified(V2TIMMessage msg) {
+                    super.onRecvMessageModified(msg);
+                }
+            };
+        }
+        V2TIMManager.getMessageManager().addAdvancedMsgListener(v2TIMAdvancedMsgListener);
     }
 
     private void hideBottomViews() {
@@ -474,7 +475,35 @@ public class MessageActivity extends AppCompatActivity {
 
             @Override
             public void onError(int code, String desc) {
+                Utils.showToast(MessageActivity.this, "发送图片消息失败 code：" + code + "， desc" + desc);
+            }
+        });
+    }
 
+    private void uploadImageForGame(String filePath) {
+        Utils.showLoadingDialog(this);
+        HttpClient.uploadImage(this, filePath, new HttpCallback() {
+            @Override
+            public void onSuccess(String result) {
+                UploadBean bean = new Gson().fromJson(result, UploadBean.class);
+                HttpClient.submitAudit(MessageActivity.this, matchOrderBean.getData().getChallengeId(), 2, bean.url, "", new HttpCallback() {
+                    @Override
+                    public void onSuccess(String result) {
+                        Utils.hideLoadingDialog();
+                    }
+
+                    @Override
+                    public void onFailure(String msg) {
+                        Utils.hideLoadingDialog();
+                        Utils.showToast(MessageActivity.this, msg);
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure(String msg) {
+                Utils.showToast(MessageActivity.this, msg);
+                Utils.hideLoadingDialog();
             }
         });
     }
@@ -482,6 +511,55 @@ public class MessageActivity extends AppCompatActivity {
     private void fillView(ArrayList<MessageBean> messageBeans) {
         adapter.setNewData(messageBeans);
         binding.rcvMessage.scrollToPosition(adapter.getItemCount() - 1);
+    }
+
+    public void playStatus2Click(View view) {
+        Utils.hideSoftKeyboard(this);
+
+        switch (matchOrderBean.getData().getSta()) {
+            case 0: // 立即应战
+                showInviteDialog(null);
+                break;
+            case 1: // 上传截图
+                if (!Utils.checkPermissions(this, new String[]{
+                        Manifest.permission.CAMERA,
+                        Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE})) {
+                    LogUtil.e("请求权限");
+                    ActivityCompat.requestPermissions(this, new String[]{
+                            Manifest.permission.CAMERA,
+                            Manifest.permission.READ_EXTERNAL_STORAGE,
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE}, 111);
+                    return;
+                }
+                PictureSelector.create(this)
+                        .openGallery(PictureMimeType.ofImage())
+                        .isCamera(false)
+                        .imageEngine(GlideEngine.createGlideEngine())
+                        .imageSpanCount(4)
+                        .selectionMode(PictureConfig.SINGLE)
+                        .freeStyleCropEnabled(true)
+                        .isDragFrame(false)
+                        .maxSelectNum(1)
+                        .selectionMode(PictureConfig.MULTIPLE)
+                        .synOrAsy(true)
+                        .forResult(UPLOAD_IMAGE_FOR_GAME);
+                break;
+            case 2: // 查看赛果截图
+            case 4: // 查看申诉截图
+                if (TextUtils.isEmpty(matchOrderBean.getData().getGameimg())) {
+                    Utils.showToast(MessageActivity.this, "赛果截图数据为空");
+                    return;
+                }
+                Utils.previewSingleImage(MessageActivity.this, matchOrderBean.getData().getGameimg());
+                break;
+//                if (TextUtils.isEmpty(matchOrderBean.getData().getAppealimg())) {
+//                    Utils.showToast(MessageActivity.this, "申诉截图数据为空");
+//                    return;
+//                }
+//                Utils.previewSingleImage(MessageActivity.this, matchOrderBean.getData().getAppealimg());
+//                break;
+        }
     }
 
     public void selectPhoto(View view) {
@@ -514,7 +592,7 @@ public class MessageActivity extends AppCompatActivity {
                 .selectionMode(PictureConfig.MULTIPLE)
                 .synOrAsy(true)
 //                .compressQuality(80)
-                .forResult(1000);
+                .forResult(SEND_IMAGE_MESSAGE);
         Utils.hideSoftKeyboard(this);
     }
 
@@ -530,22 +608,22 @@ public class MessageActivity extends AppCompatActivity {
         if (resultCode != RESULT_OK || data == null) {
             return;
         }
-        if (requestCode == 1000) {
-            List<LocalMedia> list = PictureSelector.obtainMultipleResult(data);
-            if (list == null || list.size() <= 0) {
-                return;
-            }
-            String imagePath;
-            LogUtil.e("path:" + list.get(0).getPath());
-            if (list.get(0).getPath().contains("content://")) {
-                LogUtil.e(Utils.getFilePathByUri(this, Uri.parse(list.get(0).getPath())));
-                imagePath = Utils.getFilePathByUri(this, Uri.parse(list.get(0).getPath()));
-            } else {
-                imagePath = list.get(0).getPath();
-            }
+        List<LocalMedia> list = PictureSelector.obtainMultipleResult(data);
+        if (list == null || list.size() <= 0) {
+            return;
+        }
+        String imagePath;
+        LogUtil.e("path:" + list.get(0).getPath());
+        if (list.get(0).getPath().contains("content://")) {
+            LogUtil.e(Utils.getFilePathByUri(this, Uri.parse(list.get(0).getPath())));
+            imagePath = Utils.getFilePathByUri(this, Uri.parse(list.get(0).getPath()));
+        } else {
+            imagePath = list.get(0).getPath();
+        }
+        if (requestCode == SEND_IMAGE_MESSAGE) {
             sendImageMessage(imagePath);
-        } else if (requestCode == 101) { // 聊天设置页面
-
+        } else if (requestCode == UPLOAD_IMAGE_FOR_GAME) {
+            uploadImageForGame(imagePath);
         }
     }
 
@@ -580,7 +658,7 @@ public class MessageActivity extends AppCompatActivity {
                 .selectionMode(PictureConfig.MULTIPLE)
                 .synOrAsy(true)
 //                .compressQuality(80)
-                .forResult(1000);
+                .forResult(SEND_IMAGE_MESSAGE);
     }
 
     boolean isShowMoreLayout = false;
@@ -631,8 +709,20 @@ public class MessageActivity extends AppCompatActivity {
     }
 
     public void showInviteDialog(View view) {
-        InvitePlayDialog dialog = new InvitePlayDialog(this, userId);
-        dialog.show();
+        if (matchOrderBean != null && matchOrderBean.getData().getIsdefier() == 1) {
+            Utils.showToast(this, "您和对方还有未完成的订单");
+            return;
+        }
+        if (matchOrderBean == null || matchOrderBean.getData() == null || TextUtils.isEmpty(matchOrderBean.getData().getOrderno())
+                || matchOrderBean.getData().getSta() == 2 || matchOrderBean.getData().getSta() == 3 || matchOrderBean.getData().getSta() == 4
+                || matchOrderBean.getData().getSta() == 5 || matchOrderBean.getData().getSta() == 6
+                || matchOrderBean.getData().getSta() == 99) {
+            InvitePlayDialog dialog = new InvitePlayDialog(this, userId, "", 0, 1, 1, 0);
+            dialog.show();
+        } else {
+            InvitePlayDialog dialog = new InvitePlayDialog(this, userId, matchOrderBean.getData().getOrderno(), matchOrderBean.getData().getAward(), matchOrderBean.getData().getChallengeType(), matchOrderBean.getData().getArea(), matchOrderBean.getData().getChallengeId());
+            dialog.show();
+        }
     }
 
     @Override
@@ -643,6 +733,8 @@ public class MessageActivity extends AppCompatActivity {
         }
     }
 
+    MatchOrderBean matchOrderBean;
+
     /**
      * 查询约战信息
      */
@@ -650,8 +742,8 @@ public class MessageActivity extends AppCompatActivity {
         HttpClient.queryMatchRecord(this, userId, new HttpCallback() {
             @Override
             public void onSuccess(String result) {
-                MatchOrderBean bean = new Gson().fromJson(result, MatchOrderBean.class);
-                fillOrderView(bean);
+                matchOrderBean = new Gson().fromJson(result, MatchOrderBean.class);
+                fillOrderView();
             }
 
             @Override
@@ -661,8 +753,80 @@ public class MessageActivity extends AppCompatActivity {
         });
     }
 
-    private void fillOrderView(MatchOrderBean bean) {
-        binding.rlPlayInfo.setVisibility((bean.getData().getGameName() == null) ? View.GONE : View.VISIBLE);
+    private void fillOrderView() {
+        if (matchOrderBean.getData().getGameName() == null || matchOrderBean.getData().getSta() == 5 || matchOrderBean.getData().getSta() == 6 || matchOrderBean.getData().getSta() == 99) {
+            binding.rlPlayInfo.setVisibility(View.GONE);
+        } else {
+            binding.rlPlayInfo.setVisibility(View.VISIBLE);
+        }
+        binding.tvPlayType.setText(matchOrderBean.getData().getChallengeType() == 1 ? "金币挑战赛" : "赏金挑战赛");
+        binding.tvPlayPrice.setText(matchOrderBean.getData().getAward() + "");
+        binding.tvPlayPrice.setCompoundDrawablesWithIntrinsicBounds(
+                0,
+                0,
+                matchOrderBean.getData().getChallengeType() == 1 ? R.drawable.gold_icon_2 : R.drawable.diamond_icon,
+                0);
+        switch (matchOrderBean.getData().getSta()) {
+            case 0:
+                if (matchOrderBean.getData().getIsdefier() == 1) {
+                    binding.tvPlayStatus.setText("约战中");
+                    binding.tvPlayStatus2.setEnabled(false);
+                    binding.tvPlayStatus2.setText("等待应战");
+                    binding.tvPlayStatus2.setAlpha(0.5f);
+                    binding.ivPlayInfoMore.setVisibility(View.VISIBLE);
+                } else {
+                    binding.tvPlayStatus.setText("去应战");
+                    binding.tvPlayStatus2.setEnabled(true);
+                    binding.tvPlayStatus2.setText("立即应战");
+                    binding.tvPlayStatus2.setAlpha(1f);
+                    binding.ivPlayInfoMore.setVisibility(View.GONE);
+                }
+                break;
+            case 1:
+                binding.tvPlayStatus2.setEnabled(true);
+                binding.tvPlayStatus.setText("进行中");
+                binding.tvPlayStatus2.setText("上传截图");
+                binding.tvPlayStatus2.setAlpha(1f);
+                binding.ivPlayInfoMore.setVisibility(View.GONE);
+                break;
+            case 2:
+                binding.tvPlayStatus2.setEnabled(true);
+                binding.tvPlayStatus.setText("审核中");
+                binding.tvPlayStatus2.setText("查看截图");
+                binding.tvPlayStatus2.setAlpha(1f);
+                binding.ivPlayInfoMore.setVisibility(MyApplication.getInstance().getMid().equals(matchOrderBean.getData().getUpdateby()) ? View.GONE : View.VISIBLE);
+                break;
+            case 4:
+                binding.tvPlayStatus2.setEnabled(true);
+                binding.tvPlayStatus.setText("申诉中");
+                binding.tvPlayStatus2.setText("查看截图");
+                binding.ivPlayInfoMore.setVisibility(View.VISIBLE);
+                break;
+        }
+        binding.ivPlayInfoMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PlayMoreBottomDialog bottomDialog = new PlayMoreBottomDialog(MessageActivity.this);
+                bottomDialog.show();
+                bottomDialog.fillData(matchOrderBean);
+            }
+        });
+        binding.rlPlayInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MessageActivity.this, PlayDetailActivity.class);
+                intent.putExtra("orderno", matchOrderBean.getData().getOrderno());
+                intent.putExtra("from", 1);
+                startActivity(intent);
+            }
+        });
+    }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (v2TIMAdvancedMsgListener != null) {
+            V2TIMManager.getMessageManager().removeAdvancedMsgListener(v2TIMAdvancedMsgListener);
+        }
     }
 }
