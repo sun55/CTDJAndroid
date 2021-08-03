@@ -36,8 +36,8 @@ import java.util.List;
 
 public class PlayDetailActivity extends BaseActivity {
 
-    private static final int UPLOAD_IMAGE_FOR_GAME = 1002;
     ActivityPlayDetailBinding binding;
+    private static final int UPLOAD_IMAGE_FOR_GAME = 1002;
     OrderDetailBean.Data data;
     private int from; // 从哪里跳转进来的  1 聊天页面 2 订单列表
 

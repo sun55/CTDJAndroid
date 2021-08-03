@@ -73,7 +73,8 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/tv_remark_name"
+                android:background="@null"
+                android:id="@+id/et_remark_name"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentEnd="true"

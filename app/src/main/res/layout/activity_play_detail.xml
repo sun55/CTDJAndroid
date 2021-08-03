@@ -73,12 +73,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tv_1"
-                    android:layout_marginTop="22dp"
+                    android:layout_marginTop="20dp"
                     android:drawableStart="@drawable/blue_dot_6dp"
                     android:drawablePadding="6dp"
                     android:text="请在比赛有效时间内，上传截图，否则将解散比赛"
                     android:textColor="#E8E8E9"
-                    android:textSize="14sp"
+                    android:textSize="12sp"
                     app:isAliganCenter="false" />
 
                 <com.ctdj.djandroid.view.DrawableCenterTextView
@@ -86,12 +86,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tv_2"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginTop="10dp"
                     android:drawableStart="@drawable/blue_dot_6dp"
                     android:drawablePadding="6dp"
                     android:text="请上传正确的比赛截图信息，恶意随意上传其他图片将会自动判定为失败"
                     android:textColor="#E8E8E9"
-                    android:textSize="14sp"
+                    android:textSize="12sp"
                     app:isAliganCenter="false" />
 
                 <com.ctdj.djandroid.view.DrawableCenterTextView
@@ -99,12 +99,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tv_3"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginTop="10dp"
                     android:drawableStart="@drawable/blue_dot_6dp"
                     android:drawablePadding="6dp"
                     android:text="可举报玩家违规行为，审核通过将获取平台奖励"
                     android:textColor="#E8E8E9"
-                    android:textSize="14sp"
+                    android:textSize="12sp"
                     app:isAliganCenter="false" />
 
                 <androidx.appcompat.widget.LinearLayoutCompat

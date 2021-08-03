@@ -48,8 +48,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup">
-        <activity android:name=".activity.PlayDetailActivity"></activity>
-        <!-- 兼容android p -->
+        <activity android:name=".activity.ReportActivity"></activity>
+        <activity android:name=".activity.PlayDetailActivity" /> <!-- 兼容android p -->
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />

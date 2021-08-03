@@ -427,4 +427,47 @@ public class HttpClient {
         maps.put("orderno", orderno);
         HttpCaller.doPost(context, API.QUERY_CHALLENGE_ORDER_DTL, maps, callback);
     }
+
+    /**
+     * 获取聊天设置
+     * @param context
+     * @param fmid
+     * @param callback
+     */
+    public static void getChatSetInfo(Context context, String fmid, HttpCallback callback) {
+        HashMap<String, Object> maps = new HashMap<>();
+        maps.put("token", MyApplication.getInstance().getToken());
+        maps.put("fmid", fmid);
+        HttpCaller.doPost(context, API.GET_CHAT_SET_INFO, maps, callback);
+    }
+
+    /**
+     * 进入举报页面
+     * @param context
+     * @param callback
+     */
+    public static void reportIntoData(Context context, HttpCallback callback) {
+        HashMap<String, Object> maps = new HashMap<>();
+        maps.put("token", MyApplication.getInstance().getToken());
+        HttpCaller.doPost(context, API.REPORT_INTO_DATA, maps, callback);
+    }
+
+    /**
+     * 添加举报
+     * @param context
+     * @param brmid
+     * @param typeno
+     * @param img
+     * @param remarks
+     * @param callback
+     */
+    public static void addReport(Context context, String brmid, int typeno, String img, String remarks, HttpCallback callback) {
+        HashMap<String, Object> maps = new HashMap<>();
+        maps.put("token", MyApplication.getInstance().getToken());
+        maps.put("brmid", brmid);
+        maps.put("typeno", typeno);
+        maps.put("img", img);
+        maps.put("remarks", remarks);
+        HttpCaller.doPost(context, API.ADD_REPORT, maps, callback);
+    }
 }

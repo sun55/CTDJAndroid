@@ -36,4 +36,7 @@ public class API {
     public static final String QUERY_MATCH_RECORD = "/api/challenge/queryMatchOrderById"; // 查询匹配记录
     public static final String QUERY_MATCH_RECORD_LIST = "/api/challenge/queryMatchRecordList"; // 查询用户匹配列表列表
     public static final String QUERY_CHALLENGE_ORDER_DTL = "/api/challenge/queryChallengeOrderDtl"; // 查询订单详情
+    public static final String GET_CHAT_SET_INFO = "/api/chat/getChatSetInfo"; // 获取聊天设置
+    public static final String REPORT_INTO_DATA = "/api/report/intodata"; // 进入举报页面
+    public static final String ADD_REPORT = "/api/report/addreport"; // 举报
 }

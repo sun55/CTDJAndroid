@@ -69,7 +69,7 @@ public class FeedBackActivity extends BaseActivity {
             binding.etFeedbackContent.setHint("请输入反馈内容");
             binding.tv2.setText("反馈图片");
         } else if (from == 2) {
-            binding.titleView.setTitle("赛果申诉");
+            binding.titleView.setTitle("查看赛果申诉");
             binding.btnCommit.setVisibility(View.GONE);
             binding.tv1.setText("申诉说明");
             String remarks = getIntent().getStringExtra("remarks");

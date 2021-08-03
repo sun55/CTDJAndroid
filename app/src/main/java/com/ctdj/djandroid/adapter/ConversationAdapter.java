@@ -43,7 +43,7 @@ public class ConversationAdapter extends BaseQuickAdapter<V2TIMConversation, Con
             } else if (message.getElemType() == V2TIMMessage.V2TIM_ELEM_TYPE_VIDEO) {
                 txt = "[视频]";
             } else if (message.getElemType() == V2TIMMessage.V2TIM_ELEM_TYPE_CUSTOM) {
-                txt = "[自定义]";
+                txt = "[系统消息]";
             }
             helper.tvLastMsg.setText(txt);
             helper.tvUnReadCount.setVisibility(item.getUnreadCount() > 0 ? View.VISIBLE : View.GONE);

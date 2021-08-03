@@ -1,5 +1,6 @@
 package com.ctdj.djandroid.adapter;
 
+import android.app.Activity;
 import android.graphics.drawable.AnimationDrawable;
 import android.text.TextUtils;
 import android.view.View;
@@ -79,6 +80,12 @@ public class MessageAdapter extends BaseMultiItemQuickAdapter<MessageBean, BaseV
 
                     Glide.with(mContext).load(item.getV2TIMMessage().getImageElem().getImageList().get(0).getUrl()).
                             error(R.drawable.default_head).into((ImageView) helper.getView(R.id.image));
+                    helper.getView(R.id.image).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Utils.previewSingleImage((Activity) mContext, item.getV2TIMMessage().getImageElem().getImageList().get(0).getUrl());
+                        }
+                    });
                 }
                 break;
             case LEFT_AUDIO:

@@ -127,7 +127,19 @@ public class MessageActivity extends AppCompatActivity {
                 return false;
             }
         });
-        binding.etMessage.requestFocus();
+//        binding.etMessage.requestFocus();
+//        binding.llEdit.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Utils.showSoftKeyboard(MessageActivity.this, binding.etMessage);
+//                binding.etMessage.postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        binding.rcvMessage.scrollToPosition(adapter.getItemCount() - 1);
+//                    }
+//                }, 200);
+//            }
+//        });
         adapter = new MessageAdapter(new ArrayList<>());
         LinearLayoutManager manager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         manager.setStackFromEnd(true);
@@ -710,8 +722,10 @@ public class MessageActivity extends AppCompatActivity {
 
     public void showInviteDialog(View view) {
         if (matchOrderBean != null && matchOrderBean.getData().getIsdefier() == 1) {
-            Utils.showToast(this, "您和对方还有未完成的订单");
-            return;
+            if (matchOrderBean.getData().getSta() == 0 || matchOrderBean.getData().getSta() == 1) {
+                Utils.showToast(this, "您和对方还有未完成的订单");
+                return;
+            }
         }
         if (matchOrderBean == null || matchOrderBean.getData() == null || TextUtils.isEmpty(matchOrderBean.getData().getOrderno())
                 || matchOrderBean.getData().getSta() == 2 || matchOrderBean.getData().getSta() == 3 || matchOrderBean.getData().getSta() == 4
@@ -760,7 +774,7 @@ public class MessageActivity extends AppCompatActivity {
             binding.rlPlayInfo.setVisibility(View.VISIBLE);
         }
         binding.tvPlayType.setText(matchOrderBean.getData().getChallengeType() == 1 ? "金币挑战赛" : "赏金挑战赛");
-        binding.tvPlayPrice.setText(matchOrderBean.getData().getAward() + "");
+        binding.tvPlayPrice.setText((matchOrderBean.getData().getSta() == 0 ? matchOrderBean.getData().getAward() : matchOrderBean.getData().getAward() / 2) + "");
         binding.tvPlayPrice.setCompoundDrawablesWithIntrinsicBounds(
                 0,
                 0,

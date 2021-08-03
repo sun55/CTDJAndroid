@@ -152,6 +152,13 @@
             android:textColorHint="#ffebebed"
             android:textSize="16sp" />
 
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/ll_edit"
+            android:layout_alignBottom="@id/et_message"
+            android:layout_alignTop="@id/et_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
         <ImageView
             android:id="@+id/iv_input"
             android:layout_width="27dp"
