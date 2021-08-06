@@ -13,8 +13,8 @@ public class HttpClient {
         HttpCaller.uploadImageFile(context, API.UPLOAD_FILE, file, callback);
     }
 
-    public static void uploadFiles(Context context, int type, List<String> files, HttpCallback callback) {
-        HttpCaller.uploadImageFiles(context, API.UPLOAD_FILES, type, files, callback);
+    public static void uploadFiles(Context context, List<String> files, HttpCallback callback) {
+        HttpCaller.uploadImageFiles(context, API.UPLOAD_FILES, files, callback);
     }
 
     public static void uploadVideoFile(Context context, String file, HttpCallback callback) {
@@ -430,6 +430,7 @@ public class HttpClient {
 
     /**
      * 获取聊天设置
+     *
      * @param context
      * @param fmid
      * @param callback
@@ -443,6 +444,7 @@ public class HttpClient {
 
     /**
      * 进入举报页面
+     *
      * @param context
      * @param callback
      */
@@ -454,6 +456,7 @@ public class HttpClient {
 
     /**
      * 添加举报
+     *
      * @param context
      * @param brmid
      * @param typeno
@@ -461,7 +464,7 @@ public class HttpClient {
      * @param remarks
      * @param callback
      */
-    public static void addReport(Context context, String brmid, int typeno, String img, String remarks, HttpCallback callback) {
+    public static void addReport(Context context, String brmid, String typeno, String img, String remarks, HttpCallback callback) {
         HashMap<String, Object> maps = new HashMap<>();
         maps.put("token", MyApplication.getInstance().getToken());
         maps.put("brmid", brmid);
@@ -469,5 +472,21 @@ public class HttpClient {
         maps.put("img", img);
         maps.put("remarks", remarks);
         HttpCaller.doPost(context, API.ADD_REPORT, maps, callback);
+    }
+
+    /**
+     * 设置备注名
+     *
+     * @param context
+     * @param fmid
+     * @param remarkName
+     * @param callback
+     */
+    public static void updateRemarkName(Context context, String fmid, String remarkName, HttpCallback callback) {
+        HashMap<String, Object> maps = new HashMap<>();
+        maps.put("token", MyApplication.getInstance().getToken());
+        maps.put("fmid", fmid);
+        maps.put("remarkName", remarkName);
+        HttpCaller.doPost(context, API.UPDATE_REMARK_NAME, maps, callback);
     }
 }

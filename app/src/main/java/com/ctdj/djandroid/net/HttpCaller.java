@@ -222,7 +222,7 @@ public class HttpCaller {
     private final static String[] hexDigits = {"0", "1", "2", "3", "4", "5",
             "6", "7", "8", "9", "A", "B", "C", "D", "E", "F"};
 
-    public static void uploadImageFiles(final Context context, String url, int type, List<String> filePaths, final HttpCallback callback) {
+    public static void uploadImageFiles(final Context context, String url, List<String> filePaths, final HttpCallback callback) {
         if (okHttpClient == null) {
             okHttpClient = new OkHttpClient.Builder()
                     .connectTimeout(20, TimeUnit.SECONDS)//设置连接超时时间

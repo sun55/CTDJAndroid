@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="116dp"
+    android:layout_height="106dp">
+
+    <com.ctdj.djandroid.view.CircleImageView
+        android:id="@+id/iv"
+        android:layout_width="106dp"
+        android:layout_height="106dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/default_head"
+        app:radius="10dp" />
+
+    <TextView
+        android:id="@+id/tv_delete"
+        android:layout_width="106dp"
+        android:layout_height="23dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/radius_bottom_10_80000000"
+        android:gravity="center"
+        android:text="删除"
+        android:textColor="#fffe2a54"
+        android:textSize="12sp" />
+
+</RelativeLayout>

@@ -25,7 +25,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/iv_nickname"
+                android:id="@+id/tv_nickname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableEnd="@drawable/female_small_icon"
@@ -38,12 +38,13 @@
 
             <TextView
                 android:id="@+id/tv_play_status"
-                android:layout_width="36dp"
-                android:layout_height="13dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:text="约战中"
                 android:textColor="#ffebebed"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:visibility="gone" />
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <TextView

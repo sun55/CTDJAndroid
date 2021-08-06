@@ -58,13 +58,138 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_marginStart="5dp"
                     android:gravity="center"
-                    android:text="（选填）"
+                    android:text="(选填)"
                     android:textColor="#80ebebed"
                     android:textSize="15sp" />
             </androidx.appcompat.widget.LinearLayoutCompat>
 
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:background="@drawable/radius_10_22252f"
+                android:orientation="vertical">
 
+                <EditText
+                    android:id="@+id/et_desc"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:gravity="top"
+                    android:hint="提供更多信息有助于举报被快速处理~"
+                    android:maxLength="300"
+                    android:padding="15dp"
+                    android:textColor="#ffebebed"
+                    android:textColorHint="#80ebebed"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/tv_desc_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:text="300"
+                    android:textColor="#80ebebed"
+                    android:textSize="15sp" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="wrap_content"
+                android:layout_height="55dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="16dp"
+                    android:gravity="center"
+                    android:text="图片凭证"
+                    android:textColor="#ffebebed"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="5dp"
+                    android:gravity="center_vertical"
+                    android:lines="1"
+                    android:text="(选填，请上传最多三张清晰的关联照片)"
+                    android:textColor="#80ebebed"
+                    android:textSize="15sp" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <com.ctdj.djandroid.view.AutoHeightGridView
+                android:id="@+id/img_grid_view"
+                android:layout_width="match_parent"
+                android:layout_height="106dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:listSelector="@color/transparent"
+                android:numColumns="3"
+                android:scrollbars="none" />
+
+            <RelativeLayout
+                android:id="@+id/rl_black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="15dp"
+                android:background="@drawable/radius_10_22252f"
+                android:onClick="selectBlackClick"
+                android:padding="15dp">
+
+                <ImageView
+                    android:id="@+id/iv_black_check"
+                    android:layout_width="19dp"
+                    android:layout_height="19dp"
+                    android:background="@drawable/report_item_checked" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_toEndOf="@id/iv_black_check"
+                    android:gravity="center"
+                    android:text="拉黑被举报用户账号"
+                    android:textColor="#ffebebed"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/iv_black_check"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="13dp"
+                    android:layout_toEndOf="@id/iv_black_check"
+                    android:text="拉黑后，你将不在收到该账号的消息。且无法匹配到该用户进行比赛等其他相关业务"
+                    android:textColor="#80ebebed"
+                    android:textSize="13sp" />
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/btn_report"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="60dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/radius_10_5252fe"
+                android:onClick="reportClick"
+                android:text="提交"
+                android:textColor="#EBEBED"
+                android:textSize="16sp"
+                android:textStyle="bold" />
         </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.core.widget.NestedScrollView>
 </androidx.appcompat.widget.LinearLayoutCompat>

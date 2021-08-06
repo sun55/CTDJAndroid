@@ -84,7 +84,9 @@
                 android:gravity="center_vertical|end"
                 android:hint="请设置备注"
                 android:lines="1"
-                android:maxLength="20"
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:maxLength="10"
                 android:minWidth="80dp"
                 android:textColor="#80ebebed"
                 android:textColorHint="#80ebebed"
@@ -104,7 +106,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="#22252F"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -117,6 +119,7 @@
                 android:textStyle="bold" />
 
             <ImageView
+                android:id="@+id/iv_is_top"
                 android:layout_width="50dp"
                 android:layout_height="31dp"
                 android:layout_alignParentEnd="true"
@@ -160,6 +163,7 @@
             android:background="#34353F" />
 
         <RelativeLayout
+            android:onClick="reportClick"
             android:id="@+id/rl_report"
             android:layout_width="match_parent"
             android:layout_height="50dp"

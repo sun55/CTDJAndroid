@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="51dp"
+        android:orientation="vertical"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp">
+
+        <TextView
+            android:id="@+id/tv_report_name"
+            android:layout_width="match_parent"
+            android:layout_height="50.5dp"
+            android:drawableEnd="@drawable/report_item_uncheck"
+            android:gravity="center_vertical"
+            android:text="举报"
+            android:textColor="#ffebebed"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="#34353f" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</RelativeLayout>

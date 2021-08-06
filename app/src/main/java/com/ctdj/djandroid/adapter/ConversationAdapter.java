@@ -11,6 +11,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.ctdj.djandroid.R;
 import com.ctdj.djandroid.activity.MessageActivity;
+import com.ctdj.djandroid.common.LogUtil;
 import com.ctdj.djandroid.view.CircleImageView;
 import com.tencent.imsdk.v2.V2TIMCallback;
 import com.tencent.imsdk.v2.V2TIMConversation;
@@ -29,6 +30,7 @@ public class ConversationAdapter extends BaseQuickAdapter<V2TIMConversation, Con
 
     @Override
     protected void convert(@NonNull ConversationAdapter.ConversationHolder helper, V2TIMConversation item) {
+        LogUtil.e("conversation id:" + item.getConversationID());
         Glide.with(mContext).load(item.getFaceUrl()).error(R.drawable.default_head).into(helper.ivHead);
         V2TIMMessage message = item.getLastMessage();
         helper.tvName.setText(item.getShowName());

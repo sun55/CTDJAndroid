@@ -4,7 +4,7 @@ public class API {
     public static final String BASE_URL = "http://42.193.149.5:10010";
 
     public static final String UPLOAD_FILE = "/api/common/upload";
-    public static final String UPLOAD_FILES = "/api/upload/files";
+    public static final String UPLOAD_FILES = "/api/common/uploadfiles";
     public static final String SIGN_IN = "/api/login/signin";
 
     public static final String ONE_KEY_LOGIN = "/api/login/oneclickLogin";
@@ -39,4 +39,5 @@ public class API {
     public static final String GET_CHAT_SET_INFO = "/api/chat/getChatSetInfo"; // 获取聊天设置
     public static final String REPORT_INTO_DATA = "/api/report/intodata"; // 进入举报页面
     public static final String ADD_REPORT = "/api/report/addreport"; // 举报
+    public static final String UPDATE_REMARK_NAME = "/api/chat/updateRemarkName"; // 设置备注名
 }

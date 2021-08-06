@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.ctdj.djandroid.R;
 import com.ctdj.djandroid.adapter.FollowUserAdapter;
 import com.ctdj.djandroid.bean.UserListBean;
@@ -29,7 +30,7 @@ public class UserListFragment extends Fragment {
     public static final int FOLLOW = 1;
     public static final int FANS = 2;
     private int type = 1;
-     private int page = 1;
+    private int page = 1;
     FragmentUserListBinding binding;
 
     FollowUserAdapter adapter;
@@ -57,7 +58,6 @@ public class UserListFragment extends Fragment {
         binding.rcvUserList.setAdapter(adapter);
         View empty = getLayoutInflater().inflate(R.layout.empty_layout, null);
         TextView emptyTitle = empty.findViewById(R.id.tv_empty_title);
-        LogUtil.e("------type:" + type);
         if (type == FOLLOW) {
             emptyTitle.setText("你还没有关注任何人");
         } else {
@@ -76,6 +76,21 @@ public class UserListFragment extends Fragment {
                 getData(true);
             }
         });
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                UserListBean.Rows item = (UserListBean.Rows) adapter.getItem(position);
+                if (type == FOLLOW) {
+                    deleteFollow(item.getFmid(), position);
+                } else {
+                    if (item.getFtype() == 1) {
+                        deleteFollow(item.getMid(), position);
+                    } else {
+                        follow(item.getMid());
+                    }
+                }
+            }
+        });
         getData(true);
     }
 
@@ -85,7 +100,7 @@ public class UserListFragment extends Fragment {
         } else {
             page++;
         }
-        HttpClient.followList(getActivity(), page, 10, type == FOLLOW ? 1 : 0, new HttpCallback() {
+        HttpClient.followList(getActivity(), type, page, 10, new HttpCallback() {
             @Override
             public void onSuccess(String result) {
                 UserListBean bean = new Gson().fromJson(result, UserListBean.class);
@@ -132,7 +147,7 @@ public class UserListFragment extends Fragment {
             @Override
             public void onSuccess(String result) {
                 if (type == FOLLOW) {
-//                    adapter.remove(position);
+                    adapter.remove(position);
                 } else {
                     getData(true);
                 }

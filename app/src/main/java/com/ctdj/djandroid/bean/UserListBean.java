@@ -4,9 +4,8 @@ import java.util.List;
 
 public class UserListBean extends BaseBean {
 
-
     private int total;
-    private List<Row> rows;
+    private List<Rows> rows;
 
     public int getTotal() {
         return total;
@@ -16,22 +15,26 @@ public class UserListBean extends BaseBean {
         this.total = total;
     }
 
-    public List<Row> getRows() {
+    public List<Rows> getRows() {
         return rows;
     }
 
-    public void setRows(List<Row> rows) {
+    public void setRows(List<Rows> rows) {
         this.rows = rows;
     }
 
-    public class Row {
+    public static class Rows {
         private int id;
         private String mid;
+        private String mname;
+        private String headimg;
+        private int sex;
         private String fmid;
         private String fmname;
         private String fheadimg;
         private int fsex;
         private String remark;
+        private String remarkName;
         private int ftype;
 
         public int getId() {
@@ -48,6 +51,30 @@ public class UserListBean extends BaseBean {
 
         public void setMid(String mid) {
             this.mid = mid;
+        }
+
+        public String getMname() {
+            return mname;
+        }
+
+        public void setMname(String mname) {
+            this.mname = mname;
+        }
+
+        public String getHeadimg() {
+            return headimg;
+        }
+
+        public void setHeadimg(String headimg) {
+            this.headimg = headimg;
+        }
+
+        public int getSex() {
+            return sex;
+        }
+
+        public void setSex(int sex) {
+            this.sex = sex;
         }
 
         public String getFmid() {
@@ -90,6 +117,14 @@ public class UserListBean extends BaseBean {
             this.remark = remark;
         }
 
+        public String getRemarkName() {
+            return remarkName;
+        }
+
+        public void setRemarkName(String remarkName) {
+            this.remarkName = remarkName;
+        }
+
         public int getFtype() {
             return ftype;
         }
@@ -97,27 +132,5 @@ public class UserListBean extends BaseBean {
         public void setFtype(int ftype) {
             this.ftype = ftype;
         }
-
-        @Override
-        public String toString() {
-            return "Row{" +
-                    "id=" + id +
-                    ", mid='" + mid + '\'' +
-                    ", fmid='" + fmid + '\'' +
-                    ", fmname='" + fmname + '\'' +
-                    ", fheadimg='" + fheadimg + '\'' +
-                    ", fsex=" + fsex +
-                    ", remark='" + remark + '\'' +
-                    ", ftype=" + ftype +
-                    '}';
-        }
-    }
-
-    @Override
-    public String toString() {
-        return "UserListBean{" +
-                "total=" + total +
-                ", rows=" + rows +
-                '}';
     }
 }

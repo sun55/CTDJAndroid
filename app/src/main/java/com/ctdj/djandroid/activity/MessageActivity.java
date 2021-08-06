@@ -127,22 +127,22 @@ public class MessageActivity extends AppCompatActivity {
                 return false;
             }
         });
-//        binding.etMessage.requestFocus();
-//        binding.llEdit.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Utils.showSoftKeyboard(MessageActivity.this, binding.etMessage);
-//                binding.etMessage.postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        binding.rcvMessage.scrollToPosition(adapter.getItemCount() - 1);
-//                    }
-//                }, 200);
-//            }
-//        });
+        binding.etMessage.requestFocus();
+        binding.llEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hideBottomViews();
+                Utils.showSoftKeyboard(MessageActivity.this, binding.etMessage);
+                binding.etMessage.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        binding.rcvMessage.scrollToPosition(adapter.getItemCount() - 1);
+                    }
+                }, 200);
+            }
+        });
         adapter = new MessageAdapter(new ArrayList<>());
         LinearLayoutManager manager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
-        manager.setStackFromEnd(true);
         binding.rcvMessage.setLayoutManager(manager);
         binding.rcvMessage.setAdapter(adapter);
         binding.titleView.setTitle(targetName);
@@ -291,7 +291,9 @@ public class MessageActivity extends AppCompatActivity {
                 @Override
                 public void onRecvNewMessage(V2TIMMessage msg) {
                     super.onRecvNewMessage(msg);
-
+                    if (!userId.equals(msg.getUserID())) {
+                        return;
+                    }
                     adapter.addData(msg);
                     binding.rcvMessage.scrollToPosition(adapter.getItemCount() - 1);
                     V2TIMManager.getMessageManager().markC2CMessageAsRead(msg.getUserID(), null);
