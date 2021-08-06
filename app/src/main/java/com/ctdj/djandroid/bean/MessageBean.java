@@ -11,6 +11,8 @@ public class MessageBean implements MultiItemEntity {
     public static final int LEFT_AUDIO = 4;
     public static final int RIGHT_AUDIO = 5;
     public static final int CUSTOM = 6;
+    public static final int LEFT_CARD = 7;
+    public static final int RIGHT_CARD = 8;
     //item类型
     private int fieldType;
     private V2TIMMessage v2TIMMessage;

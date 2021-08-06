@@ -38,9 +38,11 @@ import java.util.List;
 
 import static com.ctdj.djandroid.bean.MessageBean.CUSTOM;
 import static com.ctdj.djandroid.bean.MessageBean.LEFT_AUDIO;
+import static com.ctdj.djandroid.bean.MessageBean.LEFT_CARD;
 import static com.ctdj.djandroid.bean.MessageBean.LEFT_IMAGE;
 import static com.ctdj.djandroid.bean.MessageBean.LEFT_TXT;
 import static com.ctdj.djandroid.bean.MessageBean.RIGHT_AUDIO;
+import static com.ctdj.djandroid.bean.MessageBean.RIGHT_CARD;
 import static com.ctdj.djandroid.bean.MessageBean.RIGHT_IMAGE;
 import static com.ctdj.djandroid.bean.MessageBean.RIGHT_TXT;
 
@@ -56,6 +58,8 @@ public class MessageAdapter extends BaseMultiItemQuickAdapter<MessageBean, BaseV
         addItemType(LEFT_AUDIO, R.layout.message_audio_left_item_layout);
         addItemType(RIGHT_AUDIO, R.layout.message_audio_right_item_layout);
         addItemType(CUSTOM, R.layout.message_custom_item_layout);
+        addItemType(LEFT_CARD, R.layout.message_game_card_left_item_layout);
+        addItemType(RIGHT_CARD, R.layout.message_game_card_right_item_layout);
     }
 
     @Override
@@ -74,8 +78,8 @@ public class MessageAdapter extends BaseMultiItemQuickAdapter<MessageBean, BaseV
                     int width = item.getV2TIMMessage().getImageElem().getImageList().get(0).getWidth();
                     int height = item.getV2TIMMessage().getImageElem().getImageList().get(0).getHeight();
                     if (width != 0 && height != 0) {
-                    RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) image.getLayoutParams();
-                    layoutParams.height = DisplayUtil.dip2px(mContext, 156 * height / width);
+                        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) image.getLayoutParams();
+                        layoutParams.height = DisplayUtil.dip2px(mContext, 156 * height / width);
                     }
 
                     Glide.with(mContext).load(item.getV2TIMMessage().getImageElem().getImageList().get(0).getUrl()).
@@ -102,8 +106,28 @@ public class MessageAdapter extends BaseMultiItemQuickAdapter<MessageBean, BaseV
                 break;
             case CUSTOM:
                 try {
+                    LogUtil.e("自定义消息：" + new String(item.getV2TIMMessage().getCustomElem().getData()));
                     CustomMessageBean bean = new Gson().fromJson(new String(item.getV2TIMMessage().getCustomElem().getData()), CustomMessageBean.class);
                     ((TextView) helper.getView(R.id.tv_content)).setText(bean.getContent());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                break;
+            case LEFT_CARD:
+            case RIGHT_CARD:
+                try {
+                    LogUtil.e("自定义消息：" + new String(item.getV2TIMMessage().getCustomElem().getData()));
+                    CustomMessageBean bean = new Gson().fromJson(new String(item.getV2TIMMessage().getCustomElem().getData()), CustomMessageBean.class);
+                    ((TextView) helper.getView(R.id.tv_game_nickname)).setText(bean.getGame_nickname());
+                    ((TextView) helper.getView(R.id.tv_game_nickname)).setCompoundDrawablesWithIntrinsicBounds(
+                            bean.getArea() == 1 ? R.drawable.wx_white_icon : R.drawable.qq_white_icon,
+                            0, R.drawable.copy_icon, 0);
+                    helper.getView(R.id.tv_game_nickname).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Utils.copy(mContext, bean.getGame_nickname());
+                        }
+                    });
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -192,8 +216,17 @@ public class MessageAdapter extends BaseMultiItemQuickAdapter<MessageBean, BaseV
             } else {
                 msgType = LEFT_AUDIO;
             }
-        } else {
-            msgType = CUSTOM;
+        } else if (v.getElemType() == V2TIMMessage.V2TIM_ELEM_TYPE_CUSTOM) {
+            CustomMessageBean bean = new Gson().fromJson(new String(v.getCustomElem().getData()), CustomMessageBean.class);
+            if (bean.getType() == 1000) {
+                if (v.getSender().equals(MyApplication.getInstance().getMid())) {
+                    msgType = RIGHT_CARD;
+                } else {
+                    msgType = LEFT_CARD;
+                }
+            } else {
+                msgType = CUSTOM;
+            }
         }
         super.addData(getItemCount(), new MessageBean(msgType, v));
     }

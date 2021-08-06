@@ -8,6 +8,7 @@ import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Color;
@@ -632,5 +633,36 @@ public class Utils {
                 .isNotPreviewDownload(true)
                 .imageEngine(GlideEngine.createGlideEngine())
                 .openExternalPreview(0, list);
+    }
+
+    public static boolean isApkInstalled(Context context, String packageName) {
+        if (TextUtils.isEmpty(packageName)) {
+            return false;
+        }
+        try {
+            context.getPackageManager().getApplicationInfo(packageName, PackageManager.GET_UNINSTALLED_PACKAGES);
+            return true;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
+     * 拉起第三方app
+     * @param context
+     * @param packageName 王者荣耀包名 com.tencent.tmgp.sgame
+     */
+    public static void launchApp(Context context, String packageName) {
+        if (Utils.isApkInstalled(context, "com.tencent.tmgp.sgame")) {
+            Intent intent = context.getPackageManager().getLaunchIntentForPackage("com.tencent.tmgp.sgame");
+            if (intent != null) {
+                intent.putExtra("type", "110");
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
+            }
+        } else {
+            showToast(context, "未安装王者荣耀");
+        }
     }
 }

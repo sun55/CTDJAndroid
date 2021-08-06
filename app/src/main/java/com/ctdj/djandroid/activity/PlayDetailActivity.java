@@ -99,12 +99,12 @@ public class PlayDetailActivity extends BaseActivity {
             binding.tvChallengeType.setText("赏金挑战赛");
             binding.tvValue.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.diamond_icon, 0);
         }
-        binding.tvValue.setText(data.getAward() + "");
+        binding.tvValue.setText(data.getSta() == 0 ? data.getAward() + "" : (data.getAward() / 2) + "");
         binding.tvGameType.setText(data.getGameType());
         binding.tvGameArea.setText(data.getArea() == 1 ? "微信区服" : "企鹅区服");
         binding.tvOrderNo.setText(data.getOrderno());
         binding.tvCreateTime.setText(data.getCreateTime());
-        binding.tvGameNickname.setText(data.getFgameName());
+        binding.tvGameNickname.setText(data.getGameMname());
         binding.tvNickname.setText(data.getFmname());
         Glide.with(this).load(data.getFheadimg()).into(binding.avatar);
         switch (data.getSta()) {

@@ -55,14 +55,6 @@
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="5dp"
-                    android:gravity="center"
-                    android:text="(选填)"
-                    android:textColor="#80ebebed"
-                    android:textSize="15sp" />
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <androidx.appcompat.widget.LinearLayoutCompat
@@ -87,16 +79,6 @@
                     android:textColorHint="#80ebebed"
                     android:textSize="15sp" />
 
-                <TextView
-                    android:id="@+id/tv_desc_count"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:layout_marginEnd="15dp"
-                    android:layout_marginBottom="15dp"
-                    android:text="300"
-                    android:textColor="#80ebebed"
-                    android:textSize="15sp" />
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <androidx.appcompat.widget.LinearLayoutCompat
@@ -121,7 +103,7 @@
                     android:layout_marginStart="5dp"
                     android:gravity="center_vertical"
                     android:lines="1"
-                    android:text="(选填，请上传最多三张清晰的关联照片)"
+                    android:text="(请上传最多三张清晰的关联照片)"
                     android:textColor="#80ebebed"
                     android:textSize="15sp" />
             </androidx.appcompat.widget.LinearLayoutCompat>

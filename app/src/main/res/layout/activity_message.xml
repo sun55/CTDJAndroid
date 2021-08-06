@@ -122,6 +122,52 @@
         </androidx.appcompat.widget.LinearLayoutCompat>
     </RelativeLayout>
 
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/ll_send_card"
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/gradient_color_5252fe_8043a0_r16"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/iv_area"
+            android:layout_width="19dp"
+            android:layout_height="19dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="9dp" />
+
+        <TextView
+            android:id="@+id/tv_game_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="10dp"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:lines="1"
+            android:maxWidth="80dp"
+            android:text="游戏昵称"
+            android:textColor="#ffebebed"
+            android:textSize="13sp" />
+
+        <View
+            android:layout_width="0.5dp"
+            android:layout_height="13dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="13dp"
+            android:background="#EBEBED" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="15dp"
+            android:background="@drawable/send_card_icon"
+            android:onClick="onSendCardClick" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -154,10 +200,10 @@
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/ll_edit"
-            android:layout_alignBottom="@id/et_message"
-            android:layout_alignTop="@id/et_message"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/et_message"
+            android:layout_alignBottom="@id/et_message" />
 
         <ImageView
             android:id="@+id/iv_input"

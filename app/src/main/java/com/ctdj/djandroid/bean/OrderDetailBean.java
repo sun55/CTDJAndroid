@@ -15,6 +15,7 @@ public class OrderDetailBean extends BaseBean{
     public static class Data {
         private int area;
         private int sta;
+        private String gameMname;
         private String gameType;
         private String fheadimg;
         private String orderno;
@@ -23,7 +24,6 @@ public class OrderDetailBean extends BaseBean{
         private String mid;
         private int challengeType;
         private String mname;
-        private String fgameName;
         private int isdefier;
         private int challengeId;
         private String fmid;
@@ -49,6 +49,14 @@ public class OrderDetailBean extends BaseBean{
 
         public void setSta(int sta) {
             this.sta = sta;
+        }
+
+        public String getGameMname() {
+            return gameMname;
+        }
+
+        public void setGameMname(String gameMname) {
+            this.gameMname = gameMname;
         }
 
         public String getGameType() {
@@ -113,14 +121,6 @@ public class OrderDetailBean extends BaseBean{
 
         public void setMname(String mname) {
             this.mname = mname;
-        }
-
-        public String getFgameName() {
-            return fgameName;
-        }
-
-        public void setFgameName(String fgameName) {
-            this.fgameName = fgameName;
         }
 
         public int getIsdefier() {

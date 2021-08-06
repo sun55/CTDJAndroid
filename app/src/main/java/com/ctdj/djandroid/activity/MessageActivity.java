@@ -2,6 +2,8 @@ package com.ctdj.djandroid.activity;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
@@ -57,11 +59,18 @@ import com.tencent.imsdk.v2.V2TIMValueCallback;
 import com.tencent.qcloud.tim.uikit.component.AudioPlayer;
 import com.tencent.qcloud.tim.uikit.utils.TUIKitConstants;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+
+import static com.ctdj.djandroid.bean.MessageBean.CUSTOM;
+import static com.ctdj.djandroid.bean.MessageBean.LEFT_CARD;
+import static com.ctdj.djandroid.bean.MessageBean.RIGHT_CARD;
 
 public class MessageActivity extends AppCompatActivity {
 
@@ -479,7 +488,17 @@ public class MessageActivity extends AppCompatActivity {
                             }
                         }
                     } else if (v.getElemType() == V2TIMMessage.V2TIM_ELEM_TYPE_CUSTOM) {
-                        msgType = MessageBean.CUSTOM;
+                        LogUtil.e("自定义消息：" + new String(v.getCustomElem().getData()));
+                        CustomMessageBean customMessageBean = new Gson().fromJson(new String(v.getCustomElem().getData()), CustomMessageBean.class);
+                        if (customMessageBean.getType() == 1000) {
+                            if (v.getSender().equals(MyApplication.getInstance().getMid())) {
+                                msgType = RIGHT_CARD;
+                            } else {
+                                msgType = LEFT_CARD;
+                            }
+                        } else {
+                            msgType = CUSTOM;
+                        }
                     }
                     bean.setFieldType(msgType);
                     messageBeans.add(bean);
@@ -772,8 +791,11 @@ public class MessageActivity extends AppCompatActivity {
     private void fillOrderView() {
         if (matchOrderBean.getData().getGameName() == null || matchOrderBean.getData().getSta() == 5 || matchOrderBean.getData().getSta() == 6 || matchOrderBean.getData().getSta() == 99) {
             binding.rlPlayInfo.setVisibility(View.GONE);
+            binding.llSendCard.setVisibility(View.GONE);
+            return;
         } else {
             binding.rlPlayInfo.setVisibility(View.VISIBLE);
+            binding.llSendCard.setVisibility(View.VISIBLE);
         }
         binding.tvPlayType.setText(matchOrderBean.getData().getChallengeType() == 1 ? "金币挑战赛" : "赏金挑战赛");
         binding.tvPlayPrice.setText((matchOrderBean.getData().getSta() == 0 ? matchOrderBean.getData().getAward() : matchOrderBean.getData().getAward() / 2) + "");
@@ -836,6 +858,9 @@ public class MessageActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        binding.ivArea.setBackgroundResource(matchOrderBean.getData().getArea() == 1 ? R.drawable.wx_icon : R.drawable.qq_icon);
+        binding.tvGameNickname.setText(matchOrderBean.getData().getIsdefier() == 1 ? matchOrderBean.getData().getGameName() : matchOrderBean.getData().getFgameName());
     }
 
     @Override
@@ -843,6 +868,36 @@ public class MessageActivity extends AppCompatActivity {
         super.onDestroy();
         if (v2TIMAdvancedMsgListener != null) {
             V2TIMManager.getMessageManager().removeAdvancedMsgListener(v2TIMAdvancedMsgListener);
+        }
+    }
+
+    public void onSendCardClick(View view) {
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("type", 1000);
+            jsonObject.put("area", matchOrderBean.getData().getArea());
+            jsonObject.put("game_nickname", matchOrderBean.getData().getIsdefier() == 1 ? matchOrderBean.getData().getGameName() : matchOrderBean.getData().getFgameName());
+            V2TIMMessage customMessage = V2TIMManager.getMessageManager().createCustomMessage(jsonObject.toString().getBytes());
+            V2TIMManager.getMessageManager().sendMessage(customMessage, userId, "", 0, false, null, new V2TIMSendCallback<V2TIMMessage>() {
+                @Override
+                public void onProgress(int progress) {
+                    LogUtil.e("发送中：" + progress);
+                }
+
+                @Override
+                public void onSuccess(V2TIMMessage v2TIMMessage) {
+                    adapter.addData(v2TIMMessage);
+                    binding.rcvMessage.scrollToPosition(adapter.getItemCount() - 1);
+                    binding.etMessage.setText("");
+                }
+
+                @Override
+                public void onError(int code, String desc) {
+                    LogUtil.e("发送失败：" + code + ", desc:" + desc);
+                }
+            });
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
 }
