@@ -124,7 +124,7 @@ public class MessageSettingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (data.isIsBlack()) {
-                    HttpClient.delBlack(MessageSettingActivity.this, data.getBlackid(), MyApplication.getInstance().getMid(), userId, new HttpCallback() {
+                    HttpClient.delBlack(MessageSettingActivity.this, data.getBlackid(), new HttpCallback() {
                         @Override
                         public void onSuccess(String result) {
                             initData();

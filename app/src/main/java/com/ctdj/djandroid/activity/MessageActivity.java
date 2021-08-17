@@ -48,6 +48,9 @@ import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
+import com.opensource.svgaplayer.SVGADrawable;
+import com.opensource.svgaplayer.SVGAParser;
+import com.opensource.svgaplayer.SVGAVideoEntity;
 import com.tencent.imsdk.v2.V2TIMAdvancedMsgListener;
 import com.tencent.imsdk.v2.V2TIMDownloadCallback;
 import com.tencent.imsdk.v2.V2TIMElem;
@@ -59,6 +62,7 @@ import com.tencent.imsdk.v2.V2TIMValueCallback;
 import com.tencent.qcloud.tim.uikit.component.AudioPlayer;
 import com.tencent.qcloud.tim.uikit.utils.TUIKitConstants;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -75,7 +79,6 @@ import static com.ctdj.djandroid.bean.MessageBean.RIGHT_CARD;
 public class MessageActivity extends AppCompatActivity {
 
     ActivityMessageBinding binding;
-    V2TIMMessage lastMessage;
     String userId;
     String targetName;
     MessageAdapter adapter;
@@ -97,7 +100,6 @@ public class MessageActivity extends AppCompatActivity {
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.setStatusBarColor(Color.parseColor("#161824"));
         Intent intent = getIntent();
-        lastMessage = (V2TIMMessage) intent.getSerializableExtra("last_message");
         userId = intent.getStringExtra("user_id");
         targetName = intent.getStringExtra("target_name");
 
@@ -112,6 +114,19 @@ public class MessageActivity extends AppCompatActivity {
                 Intent intent = new Intent(MessageActivity.this, MessageSettingActivity.class);
                 intent.putExtra("user_id", userId);
                 startActivityForResult(intent, 101);
+            }
+        });
+        Utils.parserSvgaAnim(this, "gift_icon.svga", new SVGAParser.ParseCompletion() {
+            @Override
+            public void onComplete(@NotNull SVGAVideoEntity svgaVideoEntity) {
+                SVGADrawable drawable = new SVGADrawable(svgaVideoEntity);
+                binding.ivGift.setImageDrawable(drawable);
+                binding.ivGift.startAnimation();
+            }
+
+            @Override
+            public void onError() {
+
             }
         });
         leftGrayAnim = (AnimationDrawable) getDrawable(R.drawable.gray_left_sound_anim);
@@ -163,7 +178,7 @@ public class MessageActivity extends AppCompatActivity {
                 return false;
             }
         });
-        if (lastMessage == null || userId == null) {
+        if (userId == null) {
 
         } else {
             getHistoryMessage();
@@ -793,10 +808,9 @@ public class MessageActivity extends AppCompatActivity {
             binding.rlPlayInfo.setVisibility(View.GONE);
             binding.llSendCard.setVisibility(View.GONE);
             return;
-        } else {
-            binding.rlPlayInfo.setVisibility(View.VISIBLE);
-            binding.llSendCard.setVisibility(View.VISIBLE);
         }
+        binding.rlPlayInfo.setVisibility(View.VISIBLE);
+        binding.llSendCard.setVisibility(matchOrderBean.getData().getSta() == 0 ? View.GONE : View.VISIBLE);
         binding.tvPlayType.setText(matchOrderBean.getData().getChallengeType() == 1 ? "金币挑战赛" : "赏金挑战赛");
         binding.tvPlayPrice.setText((matchOrderBean.getData().getSta() == 0 ? matchOrderBean.getData().getAward() : matchOrderBean.getData().getAward() / 2) + "");
         binding.tvPlayPrice.setCompoundDrawablesWithIntrinsicBounds(
@@ -899,5 +913,9 @@ public class MessageActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    public void launchGameApp(View view) {
+        Utils.launchApp(this);
     }
 }

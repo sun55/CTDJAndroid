@@ -33,6 +33,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 
+import static com.tencent.imsdk.v2.V2TIMManager.V2TIM_STATUS_LOGINED;
+
 public class MyApplication extends MultiDexApplication {
 
     private Settings.Global mGlobal;
@@ -173,21 +175,23 @@ public class MyApplication extends MultiDexApplication {
         setProperty("user.userSig", user.userSig);
         setProperty("user.remarkName", user.remarkName);
         setProperty("user.signature", user.signature);
-        V2TIMUserFullInfo imUserInfo = new V2TIMUserFullInfo();
-        imUserInfo.setFaceUrl(user.headimg);
-        imUserInfo.setNickname(user.mname);
-        imUserInfo.setGender(user.sex);
-        V2TIMManager.getInstance().setSelfInfo(imUserInfo, new V2TIMCallback() {
-            @Override
-            public void onSuccess() {
+        if (V2TIMManager.getInstance().getLoginStatus() == V2TIM_STATUS_LOGINED) {
+            V2TIMUserFullInfo imUserInfo = new V2TIMUserFullInfo();
+            imUserInfo.setFaceUrl(user.headimg);
+            imUserInfo.setNickname(user.mname);
+            imUserInfo.setGender(user.sex);
+            V2TIMManager.getInstance().setSelfInfo(imUserInfo, new V2TIMCallback() {
+                @Override
+                public void onSuccess() {
+                    LogUtil.d("设置im 用户信息 成功");
+                }
 
-            }
-
-            @Override
-            public void onError(int code, String desc) {
-
-            }
-        });
+                @Override
+                public void onError(int code, String desc) {
+                    LogUtil.e("设置im 用户信息 失败 code:" + code + ", desc : " + desc);
+                }
+            });
+        }
     }
 
     public UserInfoBean getUserInfo() {
@@ -208,12 +212,12 @@ public class MyApplication extends MultiDexApplication {
         bean.devicecode = getProperty("user.devicecode");
         bean.onlinesta = Integer.parseInt(getProperty("user.onlinesta"));
         bean.gold = Integer.parseInt(getProperty("user.gold"));
-        bean.star = Integer.parseInt(getProperty("user.star"));
+        bean.star = Double.parseDouble(getProperty("user.star"));
         bean.challengeVolume = Integer.parseInt(getProperty("user.challengeVolume"));
         bean.isNote = Integer.parseInt(getProperty("user.isNote"));
         bean.birthday = getProperty("user.birthday");
         bean.isreal = Integer.parseInt(getProperty("user.isreal"));
-        bean.bonus = Integer.parseInt(getProperty("user.bonus"));
+        bean.bonus = Double.parseDouble(getProperty("user.bonus"));
         bean.isFirst = Integer.parseInt(getProperty("user.isFirst"));
         bean.hideRecord = Integer.parseInt(getProperty("user.hideRecord"));
         bean.isShow = Integer.parseInt(getProperty("user.isShow"));

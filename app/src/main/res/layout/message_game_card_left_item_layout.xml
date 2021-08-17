@@ -58,6 +58,7 @@
                 <TextView
                     android:id="@+id/tv_game_nickname"
                     android:layout_width="wrap_content"
+                    android:maxWidth="130dp"
                     android:layout_height="match_parent"
                     android:layout_alignParentEnd="true"
                     android:drawableStart="@drawable/qq_white_icon"
@@ -65,7 +66,7 @@
                     android:drawablePadding="4dp"
                     android:gravity="center_vertical"
                     android:lines="1"
-                    android:maxLength="6"
+                    android:ellipsize="end"
                     android:text="游戏昵称"
                     android:textColor="#ffebebed"
                     android:textSize="13sp" />

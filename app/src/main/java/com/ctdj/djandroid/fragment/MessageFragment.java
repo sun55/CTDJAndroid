@@ -118,7 +118,6 @@ public class MessageFragment extends Fragment {
         V2TIMManager.getConversationManager().getConversationList(0, 20, new V2TIMValueCallback<V2TIMConversationResult>() {
             @Override
             public void onSuccess(V2TIMConversationResult v2TIMConversationResult) {
-                LogUtil.e("conversation size:" + v2TIMConversationResult.getConversationList().size());
                 adapter.setNewData(v2TIMConversationResult.getConversationList());
             }
 

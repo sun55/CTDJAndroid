@@ -1,5 +1,7 @@
 package com.ctdj.djandroid.audio;
 
+import android.content.Context;
+import android.content.res.AssetFileDescriptor;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 
@@ -9,6 +11,34 @@ public class MediaManager {
 
     private static MediaPlayer mMediaPlayer;
     private static boolean isPause;
+
+    public static void playLocalSound(Context context, String assetsFileName, boolean isLoop, MediaPlayer.OnCompletionListener onCompletionListener) {
+        if (mMediaPlayer == null) {
+            mMediaPlayer = new MediaPlayer();
+            mMediaPlayer.setOnErrorListener(new MediaPlayer.OnErrorListener() {
+                @Override
+                public boolean onError(MediaPlayer mp, int what, int extra) {
+                    mMediaPlayer.reset();
+                    return false;
+                }
+            });
+        } else {
+            mMediaPlayer.reset();
+        }
+
+        try {
+
+            AssetFileDescriptor fileDescriptor = context.getResources().getAssets().openFd(assetsFileName);
+            mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+            mMediaPlayer.setOnCompletionListener(onCompletionListener);
+            mMediaPlayer.setDataSource(fileDescriptor.getFileDescriptor(), fileDescriptor.getStartOffset(), fileDescriptor.getStartOffset());
+            mMediaPlayer.prepare();
+            mMediaPlayer.setLooping(isLoop);
+            mMediaPlayer.start();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public static void playSound(String filePath, MediaPlayer.OnCompletionListener onCompletionListener) {
         if (mMediaPlayer == null) {

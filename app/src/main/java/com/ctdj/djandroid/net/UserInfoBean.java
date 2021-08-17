@@ -21,9 +21,9 @@ public class UserInfoBean implements Serializable {
     public String devicecode;
     public int onlinesta;
     public int gold;
-    public int star;
+    public double star;
     public int challengeVolume;
-    public int bonus;
+    public double bonus;
     public int isNote;
     public String birthday;
     public int isFirst;

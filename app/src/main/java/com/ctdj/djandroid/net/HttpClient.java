@@ -182,16 +182,12 @@ public class HttpClient {
      *
      * @param context
      * @param blackid
-     * @param mid
-     * @param blackmid
      * @param callback
      */
-    public static void delBlack(Context context, String blackid, String mid, String blackmid, HttpCallback callback) {
+    public static void delBlack(Context context, String blackid, HttpCallback callback) {
         HashMap<String, Object> maps = new HashMap<>();
         maps.put("token", MyApplication.getInstance().getToken());
         maps.put("blackid", blackid);
-        maps.put("mid", mid);
-        maps.put("blackmid", blackmid);
         HttpCaller.doPost(context, API.DEL_BLACK, maps, callback);
     }
 
@@ -489,4 +485,92 @@ public class HttpClient {
         maps.put("remarkName", remarkName);
         HttpCaller.doPost(context, API.UPDATE_REMARK_NAME, maps, callback);
     }
+
+    /**
+     * 进入首页
+     * @param context
+     * @param callback
+     */
+    public static void intoHome(Context context,HttpCallback callback) {
+        HashMap<String, Object> maps = new HashMap<>();
+        maps.put("token", MyApplication.getInstance().getToken());
+        HttpCaller.doPost(context, API.INTO_HOME, maps, callback);
+    }
+
+    /**
+     * 发送匹配邀请
+     * @param context
+     * @param challengeType 1 金币挑战赛 2 赏金挑战赛
+     * @param callback
+     */
+    public static void sendMatchInvite(Context context, int challengeType, HttpCallback callback) {
+        HashMap<String, Object> maps = new HashMap<>();
+        maps.put("token", MyApplication.getInstance().getToken());
+        maps.put("challengeType", challengeType);
+        HttpCaller.doPost(context, API.SEND_MATCH_INVITE, maps, callback);
+    }
+
+    /**
+     * 查询宝箱列表
+     * @param context
+     * @param callback
+     */
+    public static void queryBoxList(Context context, HttpCallback callback) {
+        HashMap<String, Object> maps = new HashMap<>();
+        maps.put("token", MyApplication.getInstance().getToken());
+        HttpCaller.doPost(context, API.QUERY_BOX_LIST, maps, callback);
+    }
+
+    /**
+     * 领取宝箱
+     * @param context
+     * @param day
+     * @param code
+     * @param callback
+     */
+    public static void updateReceiveBoxTask(Context context, String day, int code, HttpCallback callback) {
+        HashMap<String, Object> maps = new HashMap<>();
+        maps.put("token", MyApplication.getInstance().getToken());
+        maps.put("day", day);
+        maps.put("code", code);
+        HttpCaller.doPost(context, API.UPDATE_RECEIVE_BOX_TASK, maps, callback);
+    }
+
+    /**
+     * 进房应战
+     * @param context
+     * @param fmid
+     * @param callback
+     */
+    public static void reciveMatchInvite(Context context, String fmid, HttpCallback callback) {
+        HashMap<String, Object> maps = new HashMap<>();
+        maps.put("token", MyApplication.getInstance().getToken());
+        maps.put("fmid", fmid);
+        HttpCaller.doPost(context, API.RECIVE_MATCH_INVITE, maps, callback);
+    }
+
+    /**
+     * 进入周星争霸
+     * @param context
+     * @param callback
+     */
+    public static void intoWeekCompetition(Context context, HttpCallback callback) {
+        HashMap<String, Object> maps = new HashMap<>();
+        maps.put("token", MyApplication.getInstance().getToken());
+        HttpCaller.doPost(context, API.INTO_WEEK_COMPETITION, maps, callback);
+    }
+
+    /**
+     * 参与周星争霸
+     * @param context
+     * @param competitionId
+     * @param callback
+     */
+    public static void joinWeekCompetition(Context context, String competitionId, HttpCallback callback) {
+        HashMap<String, Object> maps = new HashMap<>();
+        maps.put("token", MyApplication.getInstance().getToken());
+        maps.put("competitionId", competitionId);
+        HttpCaller.doPost(context, API.JOIN_WEEK_COMPETITION, maps, callback);
+    }
+
 }
