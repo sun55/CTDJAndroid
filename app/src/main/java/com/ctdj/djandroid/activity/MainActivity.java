@@ -18,6 +18,7 @@ import com.ctdj.djandroid.bean.SendMatchBean;
 import com.ctdj.djandroid.common.LogUtil;
 import com.ctdj.djandroid.common.Utils;
 import com.ctdj.djandroid.databinding.ActivityMainBinding;
+import com.ctdj.djandroid.dialog.OpenNotifyDialog;
 import com.ctdj.djandroid.dialog.RadarScanDialog;
 import com.ctdj.djandroid.dialog.ReceiveInviteDialog;
 import com.ctdj.djandroid.event.CountDownEvent;
@@ -164,6 +165,10 @@ public class MainActivity extends BaseActivity {
                 showRadarDialog(challengeType);
             }
         });
+        if (!Utils.checkNotifyPermission(this)) {
+            OpenNotifyDialog dialog = new OpenNotifyDialog(this);
+            dialog.show();
+        }
     }
 
     private void registerPush() {

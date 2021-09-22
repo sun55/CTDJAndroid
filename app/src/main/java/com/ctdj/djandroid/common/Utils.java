@@ -1,5 +1,6 @@
 package com.ctdj.djandroid.common;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.ProgressDialog;
@@ -60,6 +61,8 @@ import com.tencent.qcloud.tim.uikit.base.IUIKitCallBack;
 import com.ywl5320.libmusic.WlMusic;
 import com.ywl5320.listener.OnPreparedListener;
 
+import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -367,6 +370,46 @@ public class Utils {
         return date;
     }
 
+    /**
+     * 获取倒计时时间毫秒值
+     *
+     * @param endTime
+     * @return
+     */
+    public static long getLeftTime(String endTime) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINESE);
+        sdf.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
+        try {
+            Date endDate = sdf.parse(endTime);
+            long end = endDate.getTime();
+            long current = new Date().getTime();
+            if (end <= current) {
+                return 0;
+            } else {
+                return end - current;
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    /**
+     * 榜单倒计时格式化
+     *
+     * @return
+     */
+    public static String getRankCountDown(long timeMills) {
+        if (timeMills <= 0) {
+            return "";
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat("d/HH/mm/ss", Locale.CHINESE);
+        sdf.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
+        String[] strings = sdf.format(new Date(timeMills)).split("/");
+        String time = "榜单倒计时： " + strings[0] + "D " + strings[1] + "h " + strings[2] + "m " + strings[3] + "s";
+        return time;
+    }
+
     public static String constellation(Date date) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
@@ -627,6 +670,7 @@ public class Utils {
     /**
      * 震动
      */
+    @SuppressLint("MissingPermission")
     public static void vibrator() {
         Vibrator vibrator = (Vibrator) MyApplication.getInstance().getSystemService(MyApplication.getInstance().VIBRATOR_SERVICE);
         vibrator.vibrate(200);
@@ -745,9 +789,10 @@ public class Utils {
         return count;
     }
 
-    public static boolean checkNotifyPermission (Context context) {
+    public static boolean checkNotifyPermission(Context context) {
         NotificationManagerCompat manager = NotificationManagerCompat.from(context);
         // areNotificationsEnabled方法的有效性官方只最低支持到API 19，低于19的仍可调用此方法不过只会返回true，即默认为用户已经开启了通知。
+        LogUtil.e("检查通知权限：" + manager.areNotificationsEnabled());
         return manager.areNotificationsEnabled();
     }
 
@@ -784,6 +829,45 @@ public class Utils {
             intent.setData(uri);
             context.startActivity(intent);
         }
+    }
+
+    /**
+     * double 保留两位小数
+     *
+     * @param d
+     * @return
+     */
+    public static String transDouble2(double d) {
+        DecimalFormat df = new DecimalFormat("######0.00");
+        return df.format(d);
+    }
+
+    /**
+     * 赛事通知的时间格式
+     * @param createTime
+     * @return
+     */
+    public static String getNotifyTime(String createTime) {
+        if (createTime.length() != 19) {
+            return "";
+        }
+        Date date = getDateByString(createTime, "");
+        Calendar calendar1 = Calendar.getInstance();
+        calendar1.setTime(date);
+        Calendar calendar2 = Calendar.getInstance();
+        int month1 = calendar1.get(Calendar.MONTH) + 1;
+        int day1 = calendar1.get(Calendar.DAY_OF_MONTH);
+        int month2 = calendar2.get(Calendar.MONTH) + 1;
+        int day2 = calendar2.get(Calendar.DAY_OF_MONTH);
+        String format;
+        if (month1 == month2 && day1 == day2) {
+            format = "HH:mm";
+        } else {
+            format = "MM.dd HH:mm";
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.CHINESE);
+        sdf.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
+        return sdf.format(date);
     }
 
 }

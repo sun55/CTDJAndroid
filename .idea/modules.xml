@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/DJAndroid.iml" filepath="$PROJECT_DIR$/.idea/modules/DJAndroid.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/DJAndroid.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/DJAndroid.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/tuikit/DJAndroid.tuikit.iml" filepath="$PROJECT_DIR$/.idea/modules/tuikit/DJAndroid.tuikit.iml" />
     </modules>
   </component>
 </project>

@@ -7,6 +7,8 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -48,7 +50,13 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup">
-        <activity android:name=".activity.WeekCompetitionActivity"></activity>
+        <activity android:name=".activity.BonusCenterActivity"></activity>
+        <activity android:name=".activity.MyBonusActivity" />
+        <activity android:name=".activity.PlayRecordActivity" />
+        <activity android:name=".activity.NotifyListActivity" />
+        <activity android:name=".activity.RankListActivity" />
+        <activity android:name=".activity.ScoreListActivity" />
+        <activity android:name=".activity.WeekCompetitionActivity" />
         <activity
             android:name=".activity.ReportActivity"
             android:screenOrientation="portrait" />

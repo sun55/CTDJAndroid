@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.ctdj.djandroid.activity.AboutActivity;
 import com.ctdj.djandroid.activity.MainActivity;
 import com.ctdj.djandroid.audio.MediaManager;
 import com.ctdj.djandroid.bean.NoticeCustomContent;
@@ -14,6 +15,7 @@ import com.ctdj.djandroid.common.Constants;
 import com.ctdj.djandroid.common.LogUtil;
 import com.ctdj.djandroid.dialog.ReceiveInviteDialog;
 import com.ctdj.djandroid.event.StopRadarEvent;
+import com.ctdj.djandroid.event.UpdatePlayNotifyEvent;
 import com.google.gson.Gson;
 import com.tencent.android.tpush.NotificationAction;
 import com.tencent.android.tpush.XGPushBaseReceiver;
@@ -53,6 +55,7 @@ public class MessageReceiver extends XGPushBaseReceiver {
                 if (!obj.isNull("key")) {
                     String value = obj.getString("key");
                     LogUtil.d("get custom value:" + value);
+                    EventBus.getDefault().post(new UpdatePlayNotifyEvent());
                 }
                 // ...
             } catch (JSONException e) {
@@ -61,7 +64,6 @@ public class MessageReceiver extends XGPushBaseReceiver {
         }
         // APP自主处理消息的过程...
         LogUtil.d(text);
-        show(context, text);
     }
 
     /**
@@ -98,7 +100,6 @@ public class MessageReceiver extends XGPushBaseReceiver {
 
         Intent viewIntent = new Intent(UPDATE_LISTVIEW_ACTION);
         context.sendBroadcast(viewIntent);
-        show(context, "您有1条新消息, " + "通知被展示 ， " + notifiShowedRlt.toString());
         LogUtil.d("您有1条新消息, " + "通知被展示 ， " + notifiShowedRlt.toString() + ", PushChannel:" + notifiShowedRlt.getPushChannel());
         LogUtil.d("自定义消息：" + notifiShowedRlt.getCustomContent());
         MediaManager.playLocalSound(context, "Push_Message_video.mp3", false, null);
@@ -130,7 +131,6 @@ public class MessageReceiver extends XGPushBaseReceiver {
             text = message + "注册失败，错误码：" + errorCode;
         }
         LogUtil.d(text);
-        show(context, text);
     }
 
     /**
@@ -151,8 +151,6 @@ public class MessageReceiver extends XGPushBaseReceiver {
             text = "反注册失败" + errorCode;
         }
         LogUtil.d(text);
-        show(context, text);
-
     }
 
     /**
@@ -174,7 +172,6 @@ public class MessageReceiver extends XGPushBaseReceiver {
             text = "\"" + tagName + "\"设置失败,错误码：" + errorCode;
         }
         LogUtil.d(text);
-        show(context, text);
 
         Intent testIntent = new Intent(TEST_ACTION);
         testIntent.putExtra("step", Constants.TEST_SET_TAG);
@@ -200,7 +197,6 @@ public class MessageReceiver extends XGPushBaseReceiver {
             text = "\"" + tagName + "\"删除失败,错误码：" + errorCode;
         }
         LogUtil.d(text);
-        show(context, text);
 
         Intent testIntent = new Intent(TEST_ACTION);
         testIntent.putExtra("step", Constants.TEST_DEL_TAG);
@@ -264,39 +260,35 @@ public class MessageReceiver extends XGPushBaseReceiver {
         }
         String text = "";
         if (message.getActionType() == NotificationAction.clicked.getType()) {
-            // 通知在通知栏被点击啦。。。。。
-            // APP自己处理点击的相关动作
-            // 这个动作可以在activity的onResume也能监听，请看第3点相关内容
             text = "通知被打开 :" + message;
-            context.startActivity(new Intent(context, MainActivity.class));
+            // 这个动作可以在activity的onResume也能监听，请看第3点相关内容
+            // APP自己处理点击的相关动作
+            // 通知在通知栏被点击啦。。。。。
+            Intent intent = new Intent(context, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
+            // 获取自定义key-value
+            String customContent = message.getCustomContent();
+            if (customContent != null && customContent.length() != 0) {
+                try {
+                    JSONObject obj = new JSONObject(customContent);
+                    // key1为前台配置的key
+                    if (!obj.isNull("key")) {
+                        String value = obj.getString("key");
+                        LogUtil.d("get custom value:" + value);
+                    }
+                    // ...
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
         } else if (message.getActionType() == NotificationAction.delete.getType()) {
             // 通知被清除啦。。。。
             // APP自己处理通知被清除后的相关动作
             text = "通知被清除 :" + message;
         }
-        LogUtil.d("广播接收到通知被点击:" + message.toString());
-        // 获取自定义key-value
-        String customContent = message.getCustomContent();
-        if (customContent != null && customContent.length() != 0) {
-            try {
-                JSONObject obj = new JSONObject(customContent);
-                // key1为前台配置的key
-                if (!obj.isNull("key")) {
-                    String value = obj.getString("key");
-                    LogUtil.d("get custom value:" + value);
-                }
-                // ...
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
         // APP自主处理的过程。。。
         LogUtil.d(text);
-        show(context, text);
-    }
-
-    private void show(Context context, String text) {
-//		Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
     }
 
 }

@@ -39,7 +39,7 @@ public class PlayDetailActivity extends BaseActivity {
     ActivityPlayDetailBinding binding;
     private static final int UPLOAD_IMAGE_FOR_GAME = 1002;
     OrderDetailBean.Data data;
-    private int from; // 从哪里跳转进来的  1 聊天页面 2 订单列表
+    private int from; // 从哪里跳转进来的  1 聊天页面 2 赛事通知, 3 赛录
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -275,7 +275,7 @@ public class PlayDetailActivity extends BaseActivity {
                     .selectionMode(PictureConfig.MULTIPLE)
                     .synOrAsy(true)
                     .forResult(UPLOAD_IMAGE_FOR_GAME);
-        } else if (data.getSta() == 2   || data.getSta() == 4) { // 查看游戏截图
+        } else if (data.getSta() == 2 || data.getSta() == 4) { // 查看游戏截图
             if (TextUtils.isEmpty(data.getGameimg())) {
                 Utils.showToast(this, "赛果截图数据为空");
                 return;
@@ -360,6 +360,11 @@ public class PlayDetailActivity extends BaseActivity {
     public void onCallClick(View view) {
         if (from == 1) {
             finish();
+        } else {
+            Intent intent = new Intent(this, MessageActivity.class);
+            intent.putExtra("target_name", data.getFmname());
+            intent.putExtra("user_id", data.getFmid());
+            startActivity(intent);
         }
     }
 }

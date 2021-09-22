@@ -59,9 +59,9 @@ public class HomeFragment extends Fragment {
 
     private void initView() {
         RelativeLayout.LayoutParams topLayoutParams = (RelativeLayout.LayoutParams) binding.rlTop.getLayoutParams();
-        topLayoutParams.topMargin = DisplayUtil.getStatusBarHeight(getActivity()) + DisplayUtil.dip2px(getActivity(), 27);
+        topLayoutParams.topMargin = DisplayUtil.getStatusBarHeight(getActivity()) + DisplayUtil.dip2px(getActivity(), 7);
         LinearLayoutCompat.LayoutParams layoutParams = (LinearLayoutCompat.LayoutParams) binding.banner.getLayoutParams();
-        layoutParams.topMargin = DisplayUtil.getStatusBarHeight(getActivity()) + DisplayUtil.dip2px(getActivity(), 74);
+        layoutParams.topMargin = DisplayUtil.getStatusBarHeight(getActivity()) + DisplayUtil.dip2px(getActivity(), 54);
         Utils.setTextTypeface(binding.tvPurpleCount, "fonts/Avanti.ttf");
         Utils.setTextTypeface(binding.tvDiamondCount, "fonts/Avanti.ttf");
         Utils.setTextTypeface(binding.tvGoldCount, "fonts/Avanti.ttf");
@@ -131,7 +131,7 @@ public class HomeFragment extends Fragment {
                     } else if (data.getSta() == 3) {
                         binding.ivPackageIcon1.setBackgroundResource(R.drawable.home_icon_3);
                         binding.tvPackageValue1.setVisibility(View.VISIBLE);
-                        binding.tvPackageValue1.setText(data.getVal() + "");
+                        binding.tvPackageValue1.setText(Utils.transDouble2(data.getVal()));
                         binding.tvPackageIndex1.setTextColor(Color.parseColor("#80EBEBED"));
                     }
                     break;
@@ -209,9 +209,9 @@ public class HomeFragment extends Fragment {
     }
 
     private void fillView() {
-        binding.tvPurpleCount.setText(homeBean.getData().getStar() + "");
+        binding.tvPurpleCount.setText(Utils.transDouble2(homeBean.getData().getStar()));
         binding.tvGoldCount.setText(homeBean.getData().getGold() + "");
-        binding.tvDiamondCount.setText(homeBean.getData().getBalance() + "");
+        binding.tvDiamondCount.setText(Utils.transDouble2(homeBean.getData().getBalance()));
         binding.banner.setAdapter(new BannerImageAdapter<IntoHomeBean.Data.AdvList>(homeBean.getData().getAdvList()) {
             @Override
             public void onBindView(BannerImageHolder holder, IntoHomeBean.Data.AdvList data, int position, int size) {
@@ -226,6 +226,22 @@ public class HomeFragment extends Fragment {
                 });
             }
         });
+        for (int i = 0; i < homeBean.getData().getWeekCompetition().size(); i++) {
+            if (i == 0) {
+                binding.weekStarAvatar1.setVisibility(View.VISIBLE);
+                Glide.with(getActivity()).load(homeBean.getData().getWeekCompetition().get(i).getHeadimg()).into(binding.weekStarAvatar1);
+            } else if (i == 1) {
+                binding.weekStarAvatar2.setVisibility(View.VISIBLE);
+                Glide.with(getActivity()).load(homeBean.getData().getWeekCompetition().get(i).getHeadimg()).into(binding.weekStarAvatar2);
+            } else if (i == 2) {
+                binding.weekStarAvatar3.setVisibility(View.VISIBLE);
+                Glide.with(getActivity()).load(homeBean.getData().getWeekCompetition().get(i).getHeadimg()).into(binding.weekStarAvatar3);
+            } else if (i == 3) {
+                binding.weekStarAvatar4.setVisibility(View.VISIBLE);
+                Glide.with(getActivity()).load(homeBean.getData().getWeekCompetition().get(i).getHeadimg()).into(binding.weekStarAvatar4);
+            }
+        }
+
         for (int i = 0; i < homeBean.getData().getGoldChallenge().size(); i++) {
             if (i == 0) {
                 binding.goldAvatar1.setVisibility(View.VISIBLE);

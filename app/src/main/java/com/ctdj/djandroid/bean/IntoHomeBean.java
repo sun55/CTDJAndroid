@@ -18,7 +18,7 @@ public class IntoHomeBean extends BaseBean{
         private int gold;
         private double star;
         private double balance;
-        private List<?> weekCompetition;
+        private List<WeekCompetition> weekCompetition;
         private List<AdvList> advList;
         private List<GoldChallenge> goldChallenge;
         private List<BalanceChallenge> balanceChallenge;
@@ -47,11 +47,11 @@ public class IntoHomeBean extends BaseBean{
             this.balance = balance;
         }
 
-        public List<?> getWeekCompetition() {
+        public List<WeekCompetition> getWeekCompetition() {
             return weekCompetition;
         }
 
-        public void setWeekCompetition(List<?> weekCompetition) {
+        public void setWeekCompetition(List<WeekCompetition> weekCompetition) {
             this.weekCompetition = weekCompetition;
         }
 
@@ -124,6 +124,72 @@ public class IntoHomeBean extends BaseBean{
 
             public void setImg(String img) {
                 this.img = img;
+            }
+        }
+
+        public static class WeekCompetition {
+            private int score;
+            private int competitionId;
+            private int ranks;
+            private String headimg;
+            private int sex;
+            private String mid;
+            private String mname;
+
+            public int getScore() {
+                return score;
+            }
+
+            public void setScore(int score) {
+                this.score = score;
+            }
+
+            public int getCompetitionId() {
+                return competitionId;
+            }
+
+            public void setCompetitionId(int competitionId) {
+                this.competitionId = competitionId;
+            }
+
+            public int getRanks() {
+                return ranks;
+            }
+
+            public void setRanks(int ranks) {
+                this.ranks = ranks;
+            }
+
+            public String getHeadimg() {
+                return headimg;
+            }
+
+            public void setHeadimg(String headimg) {
+                this.headimg = headimg;
+            }
+
+            public int getSex() {
+                return sex;
+            }
+
+            public void setSex(int sex) {
+                this.sex = sex;
+            }
+
+            public String getMid() {
+                return mid;
+            }
+
+            public void setMid(String mid) {
+                this.mid = mid;
+            }
+
+            public String getMname() {
+                return mname;
+            }
+
+            public void setMname(String mname) {
+                this.mname = mname;
             }
         }
 

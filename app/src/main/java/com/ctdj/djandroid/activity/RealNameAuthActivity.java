@@ -44,8 +44,7 @@ public class RealNameAuthActivity extends BaseActivity {
         });
         UserInfoBean userInfoBean = MyApplication.getInstance().getUserInfo();
         if (userInfoBean.isreal == 1) {
-//            binding.ll1.setVisibility(View.GONE);
-            binding.ll1.setVisibility(View.VISIBLE);
+            binding.ll1.setVisibility(View.GONE);
             binding.tvTips.setVisibility(View.GONE);
             binding.ll2.setVisibility(View.VISIBLE);
             binding.tvRealName2.setText(TextUtils.isEmpty(userInfoBean.cmzname) || userInfoBean.cmzname.length() < 2 ?

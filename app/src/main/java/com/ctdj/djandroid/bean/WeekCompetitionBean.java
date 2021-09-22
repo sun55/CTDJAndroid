@@ -55,7 +55,7 @@ public class WeekCompetitionBean implements Serializable {
         public static class LogEntryCompetition {
             private String mid;
             private int competitionId;
-            private int rank;
+            private int ranks;
             private int score;
 
             public String getMid() {
@@ -74,12 +74,12 @@ public class WeekCompetitionBean implements Serializable {
                 this.competitionId = competitionId;
             }
 
-            public int getRank() {
-                return rank;
+            public int getRanks() {
+                return ranks;
             }
 
-            public void setRank(int rank) {
-                this.rank = rank;
+            public void setRanks(int ranks) {
+                this.ranks = ranks;
             }
 
             public int getScore() {

@@ -75,6 +75,7 @@
                             android:drawableStart="@drawable/home_icon_4"
                             android:drawablePadding="2dp"
                             android:gravity="center_vertical"
+                            android:paddingStart="2.5dp"
                             android:text="0.15"
                             android:textColor="#ff861e01"
                             android:textSize="7sp" />
@@ -114,6 +115,7 @@
                             android:drawableStart="@drawable/home_icon_4"
                             android:drawablePadding="2dp"
                             android:gravity="center_vertical"
+                            android:paddingStart="2.5dp"
                             android:text="0.15"
                             android:textColor="#ff861e01"
                             android:textSize="7sp"
@@ -154,6 +156,7 @@
                             android:drawableStart="@drawable/home_icon_4"
                             android:drawablePadding="2dp"
                             android:gravity="center_vertical"
+                            android:paddingStart="2.5dp"
                             android:text="0.15"
                             android:textColor="#ff861e01"
                             android:textSize="7sp"
@@ -194,6 +197,7 @@
                             android:drawableStart="@drawable/home_icon_4"
                             android:drawablePadding="2dp"
                             android:gravity="center_vertical"
+                            android:paddingStart="2.5dp"
                             android:text="0.15"
                             android:textColor="#ff861e01"
                             android:textSize="7sp"
@@ -234,6 +238,7 @@
                             android:drawableStart="@drawable/home_icon_4"
                             android:drawablePadding="2dp"
                             android:gravity="center_vertical"
+                            android:paddingStart="2.5dp"
                             android:text="0.15"
                             android:textColor="#ff861e01"
                             android:textSize="7sp"
@@ -332,6 +337,7 @@
                             android:layout_marginStart="-4dp"
                             android:layout_toEndOf="@id/week_star_avatar_3"
                             android:src="@drawable/default_head"
+                            android:visibility="gone"
                             app:borderColor="#22252f"
                             app:borderWidth="2dp"
                             app:radius="14dp" />
@@ -343,6 +349,7 @@
                             android:layout_marginStart="-4dp"
                             android:layout_toEndOf="@id/week_star_avatar_2"
                             android:src="@drawable/default_head"
+                            android:visibility="gone"
                             app:borderColor="#22252f"
                             app:borderWidth="2dp"
                             app:radius="14dp" />
@@ -351,9 +358,10 @@
                             android:id="@+id/week_star_avatar_2"
                             android:layout_width="25dp"
                             android:layout_height="27dp"
-                            android:layout_marginStart="0dp"
+                            android:layout_marginStart="-4dp"
                             android:layout_toEndOf="@id/week_star_avatar_1"
                             android:src="@drawable/default_head"
+                            android:visibility="gone"
                             app:borderColor="#22252f"
                             app:borderWidth="2dp"
                             app:radius="14dp" />
@@ -363,6 +371,7 @@
                             android:layout_width="28dp"
                             android:layout_height="28dp"
                             android:src="@drawable/default_head"
+                            android:visibility="gone"
                             app:borderColor="#22252f"
                             app:borderWidth="2dp"
                             app:radius="14dp" />
@@ -375,7 +384,7 @@
                 android:id="@+id/ll_gold_play"
                 android:layout_width="match_parent"
                 android:layout_height="134dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:background="@drawable/home_icon_9"
                 android:orientation="vertical">
 

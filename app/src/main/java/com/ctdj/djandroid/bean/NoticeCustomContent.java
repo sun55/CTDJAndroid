@@ -8,12 +8,14 @@ public class NoticeCustomContent implements Serializable{
     private String sender;
     private String mname;
     private String headimg;
+    private int type;
 
-    public NoticeCustomContent(int challengeType, String sender, String mname, String headimg) {
+    public NoticeCustomContent(int challengeType, String sender, String mname, String headimg, int type) {
         this.challengeType = challengeType;
         this.sender = sender;
         this.mname = mname;
         this.headimg = headimg;
+        this.type = type;
     }
 
     public int getChallengeType() {
@@ -46,5 +48,13 @@ public class NoticeCustomContent implements Serializable{
 
     public void setHeadimg(String headimg) {
         this.headimg = headimg;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 }

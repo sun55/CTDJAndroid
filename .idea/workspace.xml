@@ -7,7 +7,7 @@
   </component>
   <component name="AndroidLogFilters">
     <option name="TOOL_WINDOW_LOG_LEVEL" value="error" />
-    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="No Filters" />
   </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="NONE" />
@@ -31,42 +31,68 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b60cb414-1783-48e3-8cb8-08dd9fb2d491" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid/MyApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid/activity/BaseActivity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid/common/AppConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid/common/AppExecutors.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid/common/AppFrontBackHelper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid/common/Constants.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid/common/DisplayUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid/common/FileUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid/common/GlideEngine.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid/common/LogUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid/common/ResourceUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid/common/SPUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid/common/Utils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid/dialog/LoadingDialog.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid/view/MyImageSpan.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/custom_toast_bg.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/half_translate_white_bg.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/xml/network_security_config.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/proguard-rules.pro" beforeDir="false" afterPath="$PROJECT_DIR$/app/proguard-rules.pro" afterDir="false" />
+    <list default="true" id="b60cb414-1783-48e3-8cb8-08dd9fb2d491" name="Default Changelist" comment="约战">
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid/activity/BonusCenterActivity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid/activity/MyBonusActivity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid/activity/NotifyListActivity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid/activity/PlayRecordActivity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid/activity/RankListActivity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid/activity/ScoreListActivity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid/bean/PlayRecordBean.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid/bean/PushRecordBean.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid/bean/RankListBean.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid/bean/ScoreListBean.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid/dialog/OpenNotifyDialog.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid/dialog/ScoreDescDialog.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid/event/UpdatePlayNotifyEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/bonus_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/bonus_icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/failure_icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/open_notify_icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/play_notify_icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/system_notify_icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/win_icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/radius_10_lefttop_rightbottom_26000000.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/radius_5_3a3c45.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/radius_5_5252fe.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_bonus_center.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_my_bonus.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_notify_list.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_play_record.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_rank_list.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_score_list.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/notify_item_layout.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/open_notify_dialog.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/play_record_item_layout.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/rank_item_layout.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/score_desc_layout.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/score_item_layout.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid/activity/BindGameAccountActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid/activity/BindGameAccountActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid/activity/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid/activity/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid/activity/PlayDetailActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid/activity/PlayDetailActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid/activity/RealNameAuthActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid/activity/RealNameAuthActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid/activity/WeekCompetitionActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid/activity/WeekCompetitionActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid/bean/IntoHomeBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid/bean/IntoHomeBean.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid/bean/NoticeCustomContent.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid/bean/NoticeCustomContent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid/bean/WeekCompetitionBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid/bean/WeekCompetitionBean.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid/common/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid/common/Utils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid/fragment/HomeFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid/fragment/HomeFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid/fragment/MessageFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid/fragment/MessageFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid/fragment/MineFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid/fragment/MineFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid/net/API.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid/net/API.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid/net/HttpClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid/net/HttpClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid/tpush/MessageReceiver.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid/tpush/MessageReceiver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_week_competition.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_week_competition.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_home.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_home.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[VirtualDevicePath@/Users/apple/.android/avd/Pixel_3_XL_API_29.avd]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[VirtualDevicePath@/Users/apple/.android/avd/Pixel_3_API_28.avd]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -94,38 +120,135 @@
       </state>
     </system>
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="layoutResourceFile" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="GenerateSignedApkSettings">
+    <option name="KEY_STORE_PATH" value="$PROJECT_DIR$/ctdjandroid.jks" />
+    <option name="KEY_ALIAS" value="ctdjandroid" />
+    <option name="REMEMBER_PASSWORDS" value="true" />
+    <option name="BUILD_TARGET_KEY" value="apk" />
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1uFTKfmW47mWHdCVrdnnGJ0tw7Q" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ApkExportedModule" value="DJAndroid.app" />
+    <property name="DEBUGGABLE_DEVICE" value="emulator-5554" />
+    <property name="DEBUGGABLE_PROCESS" value="com.ctdj.djandroid" />
+    <property name="DEBUGGER_ID" value="Auto" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="SerialNumber@98Y5T18A28001721" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2021-08-20T08:43:36.752265Z" />
+    <property name="ExportApk.ApkPath" value="$PROJECT_DIR$/app" />
+    <property name="ExportApk.BuildVariants" value="release" />
+    <property name="ExportApk.SignV1" value="true" />
+    <property name="ExportApk.SignV2" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/src/main/res" />
-    <property name="project.structure.last.edited" value="Dependencies" />
+    <property name="SHOW_ALL_PROCESSES" value="false" />
+    <property name="android-custom-view/Users/apple/.gradle/caches/modules-2/files-2.1/androidx.recyclerview/recyclerview/1.0.0/2151d26c3b241f0a887f2dadb9ab091649fcf020/recyclerview-1.0.0-sources.jar!/androidx/recyclerview/widget/RecyclerView.java_SELECTED" value="RecyclerView" />
+    <property name="android-custom-view/Users/apple/.gradle/caches/modules-2/files-2.1/com.contrarywind/wheelview/4.1.0/6afdc93aa2887c9f7e22acb6552b2ecd5515c02a/wheelview-4.1.0-sources.jar!/com/contrarywind/view/WheelView.java_SELECTED" value="WheelView" />
+    <property name="android-custom-view/Users/apple/.gradle/caches/modules-2/files-2.1/com.github.gzu-liyujiang.AndroidPicker/WheelPicker/3.0.2/7d9a11aee843438db60daf4cab1dc43cdbd2a499/WheelPicker-3.0.2-sources.jar!/com/github/gzuliyujiang/wheelpicker/widget/DateWheelLayout.java_SELECTED" value="DateWheelLayout" />
+    <property name="android-custom-view/Users/apple/.gradle/caches/modules-2/files-2.1/com.scwang.smart/refresh-layout-kernel/2.0.1/4be9a13d625bab2257dec37ad8545bbcacd41d28/refresh-layout-kernel-2.0.1-sources.jar!/com/scwang/smart/refresh/layout/SmartRefreshLayout.java_SELECTED" value="SmartRefreshLayout" />
+    <property name="android-custom-view/Users/apple/Desktop/CTDJAndroid/app/src/main/java/com/ctdj/djandroid/audio/AudioRecorderButton.java_SELECTED" value="AudioRecorderButton" />
+    <property name="android-custom-view/Users/apple/Desktop/CTDJAndroid/app/src/main/java/com/ctdj/djandroid/tpush/ExtendedListView.java_SELECTED" value="ExtendedListView" />
+    <property name="android-custom-view/Users/apple/Desktop/CTDJAndroid/app/src/main/java/com/ctdj/djandroid/view/AutoHeightGridView.java_SELECTED" value="AutoHeightGridView" />
+    <property name="android-custom-view/Users/apple/Desktop/CTDJAndroid/app/src/main/java/com/ctdj/djandroid/view/AvantiBoldTextView.java_SELECTED" value="AvantiBoldTextView" />
+    <property name="android-custom-view/Users/apple/Desktop/CTDJAndroid/app/src/main/java/com/ctdj/djandroid/view/AvantiTextView.java_SELECTED" value="AvantiTextView" />
+    <property name="android-custom-view/Users/apple/Desktop/CTDJAndroid/app/src/main/java/com/ctdj/djandroid/view/CircleImageView.java_SELECTED" value="CircleImageView" />
+    <property name="android-custom-view/Users/apple/Desktop/CTDJAndroid/app/src/main/java/com/ctdj/djandroid/view/CommonItemView.java_SELECTED" value="CommonItemView" />
+    <property name="android-custom-view/Users/apple/Desktop/CTDJAndroid/app/src/main/java/com/ctdj/djandroid/view/DrawableCenterTextView.java_SELECTED" value="DrawableCenterTextView" />
+    <property name="android-custom-view/Users/apple/Desktop/CTDJAndroid/app/src/main/java/com/ctdj/djandroid/view/EditTextWithClear.java_SELECTED" value="EditTextWithClear" />
+    <property name="android-custom-view/Users/apple/Desktop/CTDJAndroid/app/src/main/java/com/ctdj/djandroid/view/PickerView.java_SELECTED" value="PickerView" />
+    <property name="android-custom-view/Users/apple/Desktop/CTDJAndroid/app/src/main/java/com/ctdj/djandroid/view/PwdInputView.java_SELECTED" value="PwdInputView" />
+    <property name="android-custom-view/Users/apple/Desktop/CTDJAndroid/app/src/main/java/com/ctdj/djandroid/view/SRadarSweepView.java_SELECTED" value="SRadarSweepView" />
+    <property name="android-custom-view/Users/apple/Desktop/CTDJAndroid/app/src/main/java/com/ctdj/djandroid/view/TitleView.java_SELECTED" value="TitleView" />
+    <property name="android-custom-view/Users/apple/Desktop/CTDJAndroid/tuikit/src/main/java/com/tencent/qcloud/tim/uikit/component/TitleBarLayout.java_SELECTED" value="TitleBarLayout" />
+    <property name="android-custom-view/Users/apple/Desktop/CTDJAndroid/tuikit/src/main/java/com/tencent/qcloud/tim/uikit/modules/chat/ChatLayout.java_SELECTED" value="ChatLayout" />
+    <property name="android-custom-view/Users/apple/Desktop/CTDJAndroid/tuikit/src/main/java/com/tencent/qcloud/tim/uikit/modules/chat/base/AbsChatLayout.java_SELECTED" value="AbsChatLayout" />
+    <property name="android-custom-view/Users/apple/Desktop/CTDJAndroid/tuikit/src/main/java/com/tencent/qcloud/tim/uikit/modules/chat/base/ChatLayoutUI.java_SELECTED" value="ChatLayoutUI" />
+    <property name="android-custom-view/Users/apple/Desktop/CTDJAndroid/tuikit/src/main/java/com/tencent/qcloud/tim/uikit/modules/conversation/ConversationLayout.java_SELECTED" value="ConversationLayout" />
+    <property name="android-custom-view/Users/apple/Desktop/CTDJAndroid/tuikit/src/main/java/com/tencent/qcloud/tim/uikit/modules/conversation/ConversationListLayout.java_SELECTED" value="ConversationListLayout" />
+    <property name="android-custom-view/Users/apple/Library/Android/sdk/sources/android-30/android/view/View.java_SELECTED" value="View" />
+    <property name="android-custom-view/Users/apple/Library/Android/sdk/sources/android-30/android/view/ViewGroup.java_SELECTED" value="ViewGroup" />
+    <property name="android-custom-view/Users/apple/Library/Android/sdk/sources/android-30/android/widget/NumberPicker.java_SELECTED" value="NumberPicker" />
+    <property name="last_directory_selection" value="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.17" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="PsdUISettings">
     <option name="RESOLVED_DEPENDENCIES_MINIMIZE" value="true" />
+    <option name="MODULE_TAB" value="Properties" />
+    <option name="LAST_EDITED_SIGNING_CONFIG" value="release" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyClassDialog.RECENTS_KEY">
+    <key name="android.template.1564617059">
       <recent name="com.ctdj.djandroid.activity" />
-      <recent name="com.ctdj.djandroid.dialog" />
-      <recent name="com.ctdj.djandroid.view" />
-      <recent name="com.ctdj.djandroid" />
+    </key>
+    <key name="android.template.958892992">
+      <recent name="com.ctdj.djandroid.activity" />
+    </key>
+    <key name="android.template.-403978356">
+      <recent name="com.ctdj.djandroid.activity" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/app/src/main/res" />
+      <recent name="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi" />
+      <recent name="$PROJECT_DIR$/app/src/main/res/layout" />
       <recent name="$PROJECT_DIR$/app/src/main/res/drawable" />
-      <recent name="$PROJECT_DIR$/app/src/main/res/values" />
-      <recent name="$PROJECT_DIR$/app/src/main/java/com/ctdj/djandroid" />
-      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/app/src/main/assets" />
+      <recent name="$PROJECT_DIR$/app/src/main/assets/fonts" />
+    </key>
+    <key name="android.template.-1784516647">
+      <recent name="com.ctdj.djandroid.activity" />
+    </key>
+    <key name="android.template.-243256969">
+      <recent name="com.ctdj.djandroid.activity" />
+    </key>
+    <key name="android.template.-2023686384">
+      <recent name="com.ctdj.djandroid.activity" />
+    </key>
+    <key name="android.template.1844673600">
+      <recent name="com.ctdj.djandroid.activity" />
+    </key>
+    <key name="android.template.-1400755178">
+      <recent name="com.ctdj.djandroid.activity" />
+    </key>
+    <key name="android.template.1279758794">
+      <recent name="com.ctdj.djandroid.activity" />
+    </key>
+    <key name="android.template.-929074252">
+      <recent name="com.ctdj.djandroid.activity" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.ctdj.djandroid.event" />
+      <recent name="com.ctdj.djandroid.dialog" />
+      <recent name="com.ctdj.djandroid.common" />
+      <recent name="com.ctdj.djandroid.activity" />
+      <recent name="com.ctdj.djandroid.view" />
+    </key>
+    <key name="android.template.992614985">
+      <recent name="com.ctdj.djandroid.activity" />
+    </key>
+    <key name="android.template.732957822">
+      <recent name="com.ctdj.djandroid.activity" />
+    </key>
+    <key name="android.template.-2081255568">
+      <recent name="com.ctdj.djandroid.activity" />
     </key>
   </component>
   <component name="RunManager">
@@ -204,6 +327,84 @@
       <option name="presentableId" value="Default" />
       <updated>1624260276911</updated>
     </task>
+    <task id="LOCAL-00001" summary="登录UI">
+      <created>1624385793106</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1624385793106</updated>
+    </task>
+    <task id="LOCAL-00002" summary="登录注册">
+      <created>1624995048803</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1624995048803</updated>
+    </task>
+    <task id="LOCAL-00003" summary="主界面">
+      <created>1625158466203</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1625158466203</updated>
+    </task>
+    <task id="LOCAL-00004" summary="注册数据">
+      <created>1625159328629</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1625159328629</updated>
+    </task>
+    <task id="LOCAL-00005" summary="主界面">
+      <created>1625159660620</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1625159660620</updated>
+    </task>
+    <task id="LOCAL-00006" summary="我的，编辑">
+      <created>1625425353848</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1625425353848</updated>
+    </task>
+    <task id="LOCAL-00007" summary="设置 清理缓存">
+      <created>1625587628200</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1625587628200</updated>
+    </task>
+    <task id="LOCAL-00008" summary="首页">
+      <created>1626229915290</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1626229915290</updated>
+    </task>
+    <task id="LOCAL-00009" summary="IM">
+      <created>1626314790221</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1626314790221</updated>
+    </task>
+    <task id="LOCAL-00010" summary="约战&#10;通讯录">
+      <created>1627234192425</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1627234192425</updated>
+    </task>
+    <task id="LOCAL-00011" summary="约战">
+      <created>1627916496391</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1627916496391</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -216,35 +417,196 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="登录UI" />
+    <MESSAGE value="登录注册" />
+    <MESSAGE value="注册数据" />
+    <MESSAGE value="主界面" />
+    <MESSAGE value="我的，编辑" />
+    <MESSAGE value="设置 清理缓存" />
+    <MESSAGE value="首页" />
+    <MESSAGE value="IM" />
+    <MESSAGE value="录音动画&#10;通讯录" />
+    <MESSAGE value="约战&#10;通讯录" />
+    <MESSAGE value="约战" />
+    <option name="LAST_COMMIT_MESSAGE" value="约战" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="365" y="231" key="#PSD" timestamp="1624297337298">
+    <state x="365" y="230" key="#PSD" timestamp="1629099360844">
+      <screen x="0" y="25" width="1680" height="937" />
+    </state>
+    <state x="365" y="230" key="#PSD/0.25.1680.937@0.25.1680.937" timestamp="1629099360844" />
+    <state x="365" y="231" key="#PSD/0.25.1680.940@0.25.1680.940" timestamp="1627056915801" />
+    <state x="653" y="183" key="#com.intellij.ide.util.MemberChooser" timestamp="1630055355085">
       <screen x="0" y="25" width="1680" height="940" />
     </state>
-    <state x="365" y="231" key="#PSD/0.25.1680.940@0.25.1680.940" timestamp="1624297337298" />
-    <state x="100" y="125" width="1480" height="740" key="AVDManager" timestamp="1624294407570">
+    <state x="653" y="182" key="#com.intellij.ide.util.MemberChooser/0.25.1680.934@0.25.1680.934" timestamp="1629304611865" />
+    <state x="653" y="183" key="#com.intellij.ide.util.MemberChooser/0.25.1680.937@0.25.1680.937" timestamp="1629214811941" />
+    <state x="653" y="183" key="#com.intellij.ide.util.MemberChooser/0.25.1680.940@0.25.1680.940" timestamp="1630055355085" />
+    <state x="653" y="183" key="#com.intellij.ide.util.MemberChooser/0.25.1680.942@0.25.1680.942" timestamp="1629812578729" />
+    <state x="653" y="184" key="#com.intellij.ide.util.MemberChooser/0.25.1680.945@0.25.1680.945" timestamp="1626623332572" />
+    <state x="653" y="184" key="#com.intellij.ide.util.MemberChooser/0.25.1680.947@0.25.1680.947" timestamp="1626620523330" />
+    <state x="577" y="289" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1628239030449">
       <screen x="0" y="25" width="1680" height="940" />
     </state>
-    <state x="100" y="125" width="1480" height="740" key="AVDManager/0.25.1680.940@0.25.1680.940" timestamp="1624294407570" />
-    <state x="670" y="294" key="AndroidCreateXmlResourceDialog" timestamp="1624293170541">
+    <state x="577" y="289" key="#com.intellij.ide.util.TreeClassChooserDialog/0.25.1680.940@0.25.1680.940" timestamp="1628239030449" />
+    <state x="614" y="368" width="452" height="262" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1624988716403">
       <screen x="0" y="25" width="1680" height="940" />
     </state>
-    <state x="670" y="294" key="AndroidCreateXmlResourceDialog/0.25.1680.940@0.25.1680.940" timestamp="1624293170541" />
-    <state x="349" y="131" key="SettingsEditor" timestamp="1624297654870">
+    <state x="614" y="368" width="452" height="262" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.25.1680.940@0.25.1680.940" timestamp="1624988716403" />
+    <state x="361" y="25" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1625881611888">
+      <screen x="0" y="25" width="1680" height="942" />
+    </state>
+    <state x="361" y="25" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.25.1680.942@0.25.1680.942" timestamp="1625881611888" />
+    <state x="100" y="125" width="1480" height="738" key="AVDManager" timestamp="1629968747320">
+      <screen x="0" y="25" width="1680" height="937" />
+    </state>
+    <state x="100" y="125" width="1480" height="738" key="AVDManager/0.25.1680.937@0.25.1680.937" timestamp="1629968747320" />
+    <state x="100" y="125" width="1480" height="740" key="AVDManager/0.25.1680.940@0.25.1680.940" timestamp="1627549923595" />
+    <state x="100" y="125" width="1480" height="740" key="AVDManager/0.25.1680.942@0.25.1680.942" timestamp="1627526701880" />
+    <state x="428" y="254" key="AndroidCreateResourceFileDialog" timestamp="1626605459392">
       <screen x="0" y="25" width="1680" height="940" />
     </state>
-    <state x="349" y="131" key="SettingsEditor/0.25.1680.940@0.25.1680.940" timestamp="1624297654870" />
-    <state x="641" y="413" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1624287894692">
+    <state x="428" y="254" key="AndroidCreateResourceFileDialog/0.25.1680.940@0.25.1680.940" timestamp="1626605459392" />
+    <state x="670" y="294" key="AndroidCreateXmlResourceDialog" timestamp="1630047337815">
+      <screen x="0" y="25" width="1680" height="942" />
+    </state>
+    <state x="670" y="292" key="AndroidCreateXmlResourceDialog/0.25.1680.934@0.25.1680.934" timestamp="1629270489892" />
+    <state x="670" y="294" key="AndroidCreateXmlResourceDialog/0.25.1680.940@0.25.1680.940" timestamp="1626599869614" />
+    <state x="670" y="294" key="AndroidCreateXmlResourceDialog/0.25.1680.942@0.25.1680.942" timestamp="1630047337815" />
+    <state x="612" y="245" key="AndroidProcessChooserDialog" timestamp="1627838587614">
       <screen x="0" y="25" width="1680" height="940" />
     </state>
-    <state x="641" y="413" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.25.1680.940@0.25.1680.940" timestamp="1624287894692" />
+    <state x="612" y="245" key="AndroidProcessChooserDialog/0.25.1680.940@0.25.1680.940" timestamp="1627838587614" />
+    <state width="1638" height="253" key="GridCell.Tab.0.bottom" timestamp="1630055066958">
+      <screen x="0" y="25" width="1680" height="940" />
+    </state>
+    <state width="1638" height="232" key="GridCell.Tab.0.bottom/0.25.1680.934@0.25.1680.934" timestamp="1628654741410" />
+    <state width="819" height="253" key="GridCell.Tab.0.bottom/0.25.1680.937@0.25.1680.937" timestamp="1630041280819" />
+    <state width="1638" height="253" key="GridCell.Tab.0.bottom/0.25.1680.940@0.25.1680.940" timestamp="1630055066958" />
+    <state width="1637" height="238" key="GridCell.Tab.0.bottom/0.25.1680.942@0.25.1680.942" timestamp="1629855262978" />
+    <state width="1637" height="238" key="GridCell.Tab.0.bottom/0.25.1680.945@0.25.1680.945" timestamp="1629799881682" />
+    <state width="1638" height="252" key="GridCell.Tab.0.bottom/0.25.1680.949@0.25.1680.949" timestamp="1628002356144" />
+    <state width="1638" height="253" key="GridCell.Tab.0.center" timestamp="1630055066957">
+      <screen x="0" y="25" width="1680" height="940" />
+    </state>
+    <state width="1638" height="232" key="GridCell.Tab.0.center/0.25.1680.934@0.25.1680.934" timestamp="1628654741409" />
+    <state width="819" height="253" key="GridCell.Tab.0.center/0.25.1680.937@0.25.1680.937" timestamp="1630041280818" />
+    <state width="1638" height="253" key="GridCell.Tab.0.center/0.25.1680.940@0.25.1680.940" timestamp="1630055066957" />
+    <state width="1637" height="238" key="GridCell.Tab.0.center/0.25.1680.942@0.25.1680.942" timestamp="1629855262977" />
+    <state width="1637" height="238" key="GridCell.Tab.0.center/0.25.1680.945@0.25.1680.945" timestamp="1629799881681" />
+    <state width="1638" height="252" key="GridCell.Tab.0.center/0.25.1680.949@0.25.1680.949" timestamp="1628002356143" />
+    <state width="1638" height="253" key="GridCell.Tab.0.left" timestamp="1630055066956">
+      <screen x="0" y="25" width="1680" height="940" />
+    </state>
+    <state width="1638" height="232" key="GridCell.Tab.0.left/0.25.1680.934@0.25.1680.934" timestamp="1628654741409" />
+    <state width="819" height="253" key="GridCell.Tab.0.left/0.25.1680.937@0.25.1680.937" timestamp="1630041280817" />
+    <state width="1638" height="253" key="GridCell.Tab.0.left/0.25.1680.940@0.25.1680.940" timestamp="1630055066956" />
+    <state width="1637" height="238" key="GridCell.Tab.0.left/0.25.1680.942@0.25.1680.942" timestamp="1629855262976" />
+    <state width="1637" height="238" key="GridCell.Tab.0.left/0.25.1680.945@0.25.1680.945" timestamp="1629799881680" />
+    <state width="1638" height="252" key="GridCell.Tab.0.left/0.25.1680.949@0.25.1680.949" timestamp="1628002356142" />
+    <state width="1638" height="253" key="GridCell.Tab.0.right" timestamp="1630055066957">
+      <screen x="0" y="25" width="1680" height="940" />
+    </state>
+    <state width="1638" height="232" key="GridCell.Tab.0.right/0.25.1680.934@0.25.1680.934" timestamp="1628654741410" />
+    <state width="819" height="253" key="GridCell.Tab.0.right/0.25.1680.937@0.25.1680.937" timestamp="1630041280818" />
+    <state width="1638" height="253" key="GridCell.Tab.0.right/0.25.1680.940@0.25.1680.940" timestamp="1630055066957" />
+    <state width="1637" height="238" key="GridCell.Tab.0.right/0.25.1680.942@0.25.1680.942" timestamp="1629855262978" />
+    <state width="1637" height="238" key="GridCell.Tab.0.right/0.25.1680.945@0.25.1680.945" timestamp="1629799881681" />
+    <state width="1638" height="252" key="GridCell.Tab.0.right/0.25.1680.949@0.25.1680.949" timestamp="1628002356143" />
+    <state width="1638" height="249" key="GridCell.Tab.1.bottom" timestamp="1627838868303">
+      <screen x="0" y="25" width="1680" height="940" />
+    </state>
+    <state width="1638" height="249" key="GridCell.Tab.1.bottom/0.25.1680.940@0.25.1680.940" timestamp="1627838868303" />
+    <state width="1638" height="249" key="GridCell.Tab.1.center" timestamp="1627838868302">
+      <screen x="0" y="25" width="1680" height="940" />
+    </state>
+    <state width="1638" height="249" key="GridCell.Tab.1.center/0.25.1680.940@0.25.1680.940" timestamp="1627838868302" />
+    <state width="1638" height="249" key="GridCell.Tab.1.left" timestamp="1627838868302">
+      <screen x="0" y="25" width="1680" height="940" />
+    </state>
+    <state width="1638" height="249" key="GridCell.Tab.1.left/0.25.1680.940@0.25.1680.940" timestamp="1627838868302" />
+    <state width="1638" height="249" key="GridCell.Tab.1.right" timestamp="1627838868303">
+      <screen x="0" y="25" width="1680" height="940" />
+    </state>
+    <state width="1638" height="249" key="GridCell.Tab.1.right/0.25.1680.940@0.25.1680.940" timestamp="1627838868303" />
+    <state x="428" y="242" key="IDE.errors.dialog" timestamp="1629855256373">
+      <screen x="0" y="25" width="1680" height="942" />
+    </state>
+    <state x="428" y="240" key="IDE.errors.dialog/0.25.1680.934@0.25.1680.934" timestamp="1628588676144" />
+    <state x="428" y="241" key="IDE.errors.dialog/0.25.1680.940@0.25.1680.940" timestamp="1626970156369" />
+    <state x="428" y="242" key="IDE.errors.dialog/0.25.1680.942@0.25.1680.942" timestamp="1629855256373" />
+    <state x="428" y="242" key="IDE.errors.dialog/0.25.1680.945@0.25.1680.945" timestamp="1625897760940" />
+    <state x="349" y="131" key="SettingsEditor" timestamp="1628585258222">
+      <screen x="0" y="25" width="1680" height="937" />
+    </state>
+    <state x="349" y="131" key="SettingsEditor/0.25.1680.937@0.25.1680.937" timestamp="1628585258222" />
+    <state x="349" y="131" key="SettingsEditor/0.25.1680.940@0.25.1680.940" timestamp="1625655145870" />
+    <state x="440" y="232" key="Vcs.Push.Dialog.v2" timestamp="1627234197488">
+      <screen x="0" y="25" width="1680" height="940" />
+    </state>
+    <state x="440" y="232" key="Vcs.Push.Dialog.v2/0.25.1680.940@0.25.1680.940" timestamp="1627234197488" />
+    <state x="631" y="277" key="chooseDestDirectoryDialog" timestamp="1630055937546">
+      <screen x="0" y="25" width="1680" height="940" />
+    </state>
+    <state x="631" y="276" key="chooseDestDirectoryDialog/0.25.1680.934@0.25.1680.934" timestamp="1629305255054" />
+    <state x="631" y="277" key="chooseDestDirectoryDialog/0.25.1680.937@0.25.1680.937" timestamp="1630046411881" />
+    <state x="631" y="277" key="chooseDestDirectoryDialog/0.25.1680.940@0.25.1680.940" timestamp="1630055937546" />
+    <state x="631" y="278" key="chooseDestDirectoryDialog/0.25.1680.942@0.25.1680.942" timestamp="1630039824285" />
+    <state x="631" y="279" key="chooseDestDirectoryDialog/0.25.1680.947@0.25.1680.947" timestamp="1626607103536" />
+    <state x="722" y="215" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1628584311412">
+      <screen x="0" y="25" width="1680" height="934" />
+    </state>
+    <state x="722" y="215" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.25.1680.934@0.25.1680.934" timestamp="1628584311412" />
+    <state x="641" y="415" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1629445628564">
+      <screen x="0" y="25" width="1680" height="945" />
+    </state>
+    <state x="641" y="413" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.25.1680.940@0.25.1680.940" timestamp="1626961250490" />
+    <state x="641" y="415" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.25.1680.945@0.25.1680.945" timestamp="1629445628564" />
+    <state x="605" y="305" key="com.intellij.testIntegration.createTest.CreateTestDialog" timestamp="1626619916857">
+      <screen x="0" y="25" width="1680" height="947" />
+    </state>
+    <state x="605" y="305" key="com.intellij.testIntegration.createTest.CreateTestDialog/0.25.1680.947@0.25.1680.947" timestamp="1626619916857" />
+    <state x="100" y="125" width="1480" height="738" key="dock-window-1" timestamp="1628953436688">
+      <screen x="0" y="25" width="1680" height="937" />
+    </state>
+    <state x="100" y="125" width="1480" height="738" key="dock-window-1/0.25.1680.937@0.25.1680.937" timestamp="1628953436688" />
+    <state x="100" y="125" width="1480" height="740" key="dock-window-1/0.25.1680.940@0.25.1680.940" timestamp="1626965115393" />
+    <state x="541" y="249" width="732" height="547" key="find.popup" timestamp="1630046526537">
+      <screen x="0" y="25" width="1680" height="937" />
+    </state>
+    <state x="541" y="249" width="732" height="545" key="find.popup/0.25.1680.934@0.25.1680.934" timestamp="1629304207215" />
+    <state x="541" y="249" width="732" height="547" key="find.popup/0.25.1680.937@0.25.1680.937" timestamp="1630046526537" />
+    <state x="541" y="250" width="732" height="548" key="find.popup/0.25.1680.940@0.25.1680.940" timestamp="1630038003512" />
+    <state x="541" y="250" width="732" height="550" key="find.popup/0.25.1680.942@0.25.1680.942" timestamp="1629805173935" />
+    <state x="541" y="251" width="732" height="551" key="find.popup/0.25.1680.945@0.25.1680.945" timestamp="1629807679487" />
+    <state x="541" y="251" width="732" height="553" key="find.popup/0.25.1680.947@0.25.1680.947" timestamp="1626621568949" />
+    <state x="541" y="252" width="732" height="554" key="find.popup/0.25.1680.949@0.25.1680.949" timestamp="1628002458893" />
     <state x="542" y="352" key="psd.add.jar.dependency.panel.dimension" timestamp="1624291698787">
       <screen x="0" y="25" width="1680" height="940" />
     </state>
     <state x="542" y="352" key="psd.add.jar.dependency.panel.dimension/0.25.1680.940@0.25.1680.940" timestamp="1624291698787" />
-    <state x="392" y="242" key="psd.add.library.dependency.panel.dimension" timestamp="1624290075535">
+    <state x="392" y="242" key="psd.add.library.dependency.panel.dimension" timestamp="1624986773366">
       <screen x="0" y="25" width="1680" height="940" />
     </state>
-    <state x="392" y="242" key="psd.add.library.dependency.panel.dimension/0.25.1680.940@0.25.1680.940" timestamp="1624290075535" />
+    <state x="392" y="242" key="psd.add.library.dependency.panel.dimension/0.25.1680.940@0.25.1680.940" timestamp="1624986773366" />
+    <state x="540" y="275" key="refactoring.ChangeSignatureDialog" timestamp="1625676712925">
+      <screen x="0" y="25" width="1680" height="940" />
+    </state>
+    <state x="540" y="275" key="refactoring.ChangeSignatureDialog/0.25.1680.940@0.25.1680.940" timestamp="1625676712925" />
+    <state x="505" y="226" key="run.anything.popup" timestamp="1624985605059">
+      <screen x="0" y="25" width="1680" height="940" />
+    </state>
+    <state x="505" y="226" key="run.anything.popup/0.25.1680.940@0.25.1680.940" timestamp="1624985605059" />
+    <state x="505" y="231" width="670" height="676" key="search.everywhere.popup" timestamp="1630056205350">
+      <screen x="0" y="25" width="1680" height="940" />
+    </state>
+    <state x="505" y="229" width="670" height="672" key="search.everywhere.popup/0.25.1680.934@0.25.1680.934" timestamp="1629305763924" />
+    <state x="505" y="230" width="670" height="674" key="search.everywhere.popup/0.25.1680.937@0.25.1680.937" timestamp="1630046489023" />
+    <state x="505" y="231" width="670" height="676" key="search.everywhere.popup/0.25.1680.940@0.25.1680.940" timestamp="1630056205350" />
+    <state x="505" y="231" width="670" height="678" key="search.everywhere.popup/0.25.1680.942@0.25.1680.942" timestamp="1629967511769" />
+    <state x="505" y="232" width="670" height="681" key="search.everywhere.popup/0.25.1680.945@0.25.1680.945" timestamp="1629799928263" />
   </component>
 </project>

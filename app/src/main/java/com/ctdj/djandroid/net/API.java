@@ -37,6 +37,7 @@ public class API {
     public static final String QUERY_MATCH_RECORD = "/api/challenge/queryMatchOrderById"; // 查询匹配记录
     public static final String QUERY_MATCH_RECORD_LIST = "/api/challenge/queryMatchRecordList"; // 查询用户匹配列表列表
     public static final String QUERY_CHALLENGE_ORDER_DTL = "/api/challenge/queryChallengeOrderDtl"; // 查询订单详情
+    public static final String QUERY_CHALLENGE_ORDER = "/api/challenge/queryChallengeOrder"; // 查询赛录
     public static final String GET_CHAT_SET_INFO = "/api/chat/getChatSetInfo"; // 获取聊天设置
     public static final String REPORT_INTO_DATA = "/api/report/intodata"; // 进入举报页面
     public static final String ADD_REPORT = "/api/report/addreport"; // 举报
@@ -48,4 +49,7 @@ public class API {
     public static final String UPDATE_RECEIVE_BOX_TASK = "/api/task/updateReceiveBoxTask"; // 领取宝箱
     public static final String INTO_WEEK_COMPETITION = "/api/home/intoWeekCompetitio"; // 进入周星争霸
     public static final String JOIN_WEEK_COMPETITION = "/api/home/joinWeekCompetition"; // 参与周星争霸
+    public static final String QUERY_SCORE_LIST = "/api/home/queryScoreList"; // 积分明细
+    public static final String QUERY_RANK_LIST = "/api/home/queryRankList"; // 赛季榜单
+    public static final String QUERY_PUSH_RECORD_PAGE = "/api/chat/queryPushRecordPage"; // 赛事通知记录
 }

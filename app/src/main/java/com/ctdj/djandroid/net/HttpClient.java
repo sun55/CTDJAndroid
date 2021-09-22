@@ -425,6 +425,21 @@ public class HttpClient {
     }
 
     /**
+     * 赛录
+     * @param context
+     * @param page
+     * @param size
+     * @param callback
+     */
+    public static void queryChallengeOrder(Context context, int page, int size, HttpCallback callback) {
+        HashMap<String, Object> maps = new HashMap<>();
+        maps.put("token", MyApplication.getInstance().getToken());
+        maps.put("page", page);
+        maps.put("size", size);
+        HttpCaller.doPost(context, API.QUERY_CHALLENGE_ORDER, maps, callback);
+    }
+
+    /**
      * 获取聊天设置
      *
      * @param context
@@ -566,11 +581,57 @@ public class HttpClient {
      * @param competitionId
      * @param callback
      */
-    public static void joinWeekCompetition(Context context, String competitionId, HttpCallback callback) {
+    public static void joinWeekCompetition(Context context, int competitionId, HttpCallback callback) {
         HashMap<String, Object> maps = new HashMap<>();
         maps.put("token", MyApplication.getInstance().getToken());
         maps.put("competitionId", competitionId);
         HttpCaller.doPost(context, API.JOIN_WEEK_COMPETITION, maps, callback);
     }
+
+    /**
+     * 积分明细
+     * @param context
+     * @param competitionId
+     * @param page
+     * @param size
+     * @param callback
+     */
+    public static void queryScoreList(Context context, int competitionId, int page, int size, HttpCallback callback) {
+        HashMap<String, Object> maps = new HashMap<>();
+        maps.put("token", MyApplication.getInstance().getToken());
+        maps.put("competitionId", competitionId);
+        maps.put("page", page);
+        maps.put("size", size);
+        HttpCaller.doPost(context, API.QUERY_SCORE_LIST, maps, callback);
+    }
+
+    /**
+     * 赛事通知记录
+     * @param context
+     * @param type
+     * @param page
+     * @param size
+     * @param callback
+     */
+    public static void queryPushRecordPage(Context context, int type, int page, int size, HttpCallback callback) {
+        HashMap<String, Object> maps = new HashMap<>();
+        maps.put("token", MyApplication.getInstance().getToken());
+        maps.put("type", type);
+        maps.put("page", page);
+        maps.put("size", size);
+        HttpCaller.doPost(context, API.QUERY_PUSH_RECORD_PAGE, maps, callback);
+    }
+
+    /**
+     * 赛季榜单
+     * @param context
+     * @param callback
+     */
+    public static void queryRankList(Context context, HttpCallback callback) {
+        HashMap<String, Object> maps = new HashMap<>();
+        maps.put("token", MyApplication.getInstance().getToken());
+        HttpCaller.doPost(context, API.QUERY_RANK_LIST, maps, callback);
+    }
+
 
 }
