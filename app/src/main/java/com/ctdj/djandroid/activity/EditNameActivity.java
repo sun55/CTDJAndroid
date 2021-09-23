@@ -69,7 +69,7 @@ public class EditNameActivity extends BaseActivity {
 
     private void updateNickname() {
         String nickname = binding.etNickname.getText().toString().trim();
-        if (nickname.length() < 4) {
+        if (Utils.getStrLength(nickname) < 4) {
             Utils.showToast(this, "请输入4-20位昵称");
         } else {
             HttpClient.updatePersonal(this, 2, nickname, "", new HttpCallback() {

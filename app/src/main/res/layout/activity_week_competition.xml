@@ -1,0 +1,445 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#161824"
+    android:orientation="vertical"
+    tools:context=".activity.WeekCompetitionActivity">
+
+    <com.ctdj.djandroid.view.TitleView
+        android:id="@+id/title_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titleText="赛事详情" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="66dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="22dp">
+
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center"
+                    android:text="S1-周星争霸积分排名赛"
+                    android:textColor="#ffebebed"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="wrap_content"
+                    android:layout_height="26dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="12dp"
+                        android:text="王者荣耀"
+                        android:textColor="#80ebebed"
+                        android:textSize="13sp" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="10dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="#34353F" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="12dp"
+                        android:text="免费参与"
+                        android:textColor="#80ebebed"
+                        android:textSize="13sp" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="10dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="#34353F" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="12dp"
+                        android:text="全区服"
+                        android:textColor="#80ebebed"
+                        android:textSize="13sp" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="10dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="#34353F" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="12dp"
+                        android:text="全玩法挑战"
+                        android:textColor="#80ebebed"
+                        android:textSize="13sp" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <ImageView
+                    android:id="@+id/iv_playing"
+                    android:layout_width="73dp"
+                    android:layout_height="66dp"
+                    android:layout_marginStart="20dp"
+                    android:background="@drawable/week_competition_icon_1"
+                    android:visibility="gone" />
+            </RelativeLayout>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/ll_score"
+                android:layout_width="match_parent"
+                android:layout_height="88dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/radius_10_22252f"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:onClick="onScoreListClick"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:drawableEnd="@drawable/week_competition_icon_2"
+                        android:drawablePadding="4dp"
+                        android:onClick="onScoreDescClick"
+                        android:text="当前积分"
+                        android:textColor="#80ebebed"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:id="@+id/tv_current_score"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="10dp"
+                        android:text="0"
+                        android:textColor="#ffebebed"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="#34353F" />
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:onClick="onRankListClick"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:drawableEnd="@drawable/week_competition_icon_3"
+                        android:drawablePadding="4dp"
+                        android:text="当前排名"
+                        android:textColor="#80ebebed"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:id="@+id/tv_current_rank"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="10dp"
+                        android:text="0"
+                        android:textColor="#ffebebed"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="126dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/radius_10_22252f">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="17dp"
+                    android:layout_marginTop="16dp"
+                    android:text="赛事时间"
+                    android:textColor="#ffebebed"
+                    android:textSize="15sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="46dp"
+                    android:layout_marginEnd="15dp"
+                    android:background="#34353F" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="62dp"
+                    android:text="赛事开始时间"
+                    android:textColor="#80ebebed"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/tv_start_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="62dp"
+                    android:layout_marginEnd="16dp"
+                    android:text="2021.08.09 00:00"
+                    android:textColor="#ebebed"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="93dp"
+                    android:text="赛事结束时间"
+                    android:textColor="#80ebebed"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/tv_end_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="93dp"
+                    android:layout_marginEnd="16dp"
+                    android:text="2021.08.09 00:00"
+                    android:textColor="#ebebed"
+                    android:textSize="13sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="161dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/radius_10_22252f">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="17dp"
+                    android:layout_marginTop="16dp"
+                    android:text="赛事奖励"
+                    android:textColor="#ffebebed"
+                    android:textSize="15sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="46dp"
+                    android:layout_marginEnd="15dp"
+                    android:background="#34353F" />
+
+                <TextView
+                    android:id="@+id/tv_all_reward"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="17dp"
+                    android:layout_marginEnd="15dp"
+                    android:drawableEnd="@drawable/week_competition_icon_9"
+                    android:drawablePadding="4dp"
+                    android:text="全部奖励"
+                    android:textColor="#80ebebed"
+                    android:textSize="13sp" />
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="28dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_reward_1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawableTop="@drawable/week_competition_icon_4"
+                        android:drawablePadding="13dp"
+                        android:gravity="center"
+                        android:text="0"
+                        android:textColor="#ffebebed"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_reward_2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawableTop="@drawable/week_competition_icon_5"
+                        android:drawablePadding="13dp"
+                        android:gravity="center"
+                        android:text="0"
+                        android:textColor="#ffebebed"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_reward_3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawableTop="@drawable/week_competition_icon_6"
+                        android:drawablePadding="13dp"
+                        android:gravity="center"
+                        android:text="0"
+                        android:textColor="#ffebebed"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_reward_4"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawableTop="@drawable/week_competition_icon_7"
+                        android:drawablePadding="13dp"
+                        android:gravity="center"
+                        android:text="0"
+                        android:textColor="#ffebebed"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_reward_5"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawableTop="@drawable/week_competition_icon_8"
+                        android:drawablePadding="13dp"
+                        android:gravity="center"
+                        android:text="0"
+                        android:textColor="#ffebebed"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="30dp"
+                android:background="@drawable/radius_10_22252f">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="17dp"
+                    android:layout_marginTop="16dp"
+                    android:text="赛事规则"
+                    android:textColor="#ffebebed"
+                    android:textSize="15sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="46dp"
+                    android:layout_marginEnd="15dp"
+                    android:background="#34353F" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="62dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="20dp"
+                    android:lineSpacingMultiplier="1.2"
+                    android:text="@string/week_competition_desc"
+                    android:textColor="#80ebebed"
+                    android:textSize="13sp" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tv_join_tips"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="15dp"
+                android:text="注：将自动为了报名参与后续的赛事，获取更多奖金"
+                android:textColor="#80ebebed"
+                android:textSize="12sp"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/btn_join"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/radius_10_5252fe"
+                android:onClick="onJoinClick"
+                android:text="报名参与"
+                android:textColor="#EBEBED"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.core.widget.NestedScrollView>
+</androidx.appcompat.widget.LinearLayoutCompat>

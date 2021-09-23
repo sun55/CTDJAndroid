@@ -1,7 +1,8 @@
 package com.ctdj.djandroid.net;
 
 public class API {
-    public static final String BASE_URL = "http://42.193.149.5:10010";
+//    public static final String BASE_URL = "http://42.193.149.5:10010";
+    public static final String BASE_URL = "http://api.supert.games";
 
     public static final String UPLOAD_FILE = "/api/common/upload";
     public static final String UPLOAD_FILES = "/api/common/uploadfiles";
@@ -36,8 +37,19 @@ public class API {
     public static final String QUERY_MATCH_RECORD = "/api/challenge/queryMatchOrderById"; // 查询匹配记录
     public static final String QUERY_MATCH_RECORD_LIST = "/api/challenge/queryMatchRecordList"; // 查询用户匹配列表列表
     public static final String QUERY_CHALLENGE_ORDER_DTL = "/api/challenge/queryChallengeOrderDtl"; // 查询订单详情
+    public static final String QUERY_CHALLENGE_ORDER = "/api/challenge/queryChallengeOrder"; // 查询赛录
     public static final String GET_CHAT_SET_INFO = "/api/chat/getChatSetInfo"; // 获取聊天设置
     public static final String REPORT_INTO_DATA = "/api/report/intodata"; // 进入举报页面
     public static final String ADD_REPORT = "/api/report/addreport"; // 举报
     public static final String UPDATE_REMARK_NAME = "/api/chat/updateRemarkName"; // 设置备注名
+    public static final String INTO_HOME = "/api/home/intoHome"; // 进入首页
+    public static final String SEND_MATCH_INVITE = "/api/challenge/sendMatchInvite"; // 发送匹配邀请
+    public static final String RECIVE_MATCH_INVITE = "/api/challenge/reciveMatchInvite"; // 进房应战
+    public static final String QUERY_BOX_LIST = "/api/home/queryBoxList"; // 查询宝箱列表
+    public static final String UPDATE_RECEIVE_BOX_TASK = "/api/task/updateReceiveBoxTask"; // 领取宝箱
+    public static final String INTO_WEEK_COMPETITION = "/api/home/intoWeekCompetitio"; // 进入周星争霸
+    public static final String JOIN_WEEK_COMPETITION = "/api/home/joinWeekCompetition"; // 参与周星争霸
+    public static final String QUERY_SCORE_LIST = "/api/home/queryScoreList"; // 积分明细
+    public static final String QUERY_RANK_LIST = "/api/home/queryRankList"; // 赛季榜单
+    public static final String QUERY_PUSH_RECORD_PAGE = "/api/chat/queryPushRecordPage"; // 赛事通知记录
 }

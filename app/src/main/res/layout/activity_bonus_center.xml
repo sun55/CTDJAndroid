@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#161824"
+    android:orientation="vertical"
+    tools:context=".activity.BonusCenterActivity">
+
+    <com.ctdj.djandroid.view.TitleView
+        android:id="@+id/title_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titleText="领奖中心" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="1">
+
+            <RelativeLayout
+                android:id="@+id/rl_1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/radius_10_5252fe"
+                android:onClick="selectTopClick">
+
+                <TextView
+                    android:layout_width="72dp"
+                    android:layout_height="25dp"
+                    android:background="@drawable/radius_10_lefttop_rightbottom_26000000"
+                    android:gravity="center"
+                    android:text="超团电竞"
+                    android:textColor="#ffe8e8e9"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="38dp"
+                    android:text="可提现余额"
+                    android:textColor="#ffe8e8e9"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/tv_balance_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="64dp"
+                    android:text="5000.00"
+                    android:textColor="#ffe8e8e9"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+            <ImageView
+                android:id="@+id/iv_1"
+                android:layout_width="14dp"
+                android:layout_height="9dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/bonus_1" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <RelativeLayout
+                android:id="@+id/rl_2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/radius_10_22252f"
+                android:onClick="selectTopClick">
+
+                <TextView
+                    android:layout_width="72dp"
+                    android:layout_height="25dp"
+                    android:background="@drawable/radius_10_lefttop_rightbottom_26000000"
+                    android:gravity="center"
+                    android:text="超团赛事"
+                    android:textColor="#ffe8e8e9"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="38dp"
+                    android:text="当前奖金"
+                    android:textColor="#ffe8e8e9"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/tv_current_bonus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="64dp"
+                    android:text="5000.00"
+                    android:textColor="#ffe8e8e9"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+            <ImageView
+                android:id="@+id/iv_2"
+                android:layout_width="14dp"
+                android:layout_height="9dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/bonus_1"
+                android:visibility="gone" />
+        </RelativeLayout>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="25dp"
+        android:text="常规领奖"
+        android:textColor="#ffe8e8e9"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="14dp"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:id="@+id/rl_item_1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/play_item_select_bg"
+            android:onClick="selectBonusClick">
+
+            <ImageView
+                android:id="@+id/iv_item_1"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentEnd="true"
+                android:background="@drawable/play_item_selected_icon" />
+
+            <TextView
+                android:id="@+id/tv_item_1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="20.00"
+                android:textColor="#ffe8e8e9"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_item_2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="15dp"
+            android:layout_weight="1"
+            android:background="@drawable/radius_5_22252f"
+            android:onClick="selectBonusClick">
+
+            <ImageView
+                android:id="@+id/iv_item_2"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentEnd="true"
+                android:background="@drawable/play_item_selected_icon"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_item_2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="100.00"
+                android:textColor="#ffe8e8e9"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:id="@+id/rl_item_3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/radius_5_22252f"
+            android:onClick="selectBonusClick">
+
+            <ImageView
+                android:id="@+id/iv_item_3"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentEnd="true"
+                android:background="@drawable/play_item_selected_icon"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_item_3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="200.00"
+                android:textColor="#ffe8e8e9"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_item_4"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="15dp"
+            android:layout_weight="1"
+            android:background="@drawable/radius_5_22252f"
+            android:onClick="selectBonusClick">
+
+            <ImageView
+                android:id="@+id/iv_item_4"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentEnd="true"
+                android:background="@drawable/play_item_selected_icon"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_item_4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="500.00"
+                android:textColor="#ffe8e8e9"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="30dp"
+        android:text="领奖说明"
+        android:textColor="#ffe8e8e9"
+        android:textSize="15sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="24dp"
+        android:text="@string/bonus_center_desc"
+        android:textColor="#ffe8e8e9"
+        android:textSize="13sp" />
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <Button
+        android:id="@+id/btn_withdraw"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/radius_10_5252fe"
+        android:text="提现到微信钱包"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>

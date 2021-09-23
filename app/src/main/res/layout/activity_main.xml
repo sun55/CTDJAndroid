@@ -1,21 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_151522"
-    android:orientation="vertical"
     tools:context=".activity.MainActivity">
 
     <FrameLayout
         android:id="@+id/content_layout"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="80dp"
         android:layout_weight="1" />
+
+    <RelativeLayout
+        android:visibility="gone"
+        android:id="@+id/rl_play"
+        android:layout_width="53dp"
+        android:layout_height="53dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="180dp">
+
+        <com.ctdj.djandroid.view.CircleImageView
+            android:id="@+id/play_avatar"
+            android:layout_width="53dp"
+            android:layout_height="53dp"
+            android:src="@drawable/default_head"
+            app:borderColor="@color/white"
+            app:borderWidth="1dp"
+            app:radius="27dp" />
+
+        <com.opensource.svgaplayer.SVGAImageView
+            android:id="@+id/play_anim"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_centerInParent="true" />
+
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="80dp"
+        android:layout_alignParentBottom="true"
         android:paddingStart="12dp"
         android:paddingEnd="12dp">
 
@@ -39,33 +68,33 @@
                 android:textSize="11sp" />
 
             <TextView
-                android:visibility="gone"
                 android:id="@+id/tv_un_read"
                 android:layout_width="wrap_content"
                 android:layout_height="15dp"
                 android:layout_above="@id/tv_message_tab"
                 android:layout_marginStart="-5.5dp"
                 android:layout_marginBottom="-8dp"
-                android:lines="1"
-                android:paddingEnd="2dp"
-                android:paddingStart="2dp"
                 android:layout_toEndOf="@id/tv_message_tab"
                 android:background="@drawable/un_read_dot_bg"
                 android:gravity="center"
                 android:includeFontPadding="false"
+                android:lines="1"
                 android:minWidth="15dp"
+                android:paddingStart="2dp"
+                android:paddingEnd="2dp"
                 android:text="0"
                 android:textColor="@color/white"
                 android:textSize="10sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:visibility="gone" />
         </RelativeLayout>
 
 
         <TextView
-            android:layout_gravity="center_vertical"
             android:id="@+id/tv_play_tab"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:drawableTop="@drawable/tab_play_normal"
             android:drawablePadding="3.5dp"
@@ -76,10 +105,10 @@
             android:textSize="11sp" />
 
         <TextView
-            android:layout_gravity="center_vertical"
             android:id="@+id/tv_mine_tab"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:drawableTop="@drawable/tab_mine_normal"
             android:drawablePadding="3.5dp"
@@ -90,4 +119,4 @@
             android:textSize="11sp" />
 
     </LinearLayout>
-</LinearLayout>
+</RelativeLayout>

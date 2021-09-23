@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="33dp"
+        android:layout_marginEnd="48dp"
+        android:background="@drawable/radius_10_161824"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="80dp"
+            android:text="开启系统推送通知"
+            android:textColor="#ffe8e8e9"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="15dp"
+            android:text="发现更多内容，不再错过好东西"
+            android:textColor="#80e8e8e9"
+            android:textSize="13sp" />
+
+        <Button
+            android:id="@+id/btn_open"
+            android:layout_width="240dp"
+            android:layout_height="44dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="14dp"
+            android:background="@drawable/radius_10_5252fe"
+            android:text="马上开启"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="42dp"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:text="下次再说"
+            android:textColor="#80e8e8e9"
+            android:textSize="13sp" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/open_notify_icon" />
+</RelativeLayout>

@@ -98,7 +98,7 @@ public class RegisterActivity extends BaseActivity {
                 Utils.showToast(this, "请选择生日");
             } else if (TextUtils.isEmpty(avatarUrl)) {
                 Utils.showToast(this, "请上传头像");
-            } else if (nickname.length() < 4) {
+            } else if (Utils.getStrLength(nickname) < 4) {
                 Utils.showToast(this, "请输入4-20位昵称");
             } else {
                 register();

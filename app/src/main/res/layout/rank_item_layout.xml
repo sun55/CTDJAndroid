@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="69dp"
+    android:gravity="center_vertical"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp">
+
+    <RelativeLayout
+        android:id="@+id/rl_rank"
+        android:layout_width="38dp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="10dp"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/tv_rank"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:lines="1"
+            android:text="6"
+            android:textColor="#80ebebed"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/iv_rank"
+            android:layout_width="21dp"
+            android:layout_height="18dp" />
+
+    </RelativeLayout>
+
+    <com.ctdj.djandroid.view.CircleImageView
+        android:id="@+id/avatar"
+        android:layout_width="49dp"
+        android:layout_height="49dp"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="10dp"
+        android:layout_toEndOf="@id/rl_rank"
+        android:src="@drawable/default_head"
+        app:radius="24.5dp" />
+
+    <TextView
+        android:id="@+id/tv_nickname"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginEnd="5dp"
+        android:layout_toEndOf="@id/avatar"
+        android:gravity="center"
+        android:lines="1"
+        android:text="韦小宝"
+        android:textColor="#ebebed"
+        android:textSize="16sp" />
+
+    <ImageView
+        android:id="@+id/iv_gender"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@id/tv_nickname" />
+
+    <TextView
+        android:id="@+id/tv_value"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="20dp"
+        android:gravity="center"
+        android:lines="1"
+        android:text="892"
+        android:textColor="#ebebed"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+</RelativeLayout>

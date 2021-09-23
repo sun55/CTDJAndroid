@@ -1,5 +1,6 @@
 package com.ctdj.djandroid.common;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.ProgressDialog;
@@ -12,10 +13,12 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Vibrator;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.text.Html;
 import android.text.Selection;
 import android.text.Spannable;
@@ -28,12 +31,17 @@ import android.text.method.TransformationMethod;
 import android.text.style.ForegroundColorSpan;
 import android.view.Gravity;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
+import android.view.animation.ScaleAnimation;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
@@ -53,6 +61,8 @@ import com.tencent.qcloud.tim.uikit.base.IUIKitCallBack;
 import com.ywl5320.libmusic.WlMusic;
 import com.ywl5320.listener.OnPreparedListener;
 
+import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -60,6 +70,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
+
+import static android.app.Notification.EXTRA_CHANNEL_ID;
+import static android.provider.Settings.EXTRA_APP_PACKAGE;
+import static com.sdk.base.framework.utils.app.AppUtils.getPackageName;
 
 public class Utils {
 
@@ -356,6 +370,46 @@ public class Utils {
         return date;
     }
 
+    /**
+     * 获取倒计时时间毫秒值
+     *
+     * @param endTime
+     * @return
+     */
+    public static long getLeftTime(String endTime) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINESE);
+        sdf.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
+        try {
+            Date endDate = sdf.parse(endTime);
+            long end = endDate.getTime();
+            long current = new Date().getTime();
+            if (end <= current) {
+                return 0;
+            } else {
+                return end - current;
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    /**
+     * 榜单倒计时格式化
+     *
+     * @return
+     */
+    public static String getRankCountDown(long timeMills) {
+        if (timeMills <= 0) {
+            return "";
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat("d/HH/mm/ss", Locale.CHINESE);
+        sdf.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
+        String[] strings = sdf.format(new Date(timeMills)).split("/");
+        String time = "榜单倒计时： " + strings[0] + "D " + strings[1] + "h " + strings[2] + "m " + strings[3] + "s";
+        return time;
+    }
+
     public static String constellation(Date date) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
@@ -616,6 +670,7 @@ public class Utils {
     /**
      * 震动
      */
+    @SuppressLint("MissingPermission")
     public static void vibrator() {
         Vibrator vibrator = (Vibrator) MyApplication.getInstance().getSystemService(MyApplication.getInstance().VIBRATOR_SERVICE);
         vibrator.vibrate(200);
@@ -650,10 +705,10 @@ public class Utils {
 
     /**
      * 拉起第三方app
-     * @param context
-     * @param packageName 王者荣耀包名 com.tencent.tmgp.sgame
+     *
+     * @param context 王者荣耀包名 com.tencent.tmgp.sgame
      */
-    public static void launchApp(Context context, String packageName) {
+    public static void launchApp(Context context) {
         if (Utils.isApkInstalled(context, "com.tencent.tmgp.sgame")) {
             Intent intent = context.getPackageManager().getLaunchIntentForPackage("com.tencent.tmgp.sgame");
             if (intent != null) {
@@ -665,4 +720,154 @@ public class Utils {
             showToast(context, "未安装王者荣耀");
         }
     }
+
+    /**
+     * 设置字体
+     *
+     * @param textView
+     * @param typefaceFile
+     */
+    public static void setTextTypeface(TextView textView, String typefaceFile) {
+        Typeface typeface = Typeface.createFromAsset(MyApplication.getInstance().getAssets(), typefaceFile);
+        textView.setTypeface(typeface);
+    }
+
+    /**
+     * 旋转动画
+     *
+     * @param view
+     * @param duration
+     * @param repeatCount
+     */
+    public static void playRotateAnim(View view, int duration, int repeatCount) {
+        RotateAnimation rotate = new RotateAnimation(0f, 360f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        LinearInterpolator lin = new LinearInterpolator();
+        rotate.setInterpolator(lin);
+        rotate.setDuration(duration);//设置动画持续周期
+        rotate.setRepeatCount(repeatCount);//设置重复次数
+        rotate.setFillAfter(true);//动画执行完后是否停留在执行完的状态
+        rotate.setStartOffset(10);//执行前的等待时间
+        view.setAnimation(rotate);
+    }
+
+    /**
+     * 缩放动画
+     *
+     * @param view
+     * @param duration
+     * @param repeatCount
+     */
+    public static void playScaleAnim(View view, int duration, int repeatCount, int startOffset, Animation.AnimationListener animationListener) {
+        ScaleAnimation animation = new ScaleAnimation(1, 0.5f, 1, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        animation.setDuration(duration);
+        animation.setFillAfter(true);
+        animation.setRepeatMode(Animation.REVERSE);
+        animation.setRepeatCount(repeatCount);
+        animation.setStartOffset(startOffset);
+        animation.setAnimationListener(animationListener);
+        view.setAnimation(animation);
+    }
+
+    /**
+     * 获取字符串长度，汉子占2位
+     *
+     * @param content
+     * @return
+     */
+    public static int getStrLength(String content) {
+        int count = 0;
+        if (!TextUtils.isEmpty(content)) {
+            for (int i = 0; i < content.length(); i++) {
+                char item = content.charAt(i);
+                if (item < 128) {
+                    count = count + 1;
+                } else {
+                    count = count + 2;
+                }
+            }
+        }
+        return count;
+    }
+
+    public static boolean checkNotifyPermission(Context context) {
+        NotificationManagerCompat manager = NotificationManagerCompat.from(context);
+        // areNotificationsEnabled方法的有效性官方只最低支持到API 19，低于19的仍可调用此方法不过只会返回true，即默认为用户已经开启了通知。
+        LogUtil.e("检查通知权限：" + manager.areNotificationsEnabled());
+        return manager.areNotificationsEnabled();
+    }
+
+    public static void openNotifySetting(Context context) {
+        try {
+            // 根据isOpened结果，判断是否需要提醒用户跳转AppInfo页面，去打开App通知权限
+            Intent intent = new Intent();
+            intent.setAction(Settings.ACTION_APP_NOTIFICATION_SETTINGS);
+            //这种方案适用于 API 26, 即8.0（含8.0）以上可以用
+            intent.putExtra(EXTRA_APP_PACKAGE, context.getPackageName());
+            intent.putExtra(EXTRA_CHANNEL_ID, context.getApplicationInfo().uid);
+
+            //这种方案适用于 API21——25，即 5.0——7.1 之间的版本可以使用
+            intent.putExtra("app_package", context.getPackageName());
+            intent.putExtra("app_uid", context.getApplicationInfo().uid);
+
+            // 小米6 -MIUI9.6-8.0.0系统，是个特例，通知设置界面只能控制"允许使用通知圆点"——然而这个玩意并没有卵用，我想对雷布斯说：I'm not ok!!!
+            //  if ("MI 6".equals(Build.MODEL)) {
+            //      intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+            //      Uri uri = Uri.fromParts("package", getPackageName(), null);
+            //      intent.setData(uri);
+            //      // intent.setAction("com.android.settings/.SubSettings");
+            //  }
+            context.startActivity(intent);
+        } catch (Exception e) {
+            e.printStackTrace();
+            // 出现异常则跳转到应用设置界面：锤子坚果3——OC105 API25
+            Intent intent = new Intent();
+
+            //下面这种方案是直接跳转到当前应用的设置界面。
+            //https://blog.csdn.net/ysy950803/article/details/71910806
+            intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+            Uri uri = Uri.fromParts("package", getPackageName(), null);
+            intent.setData(uri);
+            context.startActivity(intent);
+        }
+    }
+
+    /**
+     * double 保留两位小数
+     *
+     * @param d
+     * @return
+     */
+    public static String transDouble2(double d) {
+        DecimalFormat df = new DecimalFormat("######0.00");
+        return df.format(d);
+    }
+
+    /**
+     * 赛事通知的时间格式
+     * @param createTime
+     * @return
+     */
+    public static String getNotifyTime(String createTime) {
+        if (createTime.length() != 19) {
+            return "";
+        }
+        Date date = getDateByString(createTime, "");
+        Calendar calendar1 = Calendar.getInstance();
+        calendar1.setTime(date);
+        Calendar calendar2 = Calendar.getInstance();
+        int month1 = calendar1.get(Calendar.MONTH) + 1;
+        int day1 = calendar1.get(Calendar.DAY_OF_MONTH);
+        int month2 = calendar2.get(Calendar.MONTH) + 1;
+        int day2 = calendar2.get(Calendar.DAY_OF_MONTH);
+        String format;
+        if (month1 == month2 && day1 == day2) {
+            format = "HH:mm";
+        } else {
+            format = "MM.dd HH:mm";
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.CHINESE);
+        sdf.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
+        return sdf.format(date);
+    }
+
 }

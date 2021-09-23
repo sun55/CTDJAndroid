@@ -117,6 +117,7 @@ public class MessageAdapter extends BaseMultiItemQuickAdapter<MessageBean, BaseV
             case RIGHT_CARD:
                 try {
                     LogUtil.e("自定义消息：" + new String(item.getV2TIMMessage().getCustomElem().getData()));
+                    Glide.with(mContext).load(item.getV2TIMMessage().getFaceUrl()).error(R.drawable.default_head).into((ImageView) helper.getView(R.id.iv_avatar));
                     CustomMessageBean bean = new Gson().fromJson(new String(item.getV2TIMMessage().getCustomElem().getData()), CustomMessageBean.class);
                     ((TextView) helper.getView(R.id.tv_game_nickname)).setText(bean.getGame_nickname());
                     ((TextView) helper.getView(R.id.tv_game_nickname)).setCompoundDrawablesWithIntrinsicBounds(

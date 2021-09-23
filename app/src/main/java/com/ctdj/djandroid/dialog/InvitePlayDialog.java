@@ -109,8 +109,10 @@ public class InvitePlayDialog extends Dialog {
             @Override
             public void onSuccess(String result) {
                 BindGameInfoBean bindGameInfoBean = new Gson().fromJson(result, BindGameInfoBean.class);
-                wxName = bindGameInfoBean.getData().get(0).getWxName();
-                qqName = bindGameInfoBean.getData().get(0).getQqName();
+                if (bindGameInfoBean.getData().size() > 0) {
+                    wxName = bindGameInfoBean.getData().get(0).getWxName();
+                    qqName = bindGameInfoBean.getData().get(0).getQqName();
+                }
                 fillView();
             }
 

@@ -68,5 +68,15 @@
             android:textColor="@color/white"
             android:textSize="10sp"
             android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/iv_top"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_alignTop="@id/iv_head"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/message_to_top_icon"
+            android:visibility="gone" />
     </RelativeLayout>
 </RelativeLayout>
